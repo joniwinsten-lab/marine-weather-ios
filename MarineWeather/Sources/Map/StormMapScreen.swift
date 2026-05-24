@@ -31,6 +31,7 @@ struct StormMapScreen: UIViewRepresentable {
 
         context.coordinator.mapView = mapView
         controller.mapView = mapView
+        MapStormOverlay.setStyleReady(false)
 
         let recognizer = UILongPressGestureRecognizer(
             target: context.coordinator,
@@ -43,8 +44,6 @@ struct StormMapScreen: UIViewRepresentable {
 
     func updateUIView(_ mapView: MLNMapView, context: Context) {
         context.coordinator.onLongPress = onLongPress
-        context.coordinator.radarOverlay = radarOverlay
-        context.coordinator.lightningStrikes = lightningStrikes
         controller.mapView = mapView
 
         let deltaLat = abs(mapView.centerCoordinate.latitude - center.latitude)
@@ -53,29 +52,67 @@ struct StormMapScreen: UIViewRepresentable {
             mapView.setCenter(center, zoomLevel: mapView.zoomLevel, animated: true)
         }
 
+        context.coordinator.scheduleOverlaySync(
+            radarOverlay: radarOverlay,
+            lightningStrikes: lightningStrikes
+        )
+    }
+
+    static func dismantleUIView(_ mapView: MLNMapView, coordinator: Coordinator) {
+        coordinator.cancelPendingSync()
+        MapStormOverlay.setStyleReady(false)
         if let style = mapView.style {
-            MapTraficomOverlay.setEnabled(false, on: style)
-            MapStormOverlay.updateRadar(radarOverlay, on: style)
-            MapStormOverlay.updateLightning(lightningStrikes, on: style)
+            MapStormOverlay.removeAll(from: style)
         }
     }
 
     final class Coordinator: NSObject, MLNMapViewDelegate {
         let controller: MapScreenController
         var onLongPress: ((CLLocationCoordinate2D) -> Void)?
-        var radarOverlay: ActiveRadarOverlay?
-        var lightningStrikes: [LightningStrike] = []
         weak var mapView: MLNMapView?
+
+        private var pendingRadarOverlay: ActiveRadarOverlay?
+        private var pendingLightning: [LightningStrike] = []
+        private var syncWorkItem: DispatchWorkItem?
 
         init(controller: MapScreenController, onLongPress: ((CLLocationCoordinate2D) -> Void)?) {
             self.controller = controller
             self.onLongPress = onLongPress
         }
 
+        func scheduleOverlaySync(radarOverlay: ActiveRadarOverlay?, lightningStrikes: [LightningStrike]) {
+            pendingRadarOverlay = radarOverlay
+            pendingLightning = lightningStrikes
+            syncWorkItem?.cancel()
+
+            let work = DispatchWorkItem { [weak self] in
+                self?.applyPendingOverlays()
+            }
+            syncWorkItem = work
+            DispatchQueue.main.async(execute: work)
+        }
+
+        func cancelPendingSync() {
+            syncWorkItem?.cancel()
+            syncWorkItem = nil
+        }
+
         func mapView(_ mapView: MLNMapView, didFinishLoading style: MLNStyle) {
+            MapStormOverlay.setStyleReady(true)
             MapTraficomOverlay.setEnabled(false, on: style)
-            MapStormOverlay.updateRadar(radarOverlay, on: style)
-            MapStormOverlay.updateLightning(lightningStrikes, on: style)
+            applyPendingOverlays()
+        }
+
+        func mapViewDidFinishRenderingMap(_ mapView: MLNMapView, fullyRendered: Bool) {
+            guard fullyRendered else { return }
+            applyPendingOverlays()
+        }
+
+        private func applyPendingOverlays() {
+            guard let mapView, let style = mapView.style else { return }
+            MapTraficomOverlay.setEnabled(false, on: style)
+            MapStormOverlay.updateRadar(pendingRadarOverlay, on: style)
+            MapStormOverlay.updateLightning(pendingLightning, on: style)
         }
     }
 }

@@ -29,7 +29,7 @@ final class StormMapViewModel {
     private var lastLat: Double?
     private var lastLon: Double?
 
-    private static let animationFrameMs: UInt64 = 800
+    private static let animationFrameMs: UInt64 = 1_200
     private static let radarRefreshMs: UInt64 = 5 * 60 * 1000
     private static let lightningPollMs: UInt64 = 60 * 1000
 
@@ -131,21 +131,6 @@ final class StormMapViewModel {
         guard !ui.radarAnimationFrames.isEmpty else { return }
         stopAnimation()
         applyFrameIndex(index)
-    }
-
-    func startPeriodicRefresh(lat: Double, lon: Double) async {
-        while !Task.isCancelled {
-            refreshRadar(lat: lat, lon: lon)
-            try? await Task.sleep(nanoseconds: Self.radarRefreshMs * 1_000_000)
-        }
-    }
-
-    func startLightningPolling() async {
-        guard ui.lightningEnabled else { return }
-        while !Task.isCancelled {
-            refreshLightningOnly()
-            try? await Task.sleep(nanoseconds: Self.lightningPollMs * 1_000_000)
-        }
     }
 
     private func applyPrefetch(

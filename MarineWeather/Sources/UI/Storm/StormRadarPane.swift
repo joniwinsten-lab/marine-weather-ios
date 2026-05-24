@@ -41,13 +41,20 @@ struct StormRadarPane: View {
                 mapControls.padding(10)
             }
         }
-        .task(id: mapCenter.latitude) {
+        .task(id: "\(mapCenter.latitude),\(mapCenter.longitude)") {
             stormVM.refreshRadar(lat: mapCenter.latitude, lon: mapCenter.longitude)
-            await stormVM.startPeriodicRefresh(lat: mapCenter.latitude, lon: mapCenter.longitude)
+            try? await Task.sleep(for: .seconds(5 * 60))
+            while !Task.isCancelled {
+                stormVM.refreshRadar(lat: mapCenter.latitude, lon: mapCenter.longitude)
+                try? await Task.sleep(for: .seconds(5 * 60))
+            }
         }
         .task(id: stormVM.ui.lightningEnabled) {
             guard stormVM.ui.lightningEnabled else { return }
-            await stormVM.startLightningPolling()
+            while !Task.isCancelled {
+                stormVM.refreshLightningOnly()
+                try? await Task.sleep(for: .seconds(60))
+            }
         }
     }
 
