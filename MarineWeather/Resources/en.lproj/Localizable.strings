@@ -1,0 +1,57 @@
+/* Attribution */
+"attribution_open" = "Attribution & licenses";
+"attribution_traficom_charts" = "When enabled, the map shows Traficom open raster nautical charts (Merikarttasarja B, Web Mercator). Creative Commons BY 4.0 — not for navigational use; not an official ENC.";
+"attribution_traficom_cc_link" = "CC BY 4.0 (Finnish)";
+"attribution_fmi_radar_lightning" = "Rain radar and lightning: Finnish Meteorological Institute open data (CC BY 4.0). Not for operational navigation.";
+"attribution_fmi_cc_link" = "FMI — CC BY 4.0 license";
+"attribution_met_radar" = "Radar (Nordic): MET Norway open data (NLOD 2.0 / CC BY 4.0). Not for operational navigation.";
+"attribution_met_norway_link" = "MET Norway — license";
+"attribution_smhi_radar_lightning" = "Radar and lightning: SMHI open data (CC BY 4.0) when available. Not for operational navigation.";
+"attribution_smhi_link" = "SMHI — terms of use";
+
+/* Sources */
+"source_met_norway" = "MET Norway";
+"source_smhi" = "SMHI (Sweden)";
+"source_fmi" = "FMI (Finland)";
+
+/* Navigation */
+"nav_compare" = "Map &\nweather";
+"nav_route" = "Route planning";
+"nav_extended_wind" = "Wind 12+ days";
+"nav_marine_text" = "Weather forecast\n(4 countries)";
+"nav_storm_radar" = "Radar &\nlightning";
+"tab_compare" = "Compare";
+"tab_route" = "Route";
+"tab_extended_wind" = "12-day wind";
+"tab_marine_text" = "Marine text";
+"tab_storm_radar" = "Storm radar";
+"premium_label" = "Premium";
+
+/* Marine text */
+"marine_text_screen_title" = "Weather forecast";
+"marine_text_intro" = "Short summary at the map centre (about two sentences), with warnings highlighted when available. Full text forecasts are on each authority’s website — open the link below the card. Baltic waters are not covered by MET Norway’s sea-area product; Finland and Sweden use national models there.";
+"marine_text_map_hint" = "Map centre: %.4f°N, %.4f°E";
+"marine_text_refresh_cd" = "Refresh forecast";
+"marine_text_country_no" = "Norway (MET Norway, sea)";
+"marine_text_country_se" = "Sweden (MET Norway sea + SMHI)";
+"marine_text_country_fi" = "Finland (FMI / SMHI Baltic)";
+"marine_text_country_ee" = "Estonia (Environment Agency)";
+"marine_open_web_forecast" = "Open forecast on provider website";
+"marine_text_empty_cell" = "No short summary for this map centre (e.g. Norwegian waters when the map is over the Baltic). Open the link for the full national forecast.";
+"marine_alert_warning" = "Forecast contains warnings";
+"marine_alert_notice" = "Forecast contains notices";
+
+/* Compare / weather */
+"wind_slot_now" = "Now";
+"wind_slot_3h" = "+3h";
+"wind_slot_6h" = "+6h";
+"wind_slot_12h" = "+12h";
+"traficom_chip" = "Traficom nautical (planning)";
+
+/* Placeholders */
+"placeholder_route_title" = "Route planning";
+"placeholder_route_message" = "Premium feature — StoreKit gate in Phase 5.";
+"placeholder_wind_title" = "12-day wind outlook";
+"placeholder_wind_message" = "Premium feature — port from ExtendedWindOutlookPane.";
+"placeholder_storm_title" = "Storm radar";
+"placeholder_storm_message" = "Phase 4: radar timeline + lightning layers.";

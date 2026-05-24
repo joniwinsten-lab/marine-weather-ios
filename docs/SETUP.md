@@ -2,6 +2,31 @@
 
 Complete these on a **Mac** with Xcode. This repo stays separate from the Android Play project.
 
+## Docker?
+
+**No — not for building or running this app.** iOS Simulator, code signing, and MapLibre need **Xcode on macOS**. A Linux Docker container cannot compile SwiftUI for iPad or run the simulator.
+
+What we do instead to avoid “polluting” your Mac:
+
+| Concern | Approach |
+|---------|----------|
+| Global git / shell config | Agents never change them; work only in this repo |
+| Xcode project files | Generated inside the repo via `project.yml` + `xcodegen` |
+| Dependencies | Swift Package Manager (MapLibre) resolved by Xcode into DerivedData |
+| Signing | Per-target Team in Xcode — not committed |
+| CI later | GitHub Actions `macos-*` runner (optional), not local Docker |
+
+Docker is fine for **backend tools** (lint scripts, docs) if you add them later — not for the iOS app itself.
+
+### Quick setup script
+
+```bash
+chmod +x scripts/setup-macos.sh
+./scripts/setup-macos.sh
+```
+
+Requires full **Xcode.app** (not only Command Line Tools). If `xcode-select` points at CLT, the script tells you how to switch.
+
 ## 1. Apple Developer
 
 - Enroll in [Apple Developer Program](https://developer.apple.com/programs/) (~$99/year)

@@ -5,11 +5,11 @@ Native **iPad / landscape** marine planning app for App Store. Android lives in 
 | Repo | Platform | Store |
 |------|----------|--------|
 | [marine-weather](https://github.com/joniwinsten-lab/marine-weather) | Android | Google Play (`fi.veneappi.app`) |
-| **marine-weather-ios** (this) | iOS | App Store (TBD bundle ID) |
+| **marine-weather-ios** (this) | iOS | App Store (`fi.veneappi.MarineWeather`) |
 
 ## Start here
 
-1. [docs/SETUP.md](docs/SETUP.md) — install Xcode, Apple Developer, create Xcode project
+1. [docs/SETUP.md](docs/SETUP.md) — install Xcode, Apple Developer, generate project
 2. [docs/ROADMAP.md](docs/ROADMAP.md) — phased delivery checklist
 3. [docs/ios-porting-inventory.md](docs/ios-porting-inventory.md) — Android → iOS feature & API map
 
@@ -23,6 +23,18 @@ Open **this folder only** as the workspace root (not the Android `Veneappi` fold
 
 Or open `marine-weather-ios.code-workspace`.
 
-## Status
+## Status (v0.2.0)
 
-**Phase 0–1:** project scaffold + docs. Xcode project created on your Mac (see SETUP).
+| Area | Status |
+|------|--------|
+| Compare tab | Map + 3-source wind (MET/SMHI/FMI), Traficom overlay, forecast pin |
+| Marine text tab | 4-country summaries (NO/SE/FI/EE) at map centre |
+| Attribution | Footer + licenses dialog |
+| Offline cache | SwiftData forecast cache per source & location |
+| Localization | English (`en.lproj/Localizable.strings`) |
+| Route / 12-day wind | Premium placeholders (Phase 5) |
+| Storm radar | Placeholder (Phase 4) |
+
+**Build:** `./scripts/setup-macos.sh` then open `MarineWeather.xcodeproj` in Xcode (iPad simulator, landscape).
+
+See [docs/SETUP.md](docs/SETUP.md) — **Docker is not used** for iOS builds.

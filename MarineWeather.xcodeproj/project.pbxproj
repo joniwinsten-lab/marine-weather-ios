@@ -1,0 +1,646 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		066811D95F7226A367C7D6D9 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96281CDF70D683A8FE75AF71 /* AppConfig.swift */; };
+		0841765ED5E6612493F596BF /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A26BD0DFF2FEC943090CA3 /* WeatherRepository.swift */; };
+		0A679C80103FD6D8F85FD5C1 /* MapTraficomOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9757C66184BEA89BAC25799 /* MapTraficomOverlay.swift */; };
+		0BB79246796808E9CF64C237 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BA4CC3D473F9431D09906A7 /* Assets.xcassets */; };
+		110E37C988D2CB57D07F4A69 /* WeatherComparePane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AC2975F3929A36F55C177B /* WeatherComparePane.swift */; };
+		191BB1BC8FDD3E0DCBB137EA /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3FC2A5F030BCF2CD2ACAE2 /* MapScreen.swift */; };
+		1F342269D57DF94B2AD5D2CA /* MetMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0CDBF7C0D51337B007DFF4 /* MetMapper.swift */; };
+		218C5364360D92ADCA041782 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6AC51EACE84E6060295526E5 /* Localizable.strings */; };
+		246B088A249F1C1CB446584F /* ForecastCacheEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0881C44D3F7457BF53C3E04 /* ForecastCacheEntity.swift */; };
+		2482D8064BDB75A253B4B90E /* MarineTextOverviewPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D039C69463E409799EBF7D3 /* MarineTextOverviewPane.swift */; };
+		2A433D22ABD1044D3D6850B2 /* MapForecastPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7597542B2625D930A60E100E /* MapForecastPin.swift */; };
+		42132D3B8B4FEBA5B9FD7550 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3EACBF266E1DB1F0A87E09 /* LocationManager.swift */; };
+		45966CD370D319D5FDAAC117 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80258B2E628C3A99B9785663 /* MainTabView.swift */; };
+		47945BA39A310B37EF3A89F5 /* SmhiDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211F5EC374C9B95EAECF4A69 /* SmhiDTO.swift */; };
+		49D160104F84A0D3ACCDD45A /* PlaceholderPanes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394AE275742B5F86960F7E83 /* PlaceholderPanes.swift */; };
+		4ABA35967E2585B54C62DD9F /* ISO8601Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08688D0D206A6058602DD58 /* ISO8601Parser.swift */; };
+		5677CA907ED2F96C72AB0E86 /* MetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDBC6072791F5C533A42B3D /* MetDTO.swift */; };
+		595A46EE973A333A8B5666C8 /* WeatherHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C773FDDD9426968F8532C84 /* WeatherHTTPClient.swift */; };
+		6DA3BA0E427DA4B825C7374D /* ForecastCacheStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ACD005C74D1772EEF5D6FB /* ForecastCacheStore.swift */; };
+		715126AA6572734E96E24330 /* MarineTextRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6B8D755EFA6840649E0E38 /* MarineTextRepository.swift */; };
+		7D620397DAF641269AE155AD /* MarineTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809FF71F2BB1619E07EA029A /* MarineTextViewModel.swift */; };
+		8B7E5E0A005C6070260ECEF2 /* WeatherHTTPClient+Body.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18FB2DBFB66781939E7DCC6 /* WeatherHTTPClient+Body.swift */; };
+		8CBC8800CBB9F1F858B9C07D /* AttributionDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495345405508967E6558ED0D /* AttributionDialogView.swift */; };
+		9066B90D86D641B903850A0A /* MarineWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AE7FC0AEF6A79B91ED7CB0 /* MarineWeatherApp.swift */; };
+		9246316C9D9784242512DDAF /* MarineForecastAlertClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535022C48A0218A44830BE0B /* MarineForecastAlertClassifier.swift */; };
+		96775D8CD7F6D5451C9A7FBD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D55CF4E7E7A1FCF3EB9F1DB /* ContentView.swift */; };
+		9769764047327D30D25D771D /* MarineTextModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B2C5FC6C8C7F0FA52B0166 /* MarineTextModels.swift */; };
+		9AAB52D6D4AF89307F22F353 /* MapLibre in Frameworks */ = {isa = PBXBuildFile; productRef = BE596FC17FFA61E17E5C02D8 /* MapLibre */; };
+		9C74C2D2A9D0A51C0291E59C /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EA42A2026A17B2CC102731 /* UserPreferences.swift */; };
+		9EA40FF8AE47DF9016078688 /* CompareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC8CB2A2DA02D74863D2585 /* CompareViewModel.swift */; };
+		A7AF83D36240A70059884848 /* WindFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F752A079BC067469CF4192 /* WindFormatting.swift */; };
+		B0AD9D7ED415A42EC05EE14E /* ComparePane.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1DCE037D6D30E36868358E /* ComparePane.swift */; };
+		B2463B030500857893C55649 /* ForecastSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA005EC579AE62A3312E9E2 /* ForecastSampler.swift */; };
+		BA7E97099E91D6979AA1C213 /* FmiMultipointParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1941A035355F5A04883F67E5 /* FmiMultipointParser.swift */; };
+		C1DB5BF0E64ECFC9F39F5AF1 /* SourceWindForecastCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0457FF755C0ED7F22D299AA /* SourceWindForecastCard.swift */; };
+		C99A1C3B3EFD635B547A1EA9 /* WeatherModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E316359245C4009A58A554 /* WeatherModels.swift */; };
+		D539CC28EB89E0D69329229F /* WindDirectionGlyph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF09302EAEA2A0CA8BD39B8 /* WindDirectionGlyph.swift */; };
+		D994368D62D98E4DF3AA0E9C /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7BB2334005CF41F36F4A57 /* MainTab.swift */; };
+		DE520069B66FF8515296F291 /* UiBreakpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689A440E7C7DEA9CD005693C /* UiBreakpoints.swift */; };
+		DFCEF85F227F7D72B2758396 /* NavigationRailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66F115114929DD16068F29 /* NavigationRailView.swift */; };
+		ED3F63B1A7750DC18D384622 /* MarineTextSummarizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61F0CEAF0896A2477986AC2 /* MarineTextSummarizer.swift */; };
+		F6AAC42DD4F5906BA9B2A623 /* SmhiMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B910C5F55DEA1C7F631C53 /* SmhiMapper.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0ABDEA752A507BDF08893042 /* MarineWeather.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MarineWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		15AC2975F3929A36F55C177B /* WeatherComparePane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherComparePane.swift; sourceTree = "<group>"; };
+		1941A035355F5A04883F67E5 /* FmiMultipointParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiMultipointParser.swift; sourceTree = "<group>"; };
+		1BF09302EAEA2A0CA8BD39B8 /* WindDirectionGlyph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindDirectionGlyph.swift; sourceTree = "<group>"; };
+		1C773FDDD9426968F8532C84 /* WeatherHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHTTPClient.swift; sourceTree = "<group>"; };
+		211F5EC374C9B95EAECF4A69 /* SmhiDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmhiDTO.swift; sourceTree = "<group>"; };
+		31B2C5FC6C8C7F0FA52B0166 /* MarineTextModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineTextModels.swift; sourceTree = "<group>"; };
+		394AE275742B5F86960F7E83 /* PlaceholderPanes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderPanes.swift; sourceTree = "<group>"; };
+		3A3EACBF266E1DB1F0A87E09 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		495345405508967E6558ED0D /* AttributionDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributionDialogView.swift; sourceTree = "<group>"; };
+		4BA4CC3D473F9431D09906A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		535022C48A0218A44830BE0B /* MarineForecastAlertClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineForecastAlertClassifier.swift; sourceTree = "<group>"; };
+		5A6B8D755EFA6840649E0E38 /* MarineTextRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineTextRepository.swift; sourceTree = "<group>"; };
+		5D039C69463E409799EBF7D3 /* MarineTextOverviewPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineTextOverviewPane.swift; sourceTree = "<group>"; };
+		5D55CF4E7E7A1FCF3EB9F1DB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5E0CDBF7C0D51337B007DFF4 /* MetMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetMapper.swift; sourceTree = "<group>"; };
+		5EA005EC579AE62A3312E9E2 /* ForecastSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastSampler.swift; sourceTree = "<group>"; };
+		67B910C5F55DEA1C7F631C53 /* SmhiMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmhiMapper.swift; sourceTree = "<group>"; };
+		689A440E7C7DEA9CD005693C /* UiBreakpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiBreakpoints.swift; sourceTree = "<group>"; };
+		6A66F115114929DD16068F29 /* NavigationRailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRailView.swift; sourceTree = "<group>"; };
+		6C3FC2A5F030BCF2CD2ACAE2 /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
+		6EB278CAEB0BBC4CD85E76FE /* Info-additions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-additions.plist"; sourceTree = "<group>"; };
+		73F752A079BC067469CF4192 /* WindFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindFormatting.swift; sourceTree = "<group>"; };
+		7597542B2625D930A60E100E /* MapForecastPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapForecastPin.swift; sourceTree = "<group>"; };
+		77EA42A2026A17B2CC102731 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		79E316359245C4009A58A554 /* WeatherModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModels.swift; sourceTree = "<group>"; };
+		7DDD35CDC536244D88B9E026 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		80258B2E628C3A99B9785663 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		809FF71F2BB1619E07EA029A /* MarineTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineTextViewModel.swift; sourceTree = "<group>"; };
+		96281CDF70D683A8FE75AF71 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		A7AE7FC0AEF6A79B91ED7CB0 /* MarineWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineWeatherApp.swift; sourceTree = "<group>"; };
+		A9757C66184BEA89BAC25799 /* MapTraficomOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTraficomOverlay.swift; sourceTree = "<group>"; };
+		B1ACD005C74D1772EEF5D6FB /* ForecastCacheStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCacheStore.swift; sourceTree = "<group>"; };
+		BC1DCE037D6D30E36868358E /* ComparePane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparePane.swift; sourceTree = "<group>"; };
+		BFDBC6072791F5C533A42B3D /* MetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetDTO.swift; sourceTree = "<group>"; };
+		C61F0CEAF0896A2477986AC2 /* MarineTextSummarizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineTextSummarizer.swift; sourceTree = "<group>"; };
+		CEC8CB2A2DA02D74863D2585 /* CompareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareViewModel.swift; sourceTree = "<group>"; };
+		D0457FF755C0ED7F22D299AA /* SourceWindForecastCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceWindForecastCard.swift; sourceTree = "<group>"; };
+		D5A26BD0DFF2FEC943090CA3 /* WeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
+		E18FB2DBFB66781939E7DCC6 /* WeatherHTTPClient+Body.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherHTTPClient+Body.swift"; sourceTree = "<group>"; };
+		EC7BB2334005CF41F36F4A57 /* MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
+		F08688D0D206A6058602DD58 /* ISO8601Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO8601Parser.swift; sourceTree = "<group>"; };
+		F0881C44D3F7457BF53C3E04 /* ForecastCacheEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCacheEntity.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0FBB0228C143E5AFAB74180A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AAB52D6D4AF89307F22F353 /* MapLibre in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1109A7B81C43325160E5FC3C /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				F0881C44D3F7457BF53C3E04 /* ForecastCacheEntity.swift */,
+				B1ACD005C74D1772EEF5D6FB /* ForecastCacheStore.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		189EEFDC350BDE435E8BA6CA /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F08688D0D206A6058602DD58 /* ISO8601Parser.swift */,
+				77EA42A2026A17B2CC102731 /* UserPreferences.swift */,
+				D5A26BD0DFF2FEC943090CA3 /* WeatherRepository.swift */,
+				1109A7B81C43325160E5FC3C /* Cache */,
+				2FC4EC1C6CF6008BE07236DA /* Fmi */,
+				6DC43025296A3CAA82FEA730 /* Marine */,
+				4DE3FC226EFA13902CDE03A2 /* Met */,
+				99BA83F38FE5705E7D778DEA /* Smhi */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		1D1F4CBEECB4501669DCBC4E /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				1C773FDDD9426968F8532C84 /* WeatherHTTPClient.swift */,
+				E18FB2DBFB66781939E7DCC6 /* WeatherHTTPClient+Body.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		2FC4EC1C6CF6008BE07236DA /* Fmi */ = {
+			isa = PBXGroup;
+			children = (
+				1941A035355F5A04883F67E5 /* FmiMultipointParser.swift */,
+			);
+			path = Fmi;
+			sourceTree = "<group>";
+		};
+		4DE3FC226EFA13902CDE03A2 /* Met */ = {
+			isa = PBXGroup;
+			children = (
+				BFDBC6072791F5C533A42B3D /* MetDTO.swift */,
+				5E0CDBF7C0D51337B007DFF4 /* MetMapper.swift */,
+			);
+			path = Met;
+			sourceTree = "<group>";
+		};
+		59892C894A7FD5B7DFEDE16A /* Marine */ = {
+			isa = PBXGroup;
+			children = (
+				5D039C69463E409799EBF7D3 /* MarineTextOverviewPane.swift */,
+			);
+			path = Marine;
+			sourceTree = "<group>";
+		};
+		61CA3E920932B603CA13B8F9 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				96281CDF70D683A8FE75AF71 /* AppConfig.swift */,
+				5D55CF4E7E7A1FCF3EB9F1DB /* ContentView.swift */,
+				A7AE7FC0AEF6A79B91ED7CB0 /* MarineWeatherApp.swift */,
+				189EEFDC350BDE435E8BA6CA /* Data */,
+				E027002401B5271201CBBA86 /* Domain */,
+				D5A012141BF3A377BA279FA0 /* Location */,
+				93305DBAA1A2044F68A8B87E /* Map */,
+				1D1F4CBEECB4501669DCBC4E /* Networking */,
+				B5A3AF731F240FDDB7E3B7B4 /* UI */,
+				B26D421AAB1BD0E7FF2946D8 /* ViewModels */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		67D449B19213FE14663111CB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0ABDEA752A507BDF08893042 /* MarineWeather.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6B09FF6147F1D7AB73C04954 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6EB278CAEB0BBC4CD85E76FE /* Info-additions.plist */,
+				6AC51EACE84E6060295526E5 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6DC43025296A3CAA82FEA730 /* Marine */ = {
+			isa = PBXGroup;
+			children = (
+				535022C48A0218A44830BE0B /* MarineForecastAlertClassifier.swift */,
+				31B2C5FC6C8C7F0FA52B0166 /* MarineTextModels.swift */,
+				5A6B8D755EFA6840649E0E38 /* MarineTextRepository.swift */,
+				C61F0CEAF0896A2477986AC2 /* MarineTextSummarizer.swift */,
+			);
+			path = Marine;
+			sourceTree = "<group>";
+		};
+		80B558923BFF2196D4CF4F69 = {
+			isa = PBXGroup;
+			children = (
+				DF9A17DB129E15E207E746A3 /* MarineWeather */,
+				67D449B19213FE14663111CB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		93305DBAA1A2044F68A8B87E /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				7597542B2625D930A60E100E /* MapForecastPin.swift */,
+				6C3FC2A5F030BCF2CD2ACAE2 /* MapScreen.swift */,
+				A9757C66184BEA89BAC25799 /* MapTraficomOverlay.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		99BA83F38FE5705E7D778DEA /* Smhi */ = {
+			isa = PBXGroup;
+			children = (
+				211F5EC374C9B95EAECF4A69 /* SmhiDTO.swift */,
+				67B910C5F55DEA1C7F631C53 /* SmhiMapper.swift */,
+			);
+			path = Smhi;
+			sourceTree = "<group>";
+		};
+		B26D421AAB1BD0E7FF2946D8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CEC8CB2A2DA02D74863D2585 /* CompareViewModel.swift */,
+				809FF71F2BB1619E07EA029A /* MarineTextViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B5A3AF731F240FDDB7E3B7B4 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				495345405508967E6558ED0D /* AttributionDialogView.swift */,
+				BC1DCE037D6D30E36868358E /* ComparePane.swift */,
+				EC7BB2334005CF41F36F4A57 /* MainTab.swift */,
+				80258B2E628C3A99B9785663 /* MainTabView.swift */,
+				6A66F115114929DD16068F29 /* NavigationRailView.swift */,
+				394AE275742B5F86960F7E83 /* PlaceholderPanes.swift */,
+				689A440E7C7DEA9CD005693C /* UiBreakpoints.swift */,
+				59892C894A7FD5B7DFEDE16A /* Marine */,
+				E29F72039941955A23F73B43 /* Weather */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		D5A012141BF3A377BA279FA0 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				3A3EACBF266E1DB1F0A87E09 /* LocationManager.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		DF9A17DB129E15E207E746A3 /* MarineWeather */ = {
+			isa = PBXGroup;
+			children = (
+				4BA4CC3D473F9431D09906A7 /* Assets.xcassets */,
+				6B09FF6147F1D7AB73C04954 /* Resources */,
+				61CA3E920932B603CA13B8F9 /* Sources */,
+			);
+			path = MarineWeather;
+			sourceTree = "<group>";
+		};
+		E027002401B5271201CBBA86 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				5EA005EC579AE62A3312E9E2 /* ForecastSampler.swift */,
+				79E316359245C4009A58A554 /* WeatherModels.swift */,
+				73F752A079BC067469CF4192 /* WindFormatting.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		E29F72039941955A23F73B43 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				D0457FF755C0ED7F22D299AA /* SourceWindForecastCard.swift */,
+				15AC2975F3929A36F55C177B /* WeatherComparePane.swift */,
+				1BF09302EAEA2A0CA8BD39B8 /* WindDirectionGlyph.swift */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		412B054AACF0791D83B83727 /* MarineWeather */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C81D7394A6E2ED97CD5C7B6 /* Build configuration list for PBXNativeTarget "MarineWeather" */;
+			buildPhases = (
+				FAFEC2B672DBB4E43C2D2735 /* Sources */,
+				4112884223A5CF5CDF04AC33 /* Resources */,
+				0FBB0228C143E5AFAB74180A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MarineWeather;
+			packageProductDependencies = (
+				BE596FC17FFA61E17E5C02D8 /* MapLibre */,
+			);
+			productName = MarineWeather;
+			productReference = 0ABDEA752A507BDF08893042 /* MarineWeather.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EF26DF42DAAC8B8EFDC8712E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 8738FC3FA9C2742BE283DBEC /* Build configuration list for PBXProject "MarineWeather" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 80B558923BFF2196D4CF4F69;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				870327D17EEA13AB398B9E35 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 67D449B19213FE14663111CB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				412B054AACF0791D83B83727 /* MarineWeather */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4112884223A5CF5CDF04AC33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0BB79246796808E9CF64C237 /* Assets.xcassets in Resources */,
+				218C5364360D92ADCA041782 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FAFEC2B672DBB4E43C2D2735 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				066811D95F7226A367C7D6D9 /* AppConfig.swift in Sources */,
+				8CBC8800CBB9F1F858B9C07D /* AttributionDialogView.swift in Sources */,
+				B0AD9D7ED415A42EC05EE14E /* ComparePane.swift in Sources */,
+				9EA40FF8AE47DF9016078688 /* CompareViewModel.swift in Sources */,
+				96775D8CD7F6D5451C9A7FBD /* ContentView.swift in Sources */,
+				BA7E97099E91D6979AA1C213 /* FmiMultipointParser.swift in Sources */,
+				246B088A249F1C1CB446584F /* ForecastCacheEntity.swift in Sources */,
+				6DA3BA0E427DA4B825C7374D /* ForecastCacheStore.swift in Sources */,
+				B2463B030500857893C55649 /* ForecastSampler.swift in Sources */,
+				4ABA35967E2585B54C62DD9F /* ISO8601Parser.swift in Sources */,
+				42132D3B8B4FEBA5B9FD7550 /* LocationManager.swift in Sources */,
+				D994368D62D98E4DF3AA0E9C /* MainTab.swift in Sources */,
+				45966CD370D319D5FDAAC117 /* MainTabView.swift in Sources */,
+				2A433D22ABD1044D3D6850B2 /* MapForecastPin.swift in Sources */,
+				191BB1BC8FDD3E0DCBB137EA /* MapScreen.swift in Sources */,
+				0A679C80103FD6D8F85FD5C1 /* MapTraficomOverlay.swift in Sources */,
+				9246316C9D9784242512DDAF /* MarineForecastAlertClassifier.swift in Sources */,
+				9769764047327D30D25D771D /* MarineTextModels.swift in Sources */,
+				2482D8064BDB75A253B4B90E /* MarineTextOverviewPane.swift in Sources */,
+				715126AA6572734E96E24330 /* MarineTextRepository.swift in Sources */,
+				ED3F63B1A7750DC18D384622 /* MarineTextSummarizer.swift in Sources */,
+				7D620397DAF641269AE155AD /* MarineTextViewModel.swift in Sources */,
+				9066B90D86D641B903850A0A /* MarineWeatherApp.swift in Sources */,
+				5677CA907ED2F96C72AB0E86 /* MetDTO.swift in Sources */,
+				1F342269D57DF94B2AD5D2CA /* MetMapper.swift in Sources */,
+				DFCEF85F227F7D72B2758396 /* NavigationRailView.swift in Sources */,
+				49D160104F84A0D3ACCDD45A /* PlaceholderPanes.swift in Sources */,
+				47945BA39A310B37EF3A89F5 /* SmhiDTO.swift in Sources */,
+				F6AAC42DD4F5906BA9B2A623 /* SmhiMapper.swift in Sources */,
+				C1DB5BF0E64ECFC9F39F5AF1 /* SourceWindForecastCard.swift in Sources */,
+				DE520069B66FF8515296F291 /* UiBreakpoints.swift in Sources */,
+				9C74C2D2A9D0A51C0291E59C /* UserPreferences.swift in Sources */,
+				110E37C988D2CB57D07F4A69 /* WeatherComparePane.swift in Sources */,
+				8B7E5E0A005C6070260ECEF2 /* WeatherHTTPClient+Body.swift in Sources */,
+				595A46EE973A333A8B5666C8 /* WeatherHTTPClient.swift in Sources */,
+				C99A1C3B3EFD635B547A1EA9 /* WeatherModels.swift in Sources */,
+				0841765ED5E6612493F596BF /* WeatherRepository.swift in Sources */,
+				D539CC28EB89E0D69329229F /* WindDirectionGlyph.swift in Sources */,
+				A7AF83D36240A70059884848 /* WindFormatting.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6AC51EACE84E6060295526E5 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7DDD35CDC536244D88B9E026 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1EB54A986067D700BFD8DB31 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		44B8058649E0B251E2D1E352 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MarineWeather/Resources/Info-additions.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Marine Weather";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Show marine weather for your current map location.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fi.veneappi.MarineWeather;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		633BF9F8EC7CF35DAF365D90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MarineWeather/Resources/Info-additions.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Marine Weather";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Show marine weather for your current map location.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fi.veneappi.MarineWeather;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F82D6544777434ED1C9C792E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4C81D7394A6E2ED97CD5C7B6 /* Build configuration list for PBXNativeTarget "MarineWeather" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44B8058649E0B251E2D1E352 /* Debug */,
+				633BF9F8EC7CF35DAF365D90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		8738FC3FA9C2742BE283DBEC /* Build configuration list for PBXProject "MarineWeather" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F82D6544777434ED1C9C792E /* Debug */,
+				1EB54A986067D700BFD8DB31 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		870327D17EEA13AB398B9E35 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.24.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BE596FC17FFA61E17E5C02D8 /* MapLibre */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 870327D17EEA13AB398B9E35 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			productName = MapLibre;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = EF26DF42DAAC8B8EFDC8712E /* Project object */;
+}
