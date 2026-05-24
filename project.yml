@@ -1,0 +1,28 @@
+# XcodeGen — run: brew install xcodegen && xcodegen generate
+name: MarineWeather
+options:
+  bundleIdPrefix: fi.veneappi
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    TARGETED_DEVICE_FAMILY: "2" # iPad
+    INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+targets:
+  MarineWeather:
+    type: application
+    platform: iOS
+    sources:
+      - path: MarineWeather/Sources
+      - path: MarineWeather/Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: fi.veneappi.MarineWeather
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Marine Weather
+        INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.weather"

@@ -1,0 +1,14 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "Marine Weather iOS"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/DerivedData": true,
+      "**/.build": true
+    }
+  }
+}

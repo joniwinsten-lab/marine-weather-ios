@@ -1,0 +1,31 @@
+---
+description: Marine Weather iOS only — never modify the Android Play release repo
+alwaysApply: true
+---
+
+# iOS workspace boundary
+
+This repository is **marine-weather-ios** — the Apple platform app only.
+
+## Do NOT modify (unless the user explicitly asks in a separate message about Android)
+
+- `/Users/Safelight/Veneappi` (Android Gradle project, Play Console release)
+- `fi.veneappi.app` Android manifests, Compose UI (`VeneappiRoot`, `MapPane`, `RoutePane`, etc.)
+- Google Play signing, `keystore.properties`, `friends` build type
+
+## Do work here
+
+- `/Users/Safelight/marine-weather-ios` (Swift, SwiftUI, Xcode, App Store)
+- Shared **docs** may reference Android as a porting source — read-only from `../Veneappi/docs/` if needed, do not edit Android files.
+
+## Product parity (target)
+
+- **Free:** map & weather compare, storm radar, marine text summaries
+- **Premium:** route planning + 12-day wind outlook (StoreKit 2)
+- **Devices:** iPad, landscape-first (iPhone out of scope for v1 unless user requests)
+- **Locale:** English default; FI/SV/NB later
+
+## Stack
+
+- Swift 5.9+, SwiftUI, MapLibre Native iOS (SPM)
+- No Kotlin, no Compose, no Gradle in this repo
