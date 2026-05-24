@@ -39,10 +39,14 @@ Phases keep parity with Android **without** sharing one Gradle/Xcode monorepo.
 - [x] `MarineServiceUrls` — open full forecast in browser
 - [x] Manual refresh + map-centre coordinate hint
 
-## Phase 4 — Storm radar & lightning
+## Phase 4 — Storm radar & lightning (MVP done)
 
-- [ ] FMI WMS, MET/SMHI radar, GRIB path (hardest; port last)
-- [ ] Lightning layers (FMI WFS, SMHI)
+- [x] FMI WMS radar overlay + ±3 h / 30 min timeline
+- [x] Radar animation play/pause/step + time slider
+- [x] Lightning layers (FMI WFS + SMHI CSV), filtered by frame time
+- [x] Storm tab UI (`StormRadarPane`, `StormMapViewModel`)
+- [ ] MET/SMHI geo radar fallback per region
+- [ ] FMI HARMONIE GRIB forecast frames on timeline
 
 ## Phase 5 — Route + premium
 

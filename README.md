@@ -23,17 +23,17 @@ Open **this folder only** as the workspace root (not the Android `Veneappi` fold
 
 Or open `marine-weather-ios.code-workspace`.
 
-## Status (v0.2.0)
+## Status (v0.3.0)
 
 | Area | Status |
 |------|--------|
 | Compare tab | Map + 3-source wind (MET/SMHI/FMI), Traficom overlay, forecast pin |
 | Marine text tab | 4-country summaries (NO/SE/FI/EE) at map centre |
+| Storm radar tab | FMI WMS radar timeline ±3 h, lightning (FMI + SMHI), play/pause |
 | Attribution | Footer + licenses dialog |
 | Offline cache | SwiftData forecast cache per source & location |
 | Localization | English (`en.lproj/Localizable.strings`) |
 | Route / 12-day wind | Premium placeholders (Phase 5) |
-| Storm radar | Placeholder (Phase 4) |
 
 **Build:** `./scripts/setup-macos.sh` then open `MarineWeather.xcodeproj` in Xcode (iPad simulator, landscape).
 

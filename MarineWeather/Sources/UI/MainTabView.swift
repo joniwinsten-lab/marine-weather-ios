@@ -4,6 +4,7 @@ import SwiftUI
 struct MainTabView: View {
     @StateObject private var locationManager = LocationManager()
     @State private var compareVM = CompareViewModel()
+    @State private var stormVM = StormMapViewModel()
     @State private var selection: MainTab = .compare
 
     var body: some View {
@@ -52,9 +53,16 @@ struct MainTabView: View {
                 longitude: compareVM.mapCenter.longitude
             )
         case .stormRadar:
-            FeaturePlaceholderPane(
-                title: String(localized: "placeholder_storm_title"),
-                message: String(localized: "placeholder_storm_message")
+            StormRadarPane(
+                stormVM: stormVM,
+                mapCenter: compareVM.mapCenter,
+                onLongPress: { compareVM.setMapCenter($0) },
+                onRecenter: {
+                    locationManager.refreshLocation()
+                    if let coordinate = locationManager.lastCoordinate {
+                        compareVM.setMapCenter(coordinate)
+                    }
+                }
             )
         }
     }

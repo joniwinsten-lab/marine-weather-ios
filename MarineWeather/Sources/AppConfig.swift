@@ -5,7 +5,7 @@ enum AppConfig {
     static let appDisplayName = "Marine Weather"
 
     /// Match Android `WEATHER_USER_AGENT`; bump version when shipping.
-    static let weatherUserAgent = "MarineWeather/0.2.0 (fi.veneappi.MarineWeather; planning app)"
+    static let weatherUserAgent = "MarineWeather/0.3.0 (fi.veneappi.MarineWeather; planning app)"
 
     // Map — OpenFreeMap (see Android `MapConfig.kt`)
     static let mapStyleURL = URL(string: "https://tiles.openfreemap.org/styles/liberty")!

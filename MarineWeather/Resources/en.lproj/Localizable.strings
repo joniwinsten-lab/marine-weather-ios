@@ -53,5 +53,20 @@
 "placeholder_route_message" = "Premium feature — StoreKit gate in Phase 5.";
 "placeholder_wind_title" = "12-day wind outlook";
 "placeholder_wind_message" = "Premium feature — port from ExtendedWindOutlookPane.";
-"placeholder_storm_title" = "Storm radar";
-"placeholder_storm_message" = "Phase 4: radar timeline + lightning layers.";
+/* Storm radar */
+"storm_radar_chip_radar" = "Rain radar";
+"storm_radar_chip_lightning" = "Lightning";
+"storm_radar_source_time" = "%@ · %@ UTC";
+"storm_radar_animation_on" = "Loop playing (last ~1 h)";
+"storm_radar_animation_off" = "Loop paused";
+"storm_radar_showing_observation" = "Observation %1$@ UTC · %2$@";
+"storm_radar_showing_now" = "Now · %1$@ UTC";
+"storm_radar_now_marker" = "Now";
+"storm_radar_showing_forecast" = "Precip. forecast %1$@ UTC · +%2$d min (FMI)";
+"storm_radar_observation_ago" = "%d min ago";
+"storm_radar_time_slider" = "Radar time";
+"storm_radar_slider_observations" = "Observations";
+"storm_radar_slider_forecast" = "Forecast";
+"storm_radar_time_loading" = "loading…";
+"storm_lightning_updated_utc" = "Lightning (UTC %1$@): %2$d visible / %3$d fetched (2 h)";
+"storm_lightning_loading" = "Lightning: loading…";
