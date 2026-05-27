@@ -3,7 +3,10 @@
 **Source of truth (read-only):** `/Users/Safelight/Veneappi`  
 **Target:** this repo (`marine-weather-ios`)
 
-Last aligned with Android `versionName` **0.2.2** (`versionCode` 4).
+**Feature parity (product):** [`/Users/Safelight/Veneappi/docs/feature-parity.md`](/Users/Safelight/Veneappi/docs/feature-parity.md) — update on every user-facing change (both agents).  
+**Pointer in this repo:** `docs/feature-parity.md`
+
+Last aligned with Android `versionName` **0.2.18** (`versionCode` 20).
 
 ## App identity
 
@@ -24,6 +27,7 @@ Last aligned with Android `versionName` **0.2.2** (`versionCode` 4).
 | Marine text forecasts | ✓ | |
 | Route planning | | ✓ |
 | 12-day wind outlook | | ✓ |
+| AIS vessel overlay (Digitraffic) | | ✓ |
 
 **Billing product IDs (Play / App Store):** `route-premium-lifetime`, `route-premium-monthly`
 
@@ -53,19 +57,27 @@ Last aligned with Android `versionName` **0.2.2** (`versionCode` 4).
 | SMHI marine text | `MarineTextRepository` | `https://data-download.smhi.se/data/meteorology/texts/sea_report_sweden_sv.json` |
 | SMHI lightning | `SmhiLightningRepository` | `https://opendata-download-lightning.smhi.se/api/version/latest/` |
 | EE marine XML | `MarineTextRepository` | `https://ilmateenistus.ee/ilma_andmed/xml/forecast.php?lang=eng` |
+| Digitraffic AIS | `DigitrafficAisRepository` | `https://meri.digitraffic.fi/api/ais/v1/` + header `Digitraffic-User` |
 
 **Requirement:** send `User-Agent` (and respect MET [terms](https://api.met.no/doc/TermsOfService)) on every HTTP client.
 
-## UI modules to port (by phase)
+## iOS parity status
+
+See **`feature-parity.md`** for the live matrix and changelog. Summary at audit 2026-05-24: product features **sync**; ship blocker **App Store** (DIST-01).
+
+## UI modules (reference)
 
 | Android module | iOS target | Notes |
 |----------------|------------|--------|
-| `VeneappiRoot` / tabs | `MainTabView` (TBD) | Do not change Android stable views from iOS repo |
-| Map compare | Phase 2 | `ComparePane`, `WeatherPane` |
-| Route | Phase 5 | `RoutePane`, OSRM if enabled |
-| Storm map | Phase 4 | `StormMapViewModel`, radar repos |
-| Marine drawer | Phase 3 | `MarineTextRepository` |
-| Billing | Phase 5 | Play Billing → StoreKit 2 |
+| `VeneappiRoot` / tabs | `MainTabView` | Done |
+| Map compare | `ComparePane`, `WeatherComparePane` | Done |
+| Route | `RoutePane`, Väylä routing | Done (no OSRM demo) |
+| Storm map | `StormRadarPane` | Done |
+| Marine text | `MarineTextOverviewPane` | Done |
+| Billing | StoreKit 2 | Code done; ASC products pending |
+| Offline | Banner + route pack | Done |
+| Splash | `SplashBrandedView` | Done |
+| Harbors | — | Not in Android nav either |
 
 ## Android-only (no iOS port)
 

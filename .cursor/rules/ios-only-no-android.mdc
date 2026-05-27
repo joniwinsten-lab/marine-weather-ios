@@ -10,20 +10,22 @@ This repository is **marine-weather-ios** — the Apple platform app only.
 ## Do NOT modify (unless the user explicitly asks in a separate message about Android)
 
 - `/Users/Safelight/Veneappi` (Android Gradle project, Play Console release)
+- **Exception:** `/Users/Safelight/Veneappi/docs/feature-parity.md` — update when recording iOS/Android parity (see `feature-parity.mdc`)
 - `fi.veneappi.app` Android manifests, Compose UI (`VeneappiRoot`, `MapPane`, `RoutePane`, etc.)
 - Google Play signing, `keystore.properties`, `friends` build type
 
 ## Do work here
 
 - `/Users/Safelight/marine-weather-ios` (Swift, SwiftUI, Xcode, App Store)
-- Shared **docs** may reference Android as a porting source — read-only from `../Veneappi/docs/` if needed, do not edit Android files.
+- Shared **docs:** read from `../Veneappi/docs/`; edit only `feature-parity.md` for parity tracking.
 
-## Product parity (target)
+## Product parity
 
-- **Free:** map & weather compare, storm radar, marine text summaries
-- **Premium:** route planning + 12-day wind outlook (StoreKit 2)
-- **Devices:** iPad, landscape-first (iPhone out of scope for v1 unless user requests)
-- **Locale:** English default; FI/SV/NB later
+- Tracker: `/Users/Safelight/Veneappi/docs/feature-parity.md` (required on user-facing changes)
+- **Free:** map & weather compare, storm radar, marine text
+- **Premium:** route, 12-day wind, AIS, offline route pack (StoreKit 2)
+- **Devices:** iPad only, landscape-first
+- **Locales:** en / fi / sv / nb
 
 ## Stack
 

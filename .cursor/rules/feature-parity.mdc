@@ -1,0 +1,34 @@
+---
+description: Update shared feature-parity.md when changing user-facing iOS behaviour
+alwaysApply: true
+---
+
+# Feature parity (iOS ↔ Android)
+
+**Canonical tracker:** `/Users/Safelight/Veneappi/docs/feature-parity.md`
+
+Local pointer: `docs/feature-parity.md` (do not duplicate the matrix in iOS repo).
+
+## Exception to Android edit ban
+
+You **may** edit **only** `/Users/Safelight/Veneappi/docs/feature-parity.md` in the Android repo when recording parity status. Do not edit other Android files unless the user explicitly asks.
+
+## When to update (mandatory)
+
+Same triggers as Android rule: navigation, premium, map/weather/storm/marine/route/AIS/offline, billing, locales, shared API constants.
+
+## How to update
+
+1. Open `/Users/Safelight/Veneappi/docs/feature-parity.md`.
+2. Update matrix row + **Changelog** (platform `ios`).
+3. Set iOS column to `sync` only when behaviour matches Android.
+4. If Android still missing the feature → `ios-only` until Android catches up.
+
+## Before porting from Android
+
+Read parity doc + `docs/ios-porting-inventory.md` for API URLs and file mapping.
+
+## Premium contract
+
+- **Free:** map & weather compare, storm radar, marine text
+- **Premium:** route, 12-day wind, AIS, route on compare map, offline route pack

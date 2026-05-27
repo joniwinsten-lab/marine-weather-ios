@@ -2,6 +2,8 @@
 
 Phases keep parity with Android **without** sharing one Gradle/Xcode monorepo.
 
+**Live parity tracker:** `/Users/Safelight/Veneappi/docs/feature-parity.md` — update on every user-facing change.
+
 ## Phase 0 — Workspace (done)
 
 - [x] Separate git repo `marine-weather-ios`
@@ -28,8 +30,8 @@ Phases keep parity with Android **without** sharing one Gradle/Xcode monorepo.
 - [x] Forecast location pin on map
 - [x] SwiftData offline forecast cache
 - [x] English localization (`Localizable.strings`)
-- [ ] Scale bar on map
-- [ ] Map tile warmup on splash
+- [x] Scale bar on map
+- [x] Map tile warmup on launch
 
 ## Phase 3 — Marine text (done)
 
@@ -45,23 +47,34 @@ Phases keep parity with Android **without** sharing one Gradle/Xcode monorepo.
 - [x] Radar animation play/pause/step + time slider
 - [x] Lightning layers (FMI WFS + SMHI CSV), filtered by frame time
 - [x] Storm tab UI (`StormRadarPane`, `StormMapViewModel`)
-- [ ] MET/SMHI geo radar fallback per region
+- [x] MET/SMHI geo radar fallback per region (latest overlay)
 - [ ] FMI HARMONIE GRIB forecast frames on timeline
 
 ## Phase 5 — Route + premium
 
-- [ ] Route UI (port from `RoutePane` when ready)
-- [ ] StoreKit 2: lifetime + subscription
-- [ ] **Premium gate:** route + 12-day wind only; radar free (match Android policy)
+- [x] Route UI + Väylä routing + weather along route
+- [x] Extended 12-day wind outlook
+- [x] StoreKit 2: lifetime + subscription (`StoreKitRoutePremiumService`)
+- [x] Local 3-day trial + paywall UI
+- [x] Navigointidisclaimer (Route-välilehti, info-nappi)
+- [ ] App Store Connect products live + sandbox / TestFlight verification
+- [x] AIS overlay (Digitraffic REST, premium chip on Compare + Route)
+- [x] AIS REST poll (~60 s) + viewport reload (MQTT deferred)
+- [x] Offline / stale weather banner (all tabs)
+- [x] Offline route pack download (Route tab, premium)
+- [x] Route overlay on Compare map (premium)
+- [x] Paywall billing diagnostics
 
-## Phase 6 — App Store
+## Phase 6 — App Store (blocked: developer account)
 
+- [ ] App Store Connect products live + sandbox / TestFlight verification
 - [ ] TestFlight internal → external
 - [ ] Screenshots (iPad 12.9" landscape)
 - [ ] Privacy nutrition labels (mirror Play data safety)
 - [ ] Review notes (weather data sources, no account required for free tier)
 
-## Later
+## Later (done except harbors)
 
-- [ ] Localization FI / SV / NB
+- [x] Localization FI / SV / NB
+- [x] Branded splash + map tile warmup during splash
 - [ ] Harbors (Overpass) if added to product nav
