@@ -2,45 +2,47 @@ import Foundation
 
 actor WeatherRepository {
     func loadAll(lat: Double, lon: Double) async -> [SourceId: Result<UnifiedForecast, Error>] {
-        let keyBase = "\(Self.roundKey(lat))_\(Self.roundKey(lon))"
+        await loadAllWithReport(lat: lat, lon: lon).forecasts
+    }
 
-        async let met = fetchWithCache(source: .metNorway, keyBase: keyBase) {
+    func loadAllWithReport(lat: Double, lon: Double) async -> WeatherLoadReport {
+        let keyBase = "\(Self.roundKey(lat))_\(Self.roundKey(lon))"
+        async let met = loadOne(source: .metNorway, keyBase: keyBase) {
             try await WeatherHTTPClient.fetchMetNorway(lat: lat, lon: lon)
         }
-        async let smhi = fetchWithCache(source: .smhi, keyBase: keyBase) {
+        async let smhi = loadOne(source: .smhi, keyBase: keyBase) {
             try await WeatherHTTPClient.fetchSmhi(lat: lat, lon: lon)
         }
-        async let fmi = fetchWithCache(source: .fmi, keyBase: keyBase) {
+        async let fmi = loadOne(source: .fmi, keyBase: keyBase) {
             try await WeatherHTTPClient.fetchFmi(lat: lat, lon: lon)
         }
-
-        return [
+        return WeatherLoadReport(bySource: [
             .metNorway: await met,
             .smhi: await smhi,
             .fmi: await fmi,
-        ]
+        ])
     }
 
-    private func fetchWithCache(
+    private func loadOne(
         source: SourceId,
         keyBase: String,
         operation: @Sendable () async throws -> UnifiedForecast
-    ) async -> Result<UnifiedForecast, Error> {
+    ) async -> SourceWeatherOutcome {
         let cacheKey = "\(source.rawValue)_\(keyBase)"
+        let cached = await MainActor.run {
+            ForecastCacheStore.shared.read(cacheKey: cacheKey)
+        }
         do {
             let forecast = try await operation()
             await MainActor.run {
                 ForecastCacheStore.shared.upsert(cacheKey: cacheKey, forecast: forecast)
             }
-            return .success(forecast)
+            return SourceWeatherOutcome(result: .success(forecast), servedFromCache: false)
         } catch {
-            let cached = await MainActor.run {
-                ForecastCacheStore.shared.read(cacheKey: cacheKey)
-            }
             if let cached {
-                return .success(cached)
+                return SourceWeatherOutcome(result: .success(cached), servedFromCache: true)
             }
-            return .failure(error)
+            return SourceWeatherOutcome(result: .failure(error), servedFromCache: false)
         }
     }
 

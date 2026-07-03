@@ -9,6 +9,8 @@ struct StormRadarPane: View {
     var onRecenter: () -> Void
 
     @State private var mapController = MapScreenController()
+    @State private var mapZoom = StormMapConstants.defaultZoom
+    @State private var mapLatitude = AppConfig.defaultLatitude
 
     var body: some View {
         VStack(spacing: 0) {
@@ -16,10 +18,14 @@ struct StormRadarPane: View {
             ZStack(alignment: .bottomLeading) {
                 StormMapScreen(
                     center: mapCenter,
-                    radarOverlay: stormVM.ui.radarEnabled ? stormVM.ui.radarOverlay : nil,
+                    radarOverlay: stormVM.ui.radarEnabled ? stormVM.ui.mapRadarOverlay : nil,
                     lightningStrikes: stormVM.ui.lightningEnabled ? stormVM.ui.visibleLightningStrikes : [],
                     controller: mapController,
-                    onLongPress: onLongPress
+                    onLongPress: onLongPress,
+                    onViewportChange: { zoom, latitude in
+                        mapZoom = zoom
+                        mapLatitude = latitude
+                    }
                 )
 
                 StormOverlayHud(stormUi: stormVM.ui)
@@ -36,6 +42,11 @@ struct StormRadarPane: View {
                     .frame(maxWidth: 420)
                     .frame(maxWidth: .infinity)
                 }
+            }
+            .overlay(alignment: .bottomLeading) {
+                MapScaleBarView(latitude: mapLatitude, zoomLevel: mapZoom)
+                    .padding(.leading, 8)
+                    .padding(.bottom, 8)
             }
             .overlay(alignment: .bottomTrailing) {
                 mapControls.padding(10)
@@ -147,8 +158,10 @@ private struct StormOverlayHud: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             if stormUi.radarEnabled {
-                let source = stormUi.radarOverlay?.sourceLabel ?? stormUi.radarSourceLabel
-                let time = stormUi.radarOverlay?.timeLabel ?? String(localized: "storm_radar_time_loading")
+                let source = stormUi.mapRadarOverlay?.sourceLabel ?? stormUi.radarSourceLabel
+                let time = stormUi.selectedFrameLabel
+                    ?? stormUi.mapRadarOverlay?.timeLabel
+                    ?? String(localized: "storm_radar_time_loading")
                 Text(String(format: String(localized: "storm_radar_source_time"), source, time))
                     .font(.caption2)
 

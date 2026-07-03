@@ -37,7 +37,6 @@ enum MainTab: String, CaseIterable, Identifiable, Hashable {
         }
     }
 
-    /// Android `nav_*` strings (multi-line where noted).
     var railLabel: String {
         switch self {
         case .compare: String(localized: "nav_compare")

@@ -1,6 +1,8 @@
 import Foundation
 
 enum SmhiLightningParser {
+    private static let maxRows = 4_000
+
     static func parse(_ csv: String, lookbackEpochMs: Int64) -> [LightningStrike] {
         let lines = csv.split(whereSeparator: \.isNewline).map(String.init).filter { !$0.isEmpty }
         guard lines.count >= 2 else { return [] }
@@ -17,7 +19,8 @@ enum SmhiLightningParser {
         let secIdx = header.firstIndex(of: "seconds")
 
         var out: [LightningStrike] = []
-        for line in lines.dropFirst() {
+        out.reserveCapacity(256)
+        for line in lines.dropFirst().prefix(maxRows) {
             let cols = line.split(separator: ";").map(String.init)
             guard cols.count > max(latIdx, lonIdx),
                   let lat = Double(cols[latIdx]),

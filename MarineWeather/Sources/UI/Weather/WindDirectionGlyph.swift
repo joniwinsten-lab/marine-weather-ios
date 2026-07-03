@@ -7,7 +7,7 @@ struct WindDirectionGlyph: View {
     var body: some View {
         Canvas { context, canvasSize in
             let center = CGPoint(x: canvasSize.width / 2, y: canvasSize.height / 2)
-            let inset: CGFloat = size < 28 ? 3 : 6
+            let inset = max(3, size * 0.12)
             let radius = min(canvasSize.width, canvasSize.height) / 2 - inset
             let radians = (fromDegrees - 90) * .pi / 180
             let tip = CGPoint(
@@ -23,13 +23,15 @@ struct WindDirectionGlyph: View {
             ))
             context.fill(ring, with: .color(.accentColor.opacity(0.12)))
 
+            let shaftWidth = max(2.5, size * 0.09)
             var shaft = Path()
             shaft.move(to: tip)
             shaft.addLine(to: center)
-            context.stroke(shaft, with: .color(.accentColor), style: StrokeStyle(lineWidth: size < 28 ? 2 : 4, lineCap: .round))
+            context.stroke(shaft, with: .color(.accentColor), style: StrokeStyle(lineWidth: shaftWidth, lineCap: .round))
 
             let angle = atan2(center.y - tip.y, center.x - tip.x)
-            let head = size < 28 ? 7.0 : 11.0
+            let head = max(7, size * 0.24)
+            let wingWidth = max(2.5, size * 0.07)
             for delta in [3.0 / 4.0 * .pi, -3.0 / 4.0 * .pi] {
                 let wingAngle = angle + delta
                 let end = CGPoint(
@@ -39,7 +41,7 @@ struct WindDirectionGlyph: View {
                 var wing = Path()
                 wing.move(to: center)
                 wing.addLine(to: end)
-                context.stroke(wing, with: .color(.accentColor), style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                context.stroke(wing, with: .color(.accentColor), style: StrokeStyle(lineWidth: wingWidth, lineCap: .round))
             }
         }
         .frame(width: size, height: size)

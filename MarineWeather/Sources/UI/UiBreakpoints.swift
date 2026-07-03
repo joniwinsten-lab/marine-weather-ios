@@ -10,4 +10,8 @@ enum UiBreakpoints {
     /// Compare tab split (map | weather).
     static let compareMapWidthFraction: CGFloat = 0.65
     static let compareWeatherWidthFraction: CGFloat = 0.35
+    static let paywallMaxWidth: CGFloat = 480
+    static let extendedWindTableMaxWidth: CGFloat = 520
+    static let extendedWindMapWidthFraction: CGFloat = 0.56
+    static let extendedWindTableWidthFraction: CGFloat = 0.44
 }

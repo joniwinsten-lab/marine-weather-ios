@@ -16,7 +16,10 @@ enum SmhiLightningRepository {
             )!
             let csv = try await WeatherHTTPClient.fetchText(url: url, accept: "text/csv,*/*")
             let lookbackMs = Int64(Date().timeIntervalSince1970 * 1000) - Int64(lookbackMinutes * 60 * 1000)
-            return .success(SmhiLightningParser.parse(csv, lookbackEpochMs: lookbackMs))
+            let strikes = await Task.detached(priority: .utility) {
+                SmhiLightningParser.parse(csv, lookbackEpochMs: lookbackMs)
+            }.value
+            return .success(strikes)
         } catch {
             return .failure(error)
         }

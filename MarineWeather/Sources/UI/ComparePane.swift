@@ -3,8 +3,12 @@ import SwiftUI
 
 struct ComparePane: View {
     @Bindable var viewModel: CompareViewModel
+    @Bindable var routeVM: RouteViewModel
+    @Bindable var premium = PremiumAccess.shared
     @State private var traficomEnabled = true
     @State private var mapController = MapScreenController()
+    @State private var mapZoom = AppConfig.defaultCompareZoom
+    @State private var mapLatitude = AppConfig.defaultLatitude
     var onRecenter: () -> Void
 
     var body: some View {
@@ -47,10 +51,22 @@ struct ComparePane: View {
             zoom: AppConfig.defaultCompareZoom,
             traficomEnabled: traficomEnabled,
             controller: mapController,
-            onLongPress: { viewModel.setMapCenter($0) }
+            routeGeometry: premium.isPremium ? routeVM.routeGeometry : [],
+            routeStart: premium.isPremium ? routeVM.routeStart : nil,
+            routeEnd: premium.isPremium ? routeVM.routeEnd : nil,
+            onLongPress: { viewModel.setMapCenter($0) },
+            onViewportChange: { zoom, latitude in
+                mapZoom = zoom
+                mapLatitude = latitude
+            }
         )
         .overlay(alignment: .topLeading) {
             traficomChip.padding(8)
+        }
+        .overlay(alignment: .bottomLeading) {
+            MapScaleBarView(latitude: mapLatitude, zoomLevel: mapZoom)
+                .padding(.leading, 8)
+                .padding(.bottom, 8)
         }
         .overlay(alignment: .bottomTrailing) {
             mapControls.padding(10)
@@ -61,11 +77,9 @@ struct ComparePane: View {
         Button {
             traficomEnabled.toggle()
         } label: {
-            Text(String(localized: "traficom_chip"))
-                .font(.system(size: 11, weight: .medium))
-                .padding(.horizontal, 10)
-                .padding(.vertical, 5)
-                .background(traficomEnabled ? Color.accentColor.opacity(0.15) : Color.secondary.opacity(0.12), in: Capsule())
+            MapOverlayChrome.chipLabel(isOn: traficomEnabled) {
+                Text(String(localized: "traficom_chip"))
+            }
         }
         .buttonStyle(.plain)
     }
@@ -80,10 +94,7 @@ struct ComparePane: View {
 
     private func mapControlButton(systemName: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            Image(systemName: systemName)
-                .font(.system(size: 16, weight: .semibold))
-                .frame(width: 34, height: 34)
-                .background(.ultraThinMaterial, in: Circle())
+            MapOverlayChrome.circleIcon(systemName: systemName)
         }
         .buttonStyle(.plain)
     }

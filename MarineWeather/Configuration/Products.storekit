@@ -1,0 +1,92 @@
+{
+  "identifier" : "A1B2C3D4-E5F6-7890-ABCD-EF1234567890",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "59.00",
+      "familyShareable" : false,
+      "internalID" : "6741000001",
+      "localizations" : [
+        {
+          "description" : "Reittisuunnittelu ja 12 päivän tuuliennuste pysyvästi.",
+          "displayName" : "Reitti Premium — kertaosto",
+          "locale" : "fi"
+        },
+        {
+          "description" : "Unlock route planning and 12-day wind outlook permanently.",
+          "displayName" : "Route Premium Lifetime",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "route-premium-lifetime",
+      "referenceName" : "Route Premium Lifetime",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_locale" : "fi",
+    "_storefront" : "FIN",
+    "_storeKitErrors" : [
+
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "A2B3C4D5-E6F7-8901-BCDE-F12345678901",
+      "localizations" : [
+        {
+          "description" : "Reittisuunnittelu ja laajennettu tuuli",
+          "displayName" : "Reitti Premium",
+          "locale" : "fi"
+        },
+        {
+          "description" : "Route planning and extended wind",
+          "displayName" : "Route Premium",
+          "locale" : "en_US"
+        }
+      ],
+      "name" : "Route Premium",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "2.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6741000002",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Kuukausittainen pääsy reittiin ja 12 päivän tuuleen.",
+              "displayName" : "Reitti Premium — kuukausi",
+              "locale" : "fi"
+            },
+            {
+              "description" : "Monthly access to route planning and 12-day wind.",
+              "displayName" : "Route Premium Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "route-premium-monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Route Premium Monthly",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

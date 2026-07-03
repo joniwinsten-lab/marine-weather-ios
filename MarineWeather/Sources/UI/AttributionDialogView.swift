@@ -36,6 +36,13 @@ struct AttributionDialogView: View {
                     Text(String(localized: "attribution_smhi_radar_lightning"))
                         .font(.footnote)
                     linkButton(String(localized: "attribution_smhi_link"), url: WeatherSources.smhi.licenseURL)
+
+                    Text(String(localized: "attribution_digitraffic_ais"))
+                        .font(.footnote)
+                    linkButton(
+                        String(localized: "attribution_digitraffic_link"),
+                        url: URL(string: "https://meri.digitraffic.fi/")!
+                    )
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()

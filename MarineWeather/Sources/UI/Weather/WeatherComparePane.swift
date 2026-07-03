@@ -54,9 +54,9 @@ struct WeatherComparePane: View {
         HStack(alignment: .center, spacing: 4) {
             VStack(alignment: .leading, spacing: 0) {
                 Text("Weather sources")
-                    .font(.system(size: 10, weight: .semibold))
+                    .font(.system(size: dense ? 12 : 14, weight: .semibold))
                 Text("Long-press map")
-                    .font(.system(size: 8))
+                    .font(.system(size: dense ? 10 : 12))
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
             }
@@ -89,7 +89,7 @@ struct WeatherComparePane: View {
             viewModel.setWindUnit(unit)
         } label: {
             Text(label)
-                .font(.system(size: 10, weight: .semibold))
+                .font(.system(size: dense ? 11 : 12, weight: .semibold))
                 .padding(.horizontal, 5)
                 .padding(.vertical, 2)
                 .background(

@@ -78,11 +78,17 @@ In Xcode: **File → Add Package Dependencies**
 - **File → Open Folder** → `/Users/Safelight/marine-weather-ios`
 - Do **not** open `/Users/Safelight/Veneappi` for iOS work (Android Play release)
 
-## 6. App Store Connect (later)
+## 6. Premium (StoreKit 2)
 
-- New app record, privacy URL: `https://joniwinsten-lab.github.io/marine-weather/privacy.html`
-- Support email: `support@safelight.fi`
-- StoreKit 2 products (mirror Android IDs conceptually): `route-premium-lifetime`, `route-premium-monthly`
+**Product IDs** (must match App Store Connect): `route-premium-lifetime` (non-consumable), `route-premium-monthly` (auto-renewable subscription).
+
+**Pricing (Finland, gross incl. 25.5% VAT):** lifetime **59,00 €**, monthly **2,99 €** — set the same tiers in App Store Connect.
+
+**Simulator / local Xcode:** Scheme **Marine Weather** uses `MarineWeather/Configuration/Products.storekit` (configured in `project.yml`). After `xcodegen generate`, confirm **Edit Scheme → Run → Options → StoreKit Configuration** points to that file.
+
+**TestFlight / device:** Create the same product IDs in App Store Connect, add a sandbox tester, and install via TestFlight or Xcode on device.
+
+**Trial:** 3-day local trial (no App Store charge) — one start per device, same as Android.
 
 ## 7. Verify build
 

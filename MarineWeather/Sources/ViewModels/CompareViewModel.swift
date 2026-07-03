@@ -1,5 +1,4 @@
 import CoreLocation
-import CoreLocation
 import Foundation
 import Observation
 
@@ -10,6 +9,7 @@ final class CompareViewModel {
     var windUnit: WindUnit
     private(set) var sourceStates: [SourceId: SourceForecastState]
     private(set) var isRefreshing = false
+    private(set) var connectivityStatus = WeatherConnectivityStatus()
 
     private let repository = WeatherRepository()
     private var refreshTask: Task<Void, Never>?
@@ -49,6 +49,11 @@ final class CompareViewModel {
         UserPreferences.windUnit = unit
     }
 
+    func updateConnectivity(isOnline: Bool) {
+        connectivityStatus.isOnline = isOnline
+        recomputeConnectivityMeta()
+    }
+
     private func performRefresh() async {
         isRefreshing = true
         for source in SourceId.allCases {
@@ -61,10 +66,11 @@ final class CompareViewModel {
 
         let lat = mapCenter.latitude
         let lon = mapCenter.longitude
-        let results = await repository.loadAll(lat: lat, lon: lon)
+        let report = await repository.loadAllWithReport(lat: lat, lon: lon)
 
         guard !Task.isCancelled else { return }
 
+        let results = report.forecasts
         for source in SourceId.allCases {
             switch results[source] {
             case .success(let forecast):
@@ -87,6 +93,23 @@ final class CompareViewModel {
                 )
             }
         }
+
+        let successfulForecasts = results.compactMapValues { try? $0.get() }
+        let oldest = ForecastFreshness.oldestFetchedUtc(from: successfulForecasts)
+        connectivityStatus.anyFromCache = report.anyServedFromCache
+        connectivityStatus.allSourcesFailed = report.allSourcesFailed
+        connectivityStatus.oldestFetchedUtc = oldest
+        connectivityStatus.staleLevel = oldest.map { ForecastFreshness.staleLevel(fetchedAtUtc: $0) } ?? .fresh
+
         isRefreshing = false
+    }
+
+    private func recomputeConnectivityMeta() {
+        let forecasts = sourceStates.compactMapValues { $0.forecast }
+        let oldest = ForecastFreshness.oldestFetchedUtc(from: forecasts)
+        connectivityStatus.oldestFetchedUtc = oldest
+        connectivityStatus.staleLevel = oldest.map { ForecastFreshness.staleLevel(fetchedAtUtc: $0) } ?? .fresh
+        connectivityStatus.allSourcesFailed =
+            !sourceStates.isEmpty && sourceStates.values.allSatisfy { $0.forecast == nil && $0.errorMessage != nil }
     }
 }

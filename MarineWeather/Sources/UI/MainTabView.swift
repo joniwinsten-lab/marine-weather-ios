@@ -4,14 +4,19 @@ import SwiftUI
 struct MainTabView: View {
     @StateObject private var locationManager = LocationManager()
     @State private var compareVM = CompareViewModel()
+    @State private var routeVM = RouteViewModel()
     @State private var stormVM = StormMapViewModel()
+    @State private var offlinePackVM = OfflinePackViewModel()
     @State private var selection: MainTab = .compare
+    @Environment(\.scenePhase) private var scenePhase
+    @Bindable private var networkMonitor = NetworkConnectivityMonitor.shared
 
     var body: some View {
         HStack(spacing: 0) {
             NavigationRailView(selection: $selection)
 
             VStack(spacing: 0) {
+                OfflineStatusBanner(status: compareVM.connectivityStatus)
                 detail(for: selection)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 AttributionFooter()
@@ -21,6 +26,23 @@ struct MainTabView: View {
         .background(Color(.systemBackground))
         .onAppear {
             locationManager.requestWhenInUse()
+            routeVM.syncMapCenter(compareVM.mapCenter)
+            compareVM.updateConnectivity(isOnline: networkMonitor.isOnline)
+            Task {
+                await MapTileWarmup.warm(
+                    lat: compareVM.mapCenter.latitude,
+                    lon: compareVM.mapCenter.longitude
+                )
+            }
+        }
+        .onChange(of: networkMonitor.isOnline) { _, isOnline in
+            compareVM.updateConnectivity(isOnline: networkMonitor.isOnline)
+        }
+        .onChange(of: compareVM.mapCenter.latitude) { _, _ in
+            routeVM.syncMapCenter(compareVM.mapCenter)
+        }
+        .onChange(of: compareVM.mapCenter.longitude) { _, _ in
+            routeVM.syncMapCenter(compareVM.mapCenter)
         }
     }
 
@@ -30,22 +52,20 @@ struct MainTabView: View {
         case .compare:
             ComparePane(
                 viewModel: compareVM,
-                onRecenter: {
-                    locationManager.refreshLocation()
-                    if let coordinate = locationManager.lastCoordinate {
-                        compareVM.setMapCenter(coordinate)
-                    }
-                }
+                routeVM: routeVM,
+                onRecenter: recenterToDevice
             )
         case .route:
-            PremiumPlaceholderPane(
-                title: String(localized: "placeholder_route_title"),
-                message: String(localized: "placeholder_route_message")
+            RoutePane(
+                viewModel: routeVM,
+                offlinePack: offlinePackVM,
+                mapCenter: compareVM.mapCenter,
+                onRecenter: recenterToDevice
             )
         case .extendedWind:
-            PremiumPlaceholderPane(
-                title: String(localized: "placeholder_wind_title"),
-                message: String(localized: "placeholder_wind_message")
+            ExtendedWindOutlookPane(
+                viewModel: compareVM,
+                onRecenter: recenterToDevice
             )
         case .marineText:
             MarineTextOverviewPane(
@@ -57,13 +77,16 @@ struct MainTabView: View {
                 stormVM: stormVM,
                 mapCenter: compareVM.mapCenter,
                 onLongPress: { compareVM.setMapCenter($0) },
-                onRecenter: {
-                    locationManager.refreshLocation()
-                    if let coordinate = locationManager.lastCoordinate {
-                        compareVM.setMapCenter(coordinate)
-                    }
-                }
+                onRecenter: recenterToDevice
             )
+        }
+    }
+
+    private func recenterToDevice() {
+        locationManager.refreshLocation()
+        if let coordinate = locationManager.lastCoordinate {
+            compareVM.setMapCenter(coordinate)
+            routeVM.syncMapCenter(coordinate)
         }
     }
 }

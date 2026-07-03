@@ -25,7 +25,10 @@ enum FmiLightningRepository {
             guard let xml = String(data: data, encoding: .utf8) else {
                 return .failure(WeatherHTTPError.invalidBody)
             }
-            return .success(FmiLightningParser.parse(xml))
+            let strikes = await Task.detached(priority: .utility) {
+                FmiLightningParser.parse(xml)
+            }.value
+            return .success(strikes)
         } catch {
             return .failure(error)
         }

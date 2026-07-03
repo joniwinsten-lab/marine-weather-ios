@@ -7,24 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0246073CF4FCEA3DAF7A050E /* WeatherLoadReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2089E9950D25F6E6299B2E /* WeatherLoadReport.swift */; };
+		0506687F783D033F2A177FEC /* OfflineStatusBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D15A3BC820BA6291CA6EAA /* OfflineStatusBanner.swift */; };
 		066811D95F7226A367C7D6D9 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96281CDF70D683A8FE75AF71 /* AppConfig.swift */; };
 		0841765ED5E6612493F596BF /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A26BD0DFF2FEC943090CA3 /* WeatherRepository.swift */; };
 		0A679C80103FD6D8F85FD5C1 /* MapTraficomOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9757C66184BEA89BAC25799 /* MapTraficomOverlay.swift */; };
 		0BB79246796808E9CF64C237 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BA4CC3D473F9431D09906A7 /* Assets.xcassets */; };
 		0BC214BDE3E6A957C7C49EF6 /* SmhiLightningParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977F1F129DB45874408FF4A5 /* SmhiLightningParser.swift */; };
+		0CACD80ED3F11AE17DAA2485 /* FmiPrecipitationModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66DCC2C08DE1C9916AD8189 /* FmiPrecipitationModels.swift */; };
 		110E37C988D2CB57D07F4A69 /* WeatherComparePane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AC2975F3929A36F55C177B /* WeatherComparePane.swift */; };
 		136184B9D280F2F206821B37 /* CompositeRadarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D03966F7C3BB2EE432C2FCC /* CompositeRadarRepository.swift */; };
+		13DE1D98656F6ADDEFC006D3 /* WindOutlookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C16076E8E8F85958FB22D08 /* WindOutlookCell.swift */; };
+		13FE8C884C5E0929BE70BCCF /* FmiForecastRadarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B01EBAFE73090D208D5F80 /* FmiForecastRadarRepository.swift */; };
 		1575F461549837AE7F798011 /* RadarModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180483C0D62928CAE7E1D0 /* RadarModels.swift */; };
 		18D0A58210E00AC52160BE65 /* LightningModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3292761EC20412AE906E2661 /* LightningModels.swift */; };
 		191BB1BC8FDD3E0DCBB137EA /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3FC2A5F030BCF2CD2ACAE2 /* MapScreen.swift */; };
+		193DED722135BF8A2E9DBE29 /* SplashBrandedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72003FB7032B9DF1836ACFC /* SplashBrandedView.swift */; };
 		1F342269D57DF94B2AD5D2CA /* MetMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0CDBF7C0D51337B007DFF4 /* MetMapper.swift */; };
 		20627E22EF4935CDE6AA68D5 /* FmiRadarConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099A8B48B534412CEDD7C0B0 /* FmiRadarConfig.swift */; };
+		206809B410A870ACA3C5D2AA /* GeoMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F784FA70433B32E68D4B72 /* GeoMath.swift */; };
 		218C5364360D92ADCA041782 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6AC51EACE84E6060295526E5 /* Localizable.strings */; };
 		246B088A249F1C1CB446584F /* ForecastCacheEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0881C44D3F7457BF53C3E04 /* ForecastCacheEntity.swift */; };
 		2482D8064BDB75A253B4B90E /* MarineTextOverviewPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D039C69463E409799EBF7D3 /* MarineTextOverviewPane.swift */; };
+		24A59166D39C2523BE7ABD6E /* NavigationDisclaimerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BE28A403308F6A8FE59544 /* NavigationDisclaimerAlert.swift */; };
 		24EDFA99082F9AF24A902536 /* StormMapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D54421B635F517ED15F54A /* StormMapScreen.swift */; };
+		28AC8FFCA3920833FF80427E /* MLNMapView+Configured.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298975594413AE82A7498C8 /* MLNMapView+Configured.swift */; };
 		29C37FFBF26F3C38BA7142D7 /* StormRadarPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = C837E7A430724790B35EBAC1 /* StormRadarPane.swift */; };
 		2A433D22ABD1044D3D6850B2 /* MapForecastPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7597542B2625D930A60E100E /* MapForecastPin.swift */; };
+		2EC3EC59CB93966674AFFE4D /* FmiRadarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3E59D10BC348C71BAD9B37 /* FmiRadarRepository.swift */; };
 		31D30E9780C230620727AC60 /* FmiLightningParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB51D514289AC492949D04B /* FmiLightningParser.swift */; };
 		3260FB110A4F84CB0AE9EAFF /* CompositeLightningRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5904D5B60E4E225EDB0E03D /* CompositeLightningRepository.swift */; };
 		372E2395C7B95960BEC533C4 /* FmiRadarTimeSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFD4E0F901272923E0557C0E /* FmiRadarTimeSeries.swift */; };
@@ -34,60 +44,104 @@
 		42132D3B8B4FEBA5B9FD7550 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3EACBF266E1DB1F0A87E09 /* LocationManager.swift */; };
 		45966CD370D319D5FDAAC117 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80258B2E628C3A99B9785663 /* MainTabView.swift */; };
 		47945BA39A310B37EF3A89F5 /* SmhiDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211F5EC374C9B95EAECF4A69 /* SmhiDTO.swift */; };
-		49D160104F84A0D3ACCDD45A /* PlaceholderPanes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 394AE275742B5F86960F7E83 /* PlaceholderPanes.swift */; };
+		47F384DCF06CD0989DD51E9F /* RoutePane.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD76AEAD61FD71B3D85115C /* RoutePane.swift */; };
+		49550244888C02F5100E4F61 /* OfflineAreaPackStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3667C267BC2DD44FB19FB /* OfflineAreaPackStore.swift */; };
 		4ABA35967E2585B54C62DD9F /* ISO8601Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08688D0D206A6058602DD58 /* ISO8601Parser.swift */; };
+		4D11FE9F45A79A41D0CAE4B4 /* MetNorwayRadarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9AE5F17FC5D2C786A88850 /* MetNorwayRadarRepository.swift */; };
+		55979CE5D686E07D73450300 /* MapHTTPConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A167A0EC5A3110308415A28F /* MapHTTPConfiguration.swift */; };
 		5677CA907ED2F96C72AB0E86 /* MetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDBC6072791F5C533A42B3D /* MetDTO.swift */; };
 		595A46EE973A333A8B5666C8 /* WeatherHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C773FDDD9426968F8532C84 /* WeatherHTTPClient.swift */; };
+		5A435367763D5DE785198D18 /* MapOverlayChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42A2E9516702DC1357FBCE5 /* MapOverlayChrome.swift */; };
+		5C5A1621B36F60667530163C /* RouteGpx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25BA7842EE9C6A0592AFF45 /* RouteGpx.swift */; };
+		65240DD8916FB9E74007E316 /* RoutePremiumPaywall.swift in Sources */ = {isa = PBXBuildFile; fileRef = D795AC24A82401C44BF3CB46 /* RoutePremiumPaywall.swift */; };
+		683D981A8E13B4832B6357DD /* FmiHarmonieGribParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAB4FD5FA045748016FAF6F /* FmiHarmonieGribParser.swift */; };
 		6DA3BA0E427DA4B825C7374D /* ForecastCacheStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1ACD005C74D1772EEF5D6FB /* ForecastCacheStore.swift */; };
 		715126AA6572734E96E24330 /* MarineTextRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6B8D755EFA6840649E0E38 /* MarineTextRepository.swift */; };
 		7232717242E0458B39C363EE /* StormRadarPrefetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F52770CC805647CB32276D /* StormRadarPrefetch.swift */; };
 		7351EDB9CEE4DC293CFF12B7 /* FmiInstantFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7EA21D3929C199B4C8766C /* FmiInstantFormat.swift */; };
+		740DBC14191D453A8629CF6E /* RoutePlanPDFExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AF73E0E1FE3650AED8B693 /* RoutePlanPDFExporter.swift */; };
+		7A0CB557CA7781CF382F5BC9 /* RouteModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC684F472F5D1DFA9FFB630 /* RouteModels.swift */; };
 		7D620397DAF641269AE155AD /* MarineTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809FF71F2BB1619E07EA029A /* MarineTextViewModel.swift */; };
+		7F767A65E900F83CA74208CB /* PrecipRateRaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFF85A87F9A50FD588806FB /* PrecipRateRaster.swift */; };
+		8011E7577CAB8B3ECA69E050 /* RouteTrialPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8442FAF8F5F1DCA2123CCC9 /* RouteTrialPreferences.swift */; };
 		8B7E5E0A005C6070260ECEF2 /* WeatherHTTPClient+Body.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18FB2DBFB66781939E7DCC6 /* WeatherHTTPClient+Body.swift */; };
 		8CBC8800CBB9F1F858B9C07D /* AttributionDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495345405508967E6558ED0D /* AttributionDialogView.swift */; };
 		9066B90D86D641B903850A0A /* MarineWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AE7FC0AEF6A79B91ED7CB0 /* MarineWeatherApp.swift */; };
+		9071E117D1499C5A0D8C7921 /* RadarHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAE471E37D45C96508150B /* RadarHTTPClient.swift */; };
 		91B678DB779182FD5473CC4A /* MapStormOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269D4D60BF53310C5FF0FE4 /* MapStormOverlay.swift */; };
+		923292167F726A7D980201E0 /* ForecastFreshness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776B23C685E3529B34618858 /* ForecastFreshness.swift */; };
 		9246316C9D9784242512DDAF /* MarineForecastAlertClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535022C48A0218A44830BE0B /* MarineForecastAlertClassifier.swift */; };
+		93EFA5543E2112AC2E07F771 /* OfflinePackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD43E32EA4B73237F40DF93 /* OfflinePackViewModel.swift */; };
+		95479586777969446EA3BE11 /* RouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACE26AA56E983466B9B365B /* RouteViewModel.swift */; };
 		96775D8CD7F6D5451C9A7FBD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D55CF4E7E7A1FCF3EB9F1DB /* ContentView.swift */; };
+		9702F6CB7E95332B3610DADB /* PrecipTimelineInterpolator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCAF409F146F596F3CCC565 /* PrecipTimelineInterpolator.swift */; };
 		9769764047327D30D25D771D /* MarineTextModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B2C5FC6C8C7F0FA52B0166 /* MarineTextModels.swift */; };
+		976BE458076F5685E3891193 /* MapScaleBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6AEA12EAFF9A44475EEA1E /* MapScaleBarView.swift */; };
+		9789A411D626B4A775005B2F /* StoreKitRoutePremiumService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD39549009491DB44A81D3E /* StoreKitRoutePremiumService.swift */; };
+		98D9A73B905AF52946726D39 /* ExtendedWindOutlookPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F620DEA4F0D5339E3942F9D /* ExtendedWindOutlookPane.swift */; };
 		9AAB52D6D4AF89307F22F353 /* MapLibre in Frameworks */ = {isa = PBXBuildFile; productRef = BE596FC17FFA61E17E5C02D8 /* MapLibre */; };
+		9C721EEFBB44949B92A60A06 /* StormTimelineFrames.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E19E2296D1AAFCCD3BB159 /* StormTimelineFrames.swift */; };
 		9C74C2D2A9D0A51C0291E59C /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EA42A2026A17B2CC102731 /* UserPreferences.swift */; };
+		9D3D9D99A833FC755E45D320 /* RadarRegionSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7979B3A027278A391B0BBB0D /* RadarRegionSelector.swift */; };
+		9DD5AACD66A1162549A8C9D1 /* WindForecastTimeSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C69BA732501FD733695169 /* WindForecastTimeSlot.swift */; };
 		9EA40FF8AE47DF9016078688 /* CompareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC8CB2A2DA02D74863D2585 /* CompareViewModel.swift */; };
 		A339AB8329AD69A6B9FA0ED6 /* StormMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFFA499478E0F3B476CDA15 /* StormMapViewModel.swift */; };
 		A7AF83D36240A70059884848 /* WindFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F752A079BC067469CF4192 /* WindFormatting.swift */; };
 		B0AD9D7ED415A42EC05EE14E /* ComparePane.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1DCE037D6D30E36868358E /* ComparePane.swift */; };
 		B2463B030500857893C55649 /* ForecastSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA005EC579AE62A3312E9E2 /* ForecastSampler.swift */; };
+		B7634A81631CCE259B819684 /* OfflineAreaPackDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18436F5D7FD24A1D47643CA /* OfflineAreaPackDownloader.swift */; };
+		B7A00251767EBE61E526D1E8 /* OfflineRoutePackCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7D8E167BEDDEE24A4EEFE4 /* OfflineRoutePackCard.swift */; };
+		B9EF054F87F054F4791565B9 /* TraficomNauticalConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F96BF2D0ABC52259EBA031B /* TraficomNauticalConfig.swift */; };
 		BA7E97099E91D6979AA1C213 /* FmiMultipointParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1941A035355F5A04883F67E5 /* FmiMultipointParser.swift */; };
+		BFF8BC97E969BD8D14E6BC1D /* MapTileWarmup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E1C150C317BC47E3B4744E /* MapTileWarmup.swift */; };
 		C1DB5BF0E64ECFC9F39F5AF1 /* SourceWindForecastCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0457FF755C0ED7F22D299AA /* SourceWindForecastCard.swift */; };
 		C33D08DFC01274E2FE974259 /* SmhiLightningRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140F4B790576055895E1DDC5 /* SmhiLightningRepository.swift */; };
+		C36FFFF414944E096C401746 /* PremiumAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6231C35C38C996F91D50AF /* PremiumAccess.swift */; };
+		C55F073D5D4E6B074D480990 /* FmiPrecipitationMultipointParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8168FCEA8B46C5A8347C4F1A /* FmiPrecipitationMultipointParser.swift */; };
 		C99A1C3B3EFD635B547A1EA9 /* WeatherModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E316359245C4009A58A554 /* WeatherModels.swift */; };
+		CC6D950C411821B436757F1B /* VaylaFairwayRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1230ACB8ED15AB87844DD913 /* VaylaFairwayRouter.swift */; };
 		D539CC28EB89E0D69329229F /* WindDirectionGlyph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF09302EAEA2A0CA8BD39B8 /* WindDirectionGlyph.swift */; };
 		D994368D62D98E4DF3AA0E9C /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7BB2334005CF41F36F4A57 /* MainTab.swift */; };
 		DE520069B66FF8515296F291 /* UiBreakpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689A440E7C7DEA9CD005693C /* UiBreakpoints.swift */; };
 		DFCEF85F227F7D72B2758396 /* NavigationRailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A66F115114929DD16068F29 /* NavigationRailView.swift */; };
+		E1B8381F9CDCE306E9D13864 /* SmhiRadarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD900FE83C9E8B73267CF82 /* SmhiRadarRepository.swift */; };
+		E741E6A860FCA0F6A26CADEC /* MapRouteOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEEC93818B6C06E280243F /* MapRouteOverlay.swift */; };
+		E9D9EC265E7877EED70C0D46 /* RouteWeatherPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632CB34E848147CBEF364B55 /* RouteWeatherPane.swift */; };
 		ED3F63B1A7750DC18D384622 /* MarineTextSummarizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61F0CEAF0896A2477986AC2 /* MarineTextSummarizer.swift */; };
+		F05F999E53290809F5D1F81C /* NetworkConnectivityMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9718AC35A5699236DA54FD /* NetworkConnectivityMonitor.swift */; };
 		F6AAC42DD4F5906BA9B2A623 /* SmhiMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B910C5F55DEA1C7F631C53 /* SmhiMapper.swift */; };
+		F83EBC50AD7DA5796B95F954 /* RouteWindForecastCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7875157800D42284F4FF09C5 /* RouteWindForecastCard.swift */; };
 		FAF40C0E98AF1CD10DD0C5ED /* FmiLightningRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323EFD45811827AA82FD1445 /* FmiLightningRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03AF73E0E1FE3650AED8B693 /* RoutePlanPDFExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePlanPDFExporter.swift; sourceTree = "<group>"; };
+		03C3667C267BC2DD44FB19FB /* OfflineAreaPackStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineAreaPackStore.swift; sourceTree = "<group>"; };
 		04180483C0D62928CAE7E1D0 /* RadarModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarModels.swift; sourceTree = "<group>"; };
+		06304ECF2340B15C409F19AF /* Products.storekit */ = {isa = PBXFileReference; path = Products.storekit; sourceTree = "<group>"; };
 		099A8B48B534412CEDD7C0B0 /* FmiRadarConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiRadarConfig.swift; sourceTree = "<group>"; };
 		0ABDEA752A507BDF08893042 /* MarineWeather.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MarineWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0ACE26AA56E983466B9B365B /* RouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteViewModel.swift; sourceTree = "<group>"; };
+		0C16076E8E8F85958FB22D08 /* WindOutlookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindOutlookCell.swift; sourceTree = "<group>"; };
+		0F7D8E167BEDDEE24A4EEFE4 /* OfflineRoutePackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineRoutePackCard.swift; sourceTree = "<group>"; };
 		0F7EA21D3929C199B4C8766C /* FmiInstantFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiInstantFormat.swift; sourceTree = "<group>"; };
+		11E1C150C317BC47E3B4744E /* MapTileWarmup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTileWarmup.swift; sourceTree = "<group>"; };
+		1230ACB8ED15AB87844DD913 /* VaylaFairwayRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaylaFairwayRouter.swift; sourceTree = "<group>"; };
 		140F4B790576055895E1DDC5 /* SmhiLightningRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmhiLightningRepository.swift; sourceTree = "<group>"; };
 		15AC2975F3929A36F55C177B /* WeatherComparePane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherComparePane.swift; sourceTree = "<group>"; };
 		1941A035355F5A04883F67E5 /* FmiMultipointParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiMultipointParser.swift; sourceTree = "<group>"; };
 		1BF09302EAEA2A0CA8BD39B8 /* WindDirectionGlyph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindDirectionGlyph.swift; sourceTree = "<group>"; };
 		1C773FDDD9426968F8532C84 /* WeatherHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHTTPClient.swift; sourceTree = "<group>"; };
 		1D03966F7C3BB2EE432C2FCC /* CompositeRadarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeRadarRepository.swift; sourceTree = "<group>"; };
+		1F620DEA4F0D5339E3942F9D /* ExtendedWindOutlookPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedWindOutlookPane.swift; sourceTree = "<group>"; };
 		211F5EC374C9B95EAECF4A69 /* SmhiDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmhiDTO.swift; sourceTree = "<group>"; };
 		285A0EF792EE5E08331884F1 /* StormRadarPrefetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormRadarPrefetcher.swift; sourceTree = "<group>"; };
+		2F96BF2D0ABC52259EBA031B /* TraficomNauticalConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraficomNauticalConfig.swift; sourceTree = "<group>"; };
 		31B2C5FC6C8C7F0FA52B0166 /* MarineTextModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineTextModels.swift; sourceTree = "<group>"; };
 		323EFD45811827AA82FD1445 /* FmiLightningRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiLightningRepository.swift; sourceTree = "<group>"; };
 		3292761EC20412AE906E2661 /* LightningModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightningModels.swift; sourceTree = "<group>"; };
-		394AE275742B5F86960F7E83 /* PlaceholderPanes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderPanes.swift; sourceTree = "<group>"; };
 		3A3EACBF266E1DB1F0A87E09 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		3CAB4FD5FA045748016FAF6F /* FmiHarmonieGribParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiHarmonieGribParser.swift; sourceTree = "<group>"; };
 		43F52770CC805647CB32276D /* StormRadarPrefetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormRadarPrefetch.swift; sourceTree = "<group>"; };
 		495345405508967E6558ED0D /* AttributionDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributionDialogView.swift; sourceTree = "<group>"; };
 		4BA4CC3D473F9431D09906A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -96,43 +150,81 @@
 		5A6B8D755EFA6840649E0E38 /* MarineTextRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineTextRepository.swift; sourceTree = "<group>"; };
 		5D039C69463E409799EBF7D3 /* MarineTextOverviewPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineTextOverviewPane.swift; sourceTree = "<group>"; };
 		5D55CF4E7E7A1FCF3EB9F1DB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5D9AE5F17FC5D2C786A88850 /* MetNorwayRadarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetNorwayRadarRepository.swift; sourceTree = "<group>"; };
 		5E0CDBF7C0D51337B007DFF4 /* MetMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetMapper.swift; sourceTree = "<group>"; };
 		5EA005EC579AE62A3312E9E2 /* ForecastSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastSampler.swift; sourceTree = "<group>"; };
+		62B01EBAFE73090D208D5F80 /* FmiForecastRadarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiForecastRadarRepository.swift; sourceTree = "<group>"; };
+		632CB34E848147CBEF364B55 /* RouteWeatherPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWeatherPane.swift; sourceTree = "<group>"; };
 		67B910C5F55DEA1C7F631C53 /* SmhiMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmhiMapper.swift; sourceTree = "<group>"; };
 		689A440E7C7DEA9CD005693C /* UiBreakpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiBreakpoints.swift; sourceTree = "<group>"; };
 		6A66F115114929DD16068F29 /* NavigationRailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRailView.swift; sourceTree = "<group>"; };
+		6BC684F472F5D1DFA9FFB630 /* RouteModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteModels.swift; sourceTree = "<group>"; };
 		6C3FC2A5F030BCF2CD2ACAE2 /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
+		6C6231C35C38C996F91D50AF /* PremiumAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumAccess.swift; sourceTree = "<group>"; };
+		6CD43E32EA4B73237F40DF93 /* OfflinePackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflinePackViewModel.swift; sourceTree = "<group>"; };
 		6EB278CAEB0BBC4CD85E76FE /* Info-additions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-additions.plist"; sourceTree = "<group>"; };
 		6FFFA499478E0F3B476CDA15 /* StormMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormMapViewModel.swift; sourceTree = "<group>"; };
 		73F752A079BC067469CF4192 /* WindFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindFormatting.swift; sourceTree = "<group>"; };
 		7597542B2625D930A60E100E /* MapForecastPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapForecastPin.swift; sourceTree = "<group>"; };
+		75F784FA70433B32E68D4B72 /* GeoMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoMath.swift; sourceTree = "<group>"; };
+		776B23C685E3529B34618858 /* ForecastFreshness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastFreshness.swift; sourceTree = "<group>"; };
 		77EA42A2026A17B2CC102731 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		7875157800D42284F4FF09C5 /* RouteWindForecastCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWindForecastCard.swift; sourceTree = "<group>"; };
+		7979B3A027278A391B0BBB0D /* RadarRegionSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarRegionSelector.swift; sourceTree = "<group>"; };
 		79E316359245C4009A58A554 /* WeatherModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModels.swift; sourceTree = "<group>"; };
+		7AD900FE83C9E8B73267CF82 /* SmhiRadarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmhiRadarRepository.swift; sourceTree = "<group>"; };
 		7DDD35CDC536244D88B9E026 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7E9718AC35A5699236DA54FD /* NetworkConnectivityMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConnectivityMonitor.swift; sourceTree = "<group>"; };
+		7F3E59D10BC348C71BAD9B37 /* FmiRadarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiRadarRepository.swift; sourceTree = "<group>"; };
 		80258B2E628C3A99B9785663 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		809FF71F2BB1619E07EA029A /* MarineTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineTextViewModel.swift; sourceTree = "<group>"; };
+		8168FCEA8B46C5A8347C4F1A /* FmiPrecipitationMultipointParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiPrecipitationMultipointParser.swift; sourceTree = "<group>"; };
 		8198468C520A7393C6582D70 /* StormRadarTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormRadarTimeline.swift; sourceTree = "<group>"; };
+		8CFAE471E37D45C96508150B /* RadarHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarHTTPClient.swift; sourceTree = "<group>"; };
 		96281CDF70D683A8FE75AF71 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		977F1F129DB45874408FF4A5 /* SmhiLightningParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmhiLightningParser.swift; sourceTree = "<group>"; };
+		97BE28A403308F6A8FE59544 /* NavigationDisclaimerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDisclaimerAlert.swift; sourceTree = "<group>"; };
+		9D2089E9950D25F6E6299B2E /* WeatherLoadReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLoadReport.swift; sourceTree = "<group>"; };
+		A0D15A3BC820BA6291CA6EAA /* OfflineStatusBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineStatusBanner.swift; sourceTree = "<group>"; };
+		A167A0EC5A3110308415A28F /* MapHTTPConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapHTTPConfiguration.swift; sourceTree = "<group>"; };
 		A7AE7FC0AEF6A79B91ED7CB0 /* MarineWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineWeatherApp.swift; sourceTree = "<group>"; };
 		A9757C66184BEA89BAC25799 /* MapTraficomOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTraficomOverlay.swift; sourceTree = "<group>"; };
 		B1ACD005C74D1772EEF5D6FB /* ForecastCacheStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCacheStore.swift; sourceTree = "<group>"; };
+		B1C69BA732501FD733695169 /* WindForecastTimeSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindForecastTimeSlot.swift; sourceTree = "<group>"; };
+		B72003FB7032B9DF1836ACFC /* SplashBrandedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashBrandedView.swift; sourceTree = "<group>"; };
+		BAD39549009491DB44A81D3E /* StoreKitRoutePremiumService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitRoutePremiumService.swift; sourceTree = "<group>"; };
 		BC1DCE037D6D30E36868358E /* ComparePane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparePane.swift; sourceTree = "<group>"; };
+		BDCAF409F146F596F3CCC565 /* PrecipTimelineInterpolator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecipTimelineInterpolator.swift; sourceTree = "<group>"; };
+		BE0F293D56B281CFF49B5360 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BFDBC6072791F5C533A42B3D /* MetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetDTO.swift; sourceTree = "<group>"; };
+		C42A2E9516702DC1357FBCE5 /* MapOverlayChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapOverlayChrome.swift; sourceTree = "<group>"; };
 		C61F0CEAF0896A2477986AC2 /* MarineTextSummarizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineTextSummarizer.swift; sourceTree = "<group>"; };
 		C837E7A430724790B35EBAC1 /* StormRadarPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormRadarPane.swift; sourceTree = "<group>"; };
+		C8E19E2296D1AAFCCD3BB159 /* StormTimelineFrames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormTimelineFrames.swift; sourceTree = "<group>"; };
+		CEBEEC93818B6C06E280243F /* MapRouteOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouteOverlay.swift; sourceTree = "<group>"; };
 		CEC8CB2A2DA02D74863D2585 /* CompareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareViewModel.swift; sourceTree = "<group>"; };
 		CFB51D514289AC492949D04B /* FmiLightningParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiLightningParser.swift; sourceTree = "<group>"; };
 		CFD4E0F901272923E0557C0E /* FmiRadarTimeSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiRadarTimeSeries.swift; sourceTree = "<group>"; };
 		D0457FF755C0ED7F22D299AA /* SourceWindForecastCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceWindForecastCard.swift; sourceTree = "<group>"; };
+		D18436F5D7FD24A1D47643CA /* OfflineAreaPackDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineAreaPackDownloader.swift; sourceTree = "<group>"; };
+		D25BA7842EE9C6A0592AFF45 /* RouteGpx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteGpx.swift; sourceTree = "<group>"; };
+		D298975594413AE82A7498C8 /* MLNMapView+Configured.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MLNMapView+Configured.swift"; sourceTree = "<group>"; };
 		D5A26BD0DFF2FEC943090CA3 /* WeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
+		D6A5D0125EF200D69E4F8FB6 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D795AC24A82401C44BF3CB46 /* RoutePremiumPaywall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePremiumPaywall.swift; sourceTree = "<group>"; };
+		DBD76AEAD61FD71B3D85115C /* RoutePane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePane.swift; sourceTree = "<group>"; };
 		E18FB2DBFB66781939E7DCC6 /* WeatherHTTPClient+Body.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherHTTPClient+Body.swift"; sourceTree = "<group>"; };
+		E4C4851EBA1E9897586F39CD /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E604AFD49F9AC9FF397B1525 /* RadarFrameMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarFrameMapping.swift; sourceTree = "<group>"; };
+		E66DCC2C08DE1C9916AD8189 /* FmiPrecipitationModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiPrecipitationModels.swift; sourceTree = "<group>"; };
+		E8442FAF8F5F1DCA2123CCC9 /* RouteTrialPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTrialPreferences.swift; sourceTree = "<group>"; };
 		EC7BB2334005CF41F36F4A57 /* MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
 		F08688D0D206A6058602DD58 /* ISO8601Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISO8601Parser.swift; sourceTree = "<group>"; };
 		F0881C44D3F7457BF53C3E04 /* ForecastCacheEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCacheEntity.swift; sourceTree = "<group>"; };
 		F269D4D60BF53310C5FF0FE4 /* MapStormOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStormOverlay.swift; sourceTree = "<group>"; };
 		F5904D5B60E4E225EDB0E03D /* CompositeLightningRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeLightningRepository.swift; sourceTree = "<group>"; };
+		FF6AEA12EAFF9A44475EEA1E /* MapScaleBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScaleBarView.swift; sourceTree = "<group>"; };
+		FFFF85A87F9A50FD588806FB /* PrecipRateRaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecipRateRaster.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,13 +265,16 @@
 			children = (
 				F08688D0D206A6058602DD58 /* ISO8601Parser.swift */,
 				77EA42A2026A17B2CC102731 /* UserPreferences.swift */,
+				9D2089E9950D25F6E6299B2E /* WeatherLoadReport.swift */,
 				D5A26BD0DFF2FEC943090CA3 /* WeatherRepository.swift */,
 				1109A7B81C43325160E5FC3C /* Cache */,
 				2FC4EC1C6CF6008BE07236DA /* Fmi */,
 				146D5DB656257551CDDC8221 /* Lightning */,
 				6DC43025296A3CAA82FEA730 /* Marine */,
 				4DE3FC226EFA13902CDE03A2 /* Met */,
+				B819E678F8E012E3FF257AFF /* Offline */,
 				A2AB4213E8205203EA6A057C /* Radar */,
+				6F454C0273048756B3642D03 /* Routing */,
 				99BA83F38FE5705E7D778DEA /* Smhi */,
 			);
 			path = Data;
@@ -188,6 +283,7 @@
 		1D1F4CBEECB4501669DCBC4E /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				A167A0EC5A3110308415A28F /* MapHTTPConfiguration.swift */,
 				1C773FDDD9426968F8532C84 /* WeatherHTTPClient.swift */,
 				E18FB2DBFB66781939E7DCC6 /* WeatherHTTPClient+Body.swift */,
 			);
@@ -198,8 +294,19 @@
 			isa = PBXGroup;
 			children = (
 				1941A035355F5A04883F67E5 /* FmiMultipointParser.swift */,
+				E66DCC2C08DE1C9916AD8189 /* FmiPrecipitationModels.swift */,
+				8168FCEA8B46C5A8347C4F1A /* FmiPrecipitationMultipointParser.swift */,
 			);
 			path = Fmi;
+			sourceTree = "<group>";
+		};
+		3922045D8B5E7E5FBC9CF91B /* Export */ = {
+			isa = PBXGroup;
+			children = (
+				D25BA7842EE9C6A0592AFF45 /* RouteGpx.swift */,
+				03AF73E0E1FE3650AED8B693 /* RoutePlanPDFExporter.swift */,
+			);
+			path = Export;
 			sourceTree = "<group>";
 		};
 		4DE3FC226EFA13902CDE03A2 /* Met */ = {
@@ -227,9 +334,11 @@
 				A7AE7FC0AEF6A79B91ED7CB0 /* MarineWeatherApp.swift */,
 				189EEFDC350BDE435E8BA6CA /* Data */,
 				E027002401B5271201CBBA86 /* Domain */,
+				3922045D8B5E7E5FBC9CF91B /* Export */,
 				D5A012141BF3A377BA279FA0 /* Location */,
 				93305DBAA1A2044F68A8B87E /* Map */,
 				1D1F4CBEECB4501669DCBC4E /* Networking */,
+				766380621CFA9E3B663121A8 /* Services */,
 				B5A3AF731F240FDDB7E3B7B4 /* UI */,
 				B26D421AAB1BD0E7FF2946D8 /* ViewModels */,
 			);
@@ -264,6 +373,14 @@
 			path = Marine;
 			sourceTree = "<group>";
 		};
+		6F454C0273048756B3642D03 /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				1230ACB8ED15AB87844DD913 /* VaylaFairwayRouter.swift */,
+			);
+			path = Routing;
+			sourceTree = "<group>";
+		};
 		72FAFD9515F6EC8D60153878 /* Radar */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +399,17 @@
 			path = Lightning;
 			sourceTree = "<group>";
 		};
+		766380621CFA9E3B663121A8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7E9718AC35A5699236DA54FD /* NetworkConnectivityMonitor.swift */,
+				6C6231C35C38C996F91D50AF /* PremiumAccess.swift */,
+				E8442FAF8F5F1DCA2123CCC9 /* RouteTrialPreferences.swift */,
+				BAD39549009491DB44A81D3E /* StoreKitRoutePremiumService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		80B558923BFF2196D4CF4F69 = {
 			isa = PBXGroup;
 			children = (
@@ -290,14 +418,27 @@
 			);
 			sourceTree = "<group>";
 		};
+		92F3EF6375998B6E7BA6D48E /* ExtendedWind */ = {
+			isa = PBXGroup;
+			children = (
+				1F620DEA4F0D5339E3942F9D /* ExtendedWindOutlookPane.swift */,
+				0C16076E8E8F85958FB22D08 /* WindOutlookCell.swift */,
+			);
+			path = ExtendedWind;
+			sourceTree = "<group>";
+		};
 		93305DBAA1A2044F68A8B87E /* Map */ = {
 			isa = PBXGroup;
 			children = (
 				7597542B2625D930A60E100E /* MapForecastPin.swift */,
+				CEBEEC93818B6C06E280243F /* MapRouteOverlay.swift */,
 				6C3FC2A5F030BCF2CD2ACAE2 /* MapScreen.swift */,
 				F269D4D60BF53310C5FF0FE4 /* MapStormOverlay.swift */,
+				11E1C150C317BC47E3B4744E /* MapTileWarmup.swift */,
 				A9757C66184BEA89BAC25799 /* MapTraficomOverlay.swift */,
+				D298975594413AE82A7498C8 /* MLNMapView+Configured.swift */,
 				55D54421B635F517ED15F54A /* StormMapScreen.swift */,
+				2F96BF2D0ABC52259EBA031B /* TraficomNauticalConfig.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -323,11 +464,21 @@
 			isa = PBXGroup;
 			children = (
 				1D03966F7C3BB2EE432C2FCC /* CompositeRadarRepository.swift */,
+				62B01EBAFE73090D208D5F80 /* FmiForecastRadarRepository.swift */,
+				3CAB4FD5FA045748016FAF6F /* FmiHarmonieGribParser.swift */,
 				0F7EA21D3929C199B4C8766C /* FmiInstantFormat.swift */,
 				099A8B48B534412CEDD7C0B0 /* FmiRadarConfig.swift */,
+				7F3E59D10BC348C71BAD9B37 /* FmiRadarRepository.swift */,
 				CFD4E0F901272923E0557C0E /* FmiRadarTimeSeries.swift */,
+				5D9AE5F17FC5D2C786A88850 /* MetNorwayRadarRepository.swift */,
+				FFFF85A87F9A50FD588806FB /* PrecipRateRaster.swift */,
+				BDCAF409F146F596F3CCC565 /* PrecipTimelineInterpolator.swift */,
+				8CFAE471E37D45C96508150B /* RadarHTTPClient.swift */,
+				7979B3A027278A391B0BBB0D /* RadarRegionSelector.swift */,
+				7AD900FE83C9E8B73267CF82 /* SmhiRadarRepository.swift */,
 				43F52770CC805647CB32276D /* StormRadarPrefetch.swift */,
 				285A0EF792EE5E08331884F1 /* StormRadarPrefetcher.swift */,
+				C8E19E2296D1AAFCCD3BB159 /* StormTimelineFrames.swift */,
 			);
 			path = Radar;
 			sourceTree = "<group>";
@@ -337,6 +488,8 @@
 			children = (
 				CEC8CB2A2DA02D74863D2585 /* CompareViewModel.swift */,
 				809FF71F2BB1619E07EA029A /* MarineTextViewModel.swift */,
+				6CD43E32EA4B73237F40DF93 /* OfflinePackViewModel.swift */,
+				0ACE26AA56E983466B9B365B /* RouteViewModel.swift */,
 				6FFFA499478E0F3B476CDA15 /* StormMapViewModel.swift */,
 			);
 			path = ViewModels;
@@ -350,13 +503,47 @@
 				EC7BB2334005CF41F36F4A57 /* MainTab.swift */,
 				80258B2E628C3A99B9785663 /* MainTabView.swift */,
 				6A66F115114929DD16068F29 /* NavigationRailView.swift */,
-				394AE275742B5F86960F7E83 /* PlaceholderPanes.swift */,
+				A0D15A3BC820BA6291CA6EAA /* OfflineStatusBanner.swift */,
+				B72003FB7032B9DF1836ACFC /* SplashBrandedView.swift */,
 				689A440E7C7DEA9CD005693C /* UiBreakpoints.swift */,
+				92F3EF6375998B6E7BA6D48E /* ExtendedWind */,
+				F2E41BACB181CE2E7D3DCDB6 /* Map */,
 				59892C894A7FD5B7DFEDE16A /* Marine */,
+				C7F21A5137064D9FDB966A94 /* Route */,
 				9E521A2411F3D997E6C418E0 /* Storm */,
 				E29F72039941955A23F73B43 /* Weather */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		B819E678F8E012E3FF257AFF /* Offline */ = {
+			isa = PBXGroup;
+			children = (
+				D18436F5D7FD24A1D47643CA /* OfflineAreaPackDownloader.swift */,
+				03C3667C267BC2DD44FB19FB /* OfflineAreaPackStore.swift */,
+			);
+			path = Offline;
+			sourceTree = "<group>";
+		};
+		C1BAED2F59BF8AD767DF5835 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				06304ECF2340B15C409F19AF /* Products.storekit */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		C7F21A5137064D9FDB966A94 /* Route */ = {
+			isa = PBXGroup;
+			children = (
+				97BE28A403308F6A8FE59544 /* NavigationDisclaimerAlert.swift */,
+				0F7D8E167BEDDEE24A4EEFE4 /* OfflineRoutePackCard.swift */,
+				DBD76AEAD61FD71B3D85115C /* RoutePane.swift */,
+				D795AC24A82401C44BF3CB46 /* RoutePremiumPaywall.swift */,
+				632CB34E848147CBEF364B55 /* RouteWeatherPane.swift */,
+				7875157800D42284F4FF09C5 /* RouteWindForecastCard.swift */,
+			);
+			path = Route;
 			sourceTree = "<group>";
 		};
 		D5A012141BF3A377BA279FA0 /* Location */ = {
@@ -371,6 +558,7 @@
 			isa = PBXGroup;
 			children = (
 				4BA4CC3D473F9431D09906A7 /* Assets.xcassets */,
+				C1BAED2F59BF8AD767DF5835 /* Configuration */,
 				6B09FF6147F1D7AB73C04954 /* Resources */,
 				61CA3E920932B603CA13B8F9 /* Sources */,
 			);
@@ -380,7 +568,10 @@
 		E027002401B5271201CBBA86 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				776B23C685E3529B34618858 /* ForecastFreshness.swift */,
 				5EA005EC579AE62A3312E9E2 /* ForecastSampler.swift */,
+				75F784FA70433B32E68D4B72 /* GeoMath.swift */,
+				6BC684F472F5D1DFA9FFB630 /* RouteModels.swift */,
 				79E316359245C4009A58A554 /* WeatherModels.swift */,
 				73F752A079BC067469CF4192 /* WindFormatting.swift */,
 				75170D89759031AF86D41588 /* Lightning */,
@@ -395,8 +586,18 @@
 				D0457FF755C0ED7F22D299AA /* SourceWindForecastCard.swift */,
 				15AC2975F3929A36F55C177B /* WeatherComparePane.swift */,
 				1BF09302EAEA2A0CA8BD39B8 /* WindDirectionGlyph.swift */,
+				B1C69BA732501FD733695169 /* WindForecastTimeSlot.swift */,
 			);
 			path = Weather;
+			sourceTree = "<group>";
+		};
+		F2E41BACB181CE2E7D3DCDB6 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				C42A2E9516702DC1357FBCE5 /* MapOverlayChrome.swift */,
+				FF6AEA12EAFF9A44475EEA1E /* MapScaleBarView.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -439,6 +640,9 @@
 			knownRegions = (
 				Base,
 				en,
+				fi,
+				nb,
+				sv,
 			);
 			mainGroup = 80B558923BFF2196D4CF4F69;
 			minimizedProjectReferenceProxies = 1;
@@ -479,23 +683,37 @@
 				3260FB110A4F84CB0AE9EAFF /* CompositeLightningRepository.swift in Sources */,
 				136184B9D280F2F206821B37 /* CompositeRadarRepository.swift in Sources */,
 				96775D8CD7F6D5451C9A7FBD /* ContentView.swift in Sources */,
+				98D9A73B905AF52946726D39 /* ExtendedWindOutlookPane.swift in Sources */,
+				13FE8C884C5E0929BE70BCCF /* FmiForecastRadarRepository.swift in Sources */,
+				683D981A8E13B4832B6357DD /* FmiHarmonieGribParser.swift in Sources */,
 				7351EDB9CEE4DC293CFF12B7 /* FmiInstantFormat.swift in Sources */,
 				31D30E9780C230620727AC60 /* FmiLightningParser.swift in Sources */,
 				FAF40C0E98AF1CD10DD0C5ED /* FmiLightningRepository.swift in Sources */,
 				BA7E97099E91D6979AA1C213 /* FmiMultipointParser.swift in Sources */,
+				0CACD80ED3F11AE17DAA2485 /* FmiPrecipitationModels.swift in Sources */,
+				C55F073D5D4E6B074D480990 /* FmiPrecipitationMultipointParser.swift in Sources */,
 				20627E22EF4935CDE6AA68D5 /* FmiRadarConfig.swift in Sources */,
+				2EC3EC59CB93966674AFFE4D /* FmiRadarRepository.swift in Sources */,
 				372E2395C7B95960BEC533C4 /* FmiRadarTimeSeries.swift in Sources */,
 				246B088A249F1C1CB446584F /* ForecastCacheEntity.swift in Sources */,
 				6DA3BA0E427DA4B825C7374D /* ForecastCacheStore.swift in Sources */,
+				923292167F726A7D980201E0 /* ForecastFreshness.swift in Sources */,
 				B2463B030500857893C55649 /* ForecastSampler.swift in Sources */,
+				206809B410A870ACA3C5D2AA /* GeoMath.swift in Sources */,
 				4ABA35967E2585B54C62DD9F /* ISO8601Parser.swift in Sources */,
 				18D0A58210E00AC52160BE65 /* LightningModels.swift in Sources */,
 				42132D3B8B4FEBA5B9FD7550 /* LocationManager.swift in Sources */,
+				28AC8FFCA3920833FF80427E /* MLNMapView+Configured.swift in Sources */,
 				D994368D62D98E4DF3AA0E9C /* MainTab.swift in Sources */,
 				45966CD370D319D5FDAAC117 /* MainTabView.swift in Sources */,
 				2A433D22ABD1044D3D6850B2 /* MapForecastPin.swift in Sources */,
+				55979CE5D686E07D73450300 /* MapHTTPConfiguration.swift in Sources */,
+				5A435367763D5DE785198D18 /* MapOverlayChrome.swift in Sources */,
+				E741E6A860FCA0F6A26CADEC /* MapRouteOverlay.swift in Sources */,
+				976BE458076F5685E3891193 /* MapScaleBarView.swift in Sources */,
 				191BB1BC8FDD3E0DCBB137EA /* MapScreen.swift in Sources */,
 				91B678DB779182FD5473CC4A /* MapStormOverlay.swift in Sources */,
+				BFF8BC97E969BD8D14E6BC1D /* MapTileWarmup.swift in Sources */,
 				0A679C80103FD6D8F85FD5C1 /* MapTraficomOverlay.swift in Sources */,
 				9246316C9D9784242512DDAF /* MarineForecastAlertClassifier.swift in Sources */,
 				9769764047327D30D25D771D /* MarineTextModels.swift in Sources */,
@@ -506,30 +724,60 @@
 				9066B90D86D641B903850A0A /* MarineWeatherApp.swift in Sources */,
 				5677CA907ED2F96C72AB0E86 /* MetDTO.swift in Sources */,
 				1F342269D57DF94B2AD5D2CA /* MetMapper.swift in Sources */,
+				4D11FE9F45A79A41D0CAE4B4 /* MetNorwayRadarRepository.swift in Sources */,
+				24A59166D39C2523BE7ABD6E /* NavigationDisclaimerAlert.swift in Sources */,
 				DFCEF85F227F7D72B2758396 /* NavigationRailView.swift in Sources */,
-				49D160104F84A0D3ACCDD45A /* PlaceholderPanes.swift in Sources */,
+				F05F999E53290809F5D1F81C /* NetworkConnectivityMonitor.swift in Sources */,
+				B7634A81631CCE259B819684 /* OfflineAreaPackDownloader.swift in Sources */,
+				49550244888C02F5100E4F61 /* OfflineAreaPackStore.swift in Sources */,
+				93EFA5543E2112AC2E07F771 /* OfflinePackViewModel.swift in Sources */,
+				B7A00251767EBE61E526D1E8 /* OfflineRoutePackCard.swift in Sources */,
+				0506687F783D033F2A177FEC /* OfflineStatusBanner.swift in Sources */,
+				7F767A65E900F83CA74208CB /* PrecipRateRaster.swift in Sources */,
+				9702F6CB7E95332B3610DADB /* PrecipTimelineInterpolator.swift in Sources */,
+				C36FFFF414944E096C401746 /* PremiumAccess.swift in Sources */,
 				3FD974AAD4F7A900C3CC6232 /* RadarFrameMapping.swift in Sources */,
+				9071E117D1499C5A0D8C7921 /* RadarHTTPClient.swift in Sources */,
 				1575F461549837AE7F798011 /* RadarModels.swift in Sources */,
+				9D3D9D99A833FC755E45D320 /* RadarRegionSelector.swift in Sources */,
+				5C5A1621B36F60667530163C /* RouteGpx.swift in Sources */,
+				7A0CB557CA7781CF382F5BC9 /* RouteModels.swift in Sources */,
+				47F384DCF06CD0989DD51E9F /* RoutePane.swift in Sources */,
+				740DBC14191D453A8629CF6E /* RoutePlanPDFExporter.swift in Sources */,
+				65240DD8916FB9E74007E316 /* RoutePremiumPaywall.swift in Sources */,
+				8011E7577CAB8B3ECA69E050 /* RouteTrialPreferences.swift in Sources */,
+				95479586777969446EA3BE11 /* RouteViewModel.swift in Sources */,
+				E9D9EC265E7877EED70C0D46 /* RouteWeatherPane.swift in Sources */,
+				F83EBC50AD7DA5796B95F954 /* RouteWindForecastCard.swift in Sources */,
 				47945BA39A310B37EF3A89F5 /* SmhiDTO.swift in Sources */,
 				0BC214BDE3E6A957C7C49EF6 /* SmhiLightningParser.swift in Sources */,
 				C33D08DFC01274E2FE974259 /* SmhiLightningRepository.swift in Sources */,
 				F6AAC42DD4F5906BA9B2A623 /* SmhiMapper.swift in Sources */,
+				E1B8381F9CDCE306E9D13864 /* SmhiRadarRepository.swift in Sources */,
 				C1DB5BF0E64ECFC9F39F5AF1 /* SourceWindForecastCard.swift in Sources */,
+				193DED722135BF8A2E9DBE29 /* SplashBrandedView.swift in Sources */,
+				9789A411D626B4A775005B2F /* StoreKitRoutePremiumService.swift in Sources */,
 				24EDFA99082F9AF24A902536 /* StormMapScreen.swift in Sources */,
 				A339AB8329AD69A6B9FA0ED6 /* StormMapViewModel.swift in Sources */,
 				29C37FFBF26F3C38BA7142D7 /* StormRadarPane.swift in Sources */,
 				7232717242E0458B39C363EE /* StormRadarPrefetch.swift in Sources */,
 				3D4F0ABE17B236537A66DCE5 /* StormRadarPrefetcher.swift in Sources */,
 				3C62AB7C583F6B491BEE342F /* StormRadarTimeline.swift in Sources */,
+				9C721EEFBB44949B92A60A06 /* StormTimelineFrames.swift in Sources */,
+				B9EF054F87F054F4791565B9 /* TraficomNauticalConfig.swift in Sources */,
 				DE520069B66FF8515296F291 /* UiBreakpoints.swift in Sources */,
 				9C74C2D2A9D0A51C0291E59C /* UserPreferences.swift in Sources */,
+				CC6D950C411821B436757F1B /* VaylaFairwayRouter.swift in Sources */,
 				110E37C988D2CB57D07F4A69 /* WeatherComparePane.swift in Sources */,
 				8B7E5E0A005C6070260ECEF2 /* WeatherHTTPClient+Body.swift in Sources */,
 				595A46EE973A333A8B5666C8 /* WeatherHTTPClient.swift in Sources */,
+				0246073CF4FCEA3DAF7A050E /* WeatherLoadReport.swift in Sources */,
 				C99A1C3B3EFD635B547A1EA9 /* WeatherModels.swift in Sources */,
 				0841765ED5E6612493F596BF /* WeatherRepository.swift in Sources */,
 				D539CC28EB89E0D69329229F /* WindDirectionGlyph.swift in Sources */,
+				9DD5AACD66A1162549A8C9D1 /* WindForecastTimeSlot.swift in Sources */,
 				A7AF83D36240A70059884848 /* WindFormatting.swift in Sources */,
+				13DE1D98656F6ADDEFC006D3 /* WindOutlookCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,6 +788,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				7DDD35CDC536244D88B9E026 /* en */,
+				E4C4851EBA1E9897586F39CD /* fi */,
+				BE0F293D56B281CFF49B5360 /* nb */,
+				D6A5D0125EF200D69E4F8FB6 /* sv */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -592,8 +843,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -611,17 +861,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 35;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MarineWeather/Resources/Info-additions.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Marine Weather";
+				INFOPLIST_KEY_CFBundleLocalizations = "en fi sv nb";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Show marine weather for your current map location.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.3.5;
 				PRODUCT_BUNDLE_IDENTIFIER = fi.veneappi.MarineWeather;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -633,17 +884,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 35;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MarineWeather/Resources/Info-additions.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Marine Weather";
+				INFOPLIST_KEY_CFBundleLocalizations = "en fi sv nb";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Show marine weather for your current map location.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.3.5;
 				PRODUCT_BUNDLE_IDENTIFIER = fi.veneappi.MarineWeather;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -701,8 +953,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;

@@ -13,8 +13,7 @@ settings:
   base:
     SWIFT_VERSION: "5.9"
     TARGETED_DEVICE_FAMILY: "2" # iPad
-    INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
-    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
 targets:
   MarineWeather:
     type: application
@@ -23,17 +22,29 @@ targets:
       - path: MarineWeather/Sources
       - path: MarineWeather/Resources
       - path: MarineWeather/Assets.xcassets
+      - path: MarineWeather/Configuration
+        buildPhase: none
     dependencies:
       - package: MapLibreNative
         product: MapLibre
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: fi.veneappi.MarineWeather
-        MARKETING_VERSION: "0.3.0"
-        CURRENT_PROJECT_VERSION: "3"
+        MARKETING_VERSION: "0.3.5"
+        CURRENT_PROJECT_VERSION: "35"
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Marine Weather
+        INFOPLIST_KEY_CFBundleLocalizations: en fi sv nb
         INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.weather"
         INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: "Show marine weather for your current map location."
     info:
       path: MarineWeather/Resources/Info-additions.plist
+
+schemes:
+  MarineWeather:
+    build:
+      targets:
+        MarineWeather: all
+    run:
+      config: Debug
+      storeKitConfiguration: MarineWeather/Configuration/Products.storekit

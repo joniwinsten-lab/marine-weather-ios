@@ -5,7 +5,10 @@ import Observation
 struct StormMapUiState: Equatable {
     var radarEnabled = true
     var lightningEnabled = true
-    var radarOverlay: ActiveRadarOverlay?
+    /// WMS overlay shown on the map for the selected timeline frame.
+    var mapRadarOverlay: ActiveRadarOverlay?
+    /// Selected timeline frame for HUD labels and lightning filtering.
+    var selectedFrameLabel: String?
     var radarAnimationFrames: [RadarAnimationFrame] = []
     var radarAnimationPlaying = false
     var radarAnimationIndex = StormRadarTimeline.nowFrameIndex
@@ -30,8 +33,6 @@ final class StormMapViewModel {
     private var lastLon: Double?
 
     private static let animationFrameMs: UInt64 = 1_200
-    private static let radarRefreshMs: UInt64 = 5 * 60 * 1000
-    private static let lightningPollMs: UInt64 = 60 * 1000
 
     func setRadarEnabled(_ enabled: Bool) {
         ui.radarEnabled = enabled
@@ -39,7 +40,8 @@ final class StormMapViewModel {
             refreshRadar(lat: lastLat, lon: lastLon)
         } else {
             stopAnimation()
-            ui.radarOverlay = nil
+            ui.mapRadarOverlay = nil
+            ui.selectedFrameLabel = nil
             ui.radarAnimationFrames = []
             ui.visibleLightningStrikes = []
         }
@@ -74,18 +76,40 @@ final class StormMapViewModel {
                     startAnimation()
                 }
                 if !cached.isExpired() {
-                    return
+                    let needsLightning =
+                        ui.lightningEnabled &&
+                        cached.lightningStrikes.isEmpty &&
+                        cached.lightningError == nil
+                    if !needsLightning {
+                        return
+                    }
                 }
             } else {
                 ui.loadingRadar = true
                 if ui.lightningEnabled { ui.loadingLightning = true }
             }
 
-            let bundle = await prefetcher.fetchAndCache(lat: lat, lon: lon)
-            applyPrefetch(bundle, hadTimeline: hadTimeline, previousIndex: previousIndex)
-            if wasPlaying, bundle.frames.count >= 2 {
+            let radarBundle = await prefetcher.fetchRadarAndCache(lat: lat, lon: lon)
+            applyPrefetch(radarBundle, hadTimeline: hadTimeline, previousIndex: previousIndex)
+            ui.loadingRadar = false
+            if wasPlaying, radarBundle.frames.count >= 2 {
                 startAnimation()
             }
+
+            guard ui.lightningEnabled else {
+                ui.loadingLightning = false
+                return
+            }
+            if !radarBundle.lightningStrikes.isEmpty || radarBundle.lightningError != nil {
+                ui.loadingLightning = false
+                return
+            }
+
+            ui.loadingLightning = true
+            if let updated = await prefetcher.fetchLightningAndUpdateCache() {
+                applyLightningUpdate(updated)
+            }
+            ui.loadingLightning = false
         }
     }
 
@@ -124,13 +148,13 @@ final class StormMapViewModel {
         stopAnimation()
         let newIndex = (ui.radarAnimationIndex + delta)
             .clamped(to: 0 ... ui.radarAnimationFrames.count - 1)
-        applyFrameIndex(newIndex)
+        selectTimelineFrame(newIndex)
     }
 
     func setRadarFrameIndex(_ index: Int) {
         guard !ui.radarAnimationFrames.isEmpty else { return }
         stopAnimation()
-        applyFrameIndex(index)
+        selectTimelineFrame(index)
     }
 
     private func applyPrefetch(
@@ -147,7 +171,8 @@ final class StormMapViewModel {
         ui.lightningError = bundle.lightningError
 
         if bundle.frames.isEmpty {
-            ui.radarOverlay = bundle.latestOverlay
+            ui.mapRadarOverlay = bundle.latestOverlay
+            ui.selectedFrameLabel = bundle.latestOverlay?.timeLabel
             ui.radarAnimationIndex = 0
             ui.visibleLightningStrikes = ui.lightningEnabled ? bundle.lightningStrikes : []
         } else {
@@ -156,7 +181,7 @@ final class StormMapViewModel {
                 hadTimeline && bundle.frames.indices.contains(previousIndex)
                 ? previousIndex
                 : nowIdx
-            applyFrameIndex(startIdx)
+            selectTimelineFrame(startIdx)
         }
     }
 
@@ -168,7 +193,7 @@ final class StormMapViewModel {
             guard !frames.isEmpty else { return }
             var index = ui.radarAnimationIndex.clamped(to: 0 ... frames.count - 1)
             while !Task.isCancelled, ui.radarAnimationPlaying {
-                applyFrameIndex(index)
+                selectTimelineFrame(index)
                 index = (index + 1) % frames.count
                 try? await Task.sleep(nanoseconds: Self.animationFrameMs * 1_000_000)
             }
@@ -181,7 +206,7 @@ final class StormMapViewModel {
         ui.radarAnimationPlaying = false
     }
 
-    private func applyFrameIndex(_ index: Int) {
+    private func selectTimelineFrame(_ index: Int) {
         let frames = ui.radarAnimationFrames
         guard !frames.isEmpty else {
             ui.radarAnimationIndex = 0
@@ -190,11 +215,21 @@ final class StormMapViewModel {
         let i = index.clamped(to: 0 ... frames.count - 1)
         let frame = frames[i]
         ui.radarAnimationIndex = i
-        ui.radarOverlay = RadarFrameMapping.toActiveOverlay(frame, sourceLabel: ui.radarSourceLabel)
+        ui.selectedFrameLabel = frame.timeLabel
         ui.visibleLightningStrikes =
             ui.lightningEnabled
             ? RadarFrameMapping.filterLightning(strikes: ui.allLightningStrikes, frame: frame)
             : []
+        if ui.radarEnabled {
+            ui.mapRadarOverlay = RadarFrameMapping.toActiveOverlay(frame, sourceLabel: ui.radarSourceLabel)
+        }
+    }
+
+    private func applyLightningUpdate(_ bundle: StormRadarPrefetch) {
+        ui.allLightningStrikes = bundle.lightningStrikes
+        ui.lightningFetchedAtMs = bundle.lightningFetchedAtMs
+        ui.lightningError = bundle.lightningError
+        reapplyLightningForCurrentFrame()
     }
 
     private func reapplyLightningForCurrentFrame() {
