@@ -5,6 +5,7 @@ struct RoutePane: View {
     @Bindable var viewModel: RouteViewModel
     @Bindable var offlinePack: OfflinePackViewModel
     var mapCenter: CLLocationCoordinate2D
+    @Bindable var aisVM: AisMapViewModel
     @Bindable var premium = PremiumAccess.shared
     @State private var traficomEnabled = true
     @State private var mapController = MapScreenController()
@@ -13,6 +14,7 @@ struct RoutePane: View {
     @State private var showDisclaimer = false
     @State private var mapZoom = AppConfig.defaultCompareZoom
     @State private var mapLatitude = AppConfig.defaultLatitude
+    @State private var selectedAisVessel: AisVesselDisplay?
     var onRecenter: () -> Void
 
     private var hasRouteEndpoints: Bool {
@@ -31,6 +33,20 @@ struct RoutePane: View {
         }
         .onChange(of: premium.isPremium) { _, isPremium in
             viewModel.onPremiumChanged(isPremium: isPremium)
+            if !isPremium {
+                aisVM.setEnabled(false, premium: false)
+            }
+        }
+        .onChange(of: aisVM.isEnabled) { _, enabled in
+            guard enabled, premium.isPremium else { return }
+            aisVM.ensureFallbackViewport(latitude: mapCenter.latitude, longitude: mapCenter.longitude)
+        }
+        .task(id: aisVM.isEnabled) {
+            guard aisVM.isEnabled, premium.isPremium else { return }
+            while !Task.isCancelled {
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
+                aisVM.tickLiveMapRender()
+            }
         }
         .onAppear {
             speedText = formatSpeed(viewModel.boatSpeedKn)
@@ -119,17 +135,33 @@ struct RoutePane: View {
             routeStart: viewModel.routeStart,
             routeEnd: viewModel.routeEnd,
             autoFitRoute: hasRouteEndpoints && !viewModel.isRoutingRoute,
+            aisVessels: aisVM.vessels,
+            aisEnabled: aisVM.isEnabled,
+            aisRenderGeneration: aisVM.mapRenderGeneration,
             onLongPress: { coord in
                 viewModel.onMapLongPress(lat: coord.latitude, lon: coord.longitude)
             },
             onViewportChange: { zoom, latitude in
                 mapZoom = zoom
                 mapLatitude = latitude
-            }
+            },
+            onMapViewportChange: { viewport in
+                aisVM.updateViewport(viewport)
+            },
+            onAisVesselSelected: { selectedAisVessel = $0 }
         )
+        .sheet(item: $selectedAisVessel) { vessel in
+            AisVesselDetailSheet(vessel: vessel)
+        }
         .overlay(alignment: .topLeading) {
             HStack(spacing: 6) {
                 traficomChip
+                AisMapChip(
+                    ais: aisVM,
+                    premium: true,
+                    onNeedPremium: {},
+                    onEnabled: { syncAisViewport() }
+                )
                 Button {
                     showDisclaimer = true
                 } label: {
@@ -167,6 +199,12 @@ struct RoutePane: View {
         .padding(.horizontal, 10)
         .padding(.vertical, 5)
         .background(.ultraThinMaterial, in: Capsule())
+    }
+
+    private func syncAisViewport() {
+        if let viewport = mapController.currentViewport() {
+            aisVM.updateViewport(viewport)
+        }
     }
 
     private var traficomChip: some View {

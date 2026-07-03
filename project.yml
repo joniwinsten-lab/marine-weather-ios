@@ -9,6 +9,9 @@ packages:
   MapLibreNative:
     url: https://github.com/maplibre/maplibre-gl-native-distribution
     from: "6.24.0"
+  CocoaMQTT:
+    url: https://github.com/emqx/CocoaMQTT
+    from: "2.1.8"
 settings:
   base:
     SWIFT_VERSION: "5.9"
@@ -27,6 +30,10 @@ targets:
     dependencies:
       - package: MapLibreNative
         product: MapLibre
+      - package: CocoaMQTT
+        product: CocoaMQTT
+      - package: CocoaMQTT
+        product: CocoaMQTTWebSocket
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: fi.veneappi.MarineWeather

@@ -13,6 +13,7 @@ struct ContentView: View {
                     withAnimation(.easeOut(duration: 0.25)) {
                         showSplash = false
                     }
+                    AppStoreReviewCoordinator.onAppUiReady()
                 }
                 .transition(.opacity)
                 .zIndex(1)

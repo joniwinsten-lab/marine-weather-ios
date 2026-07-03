@@ -101,6 +101,10 @@ final class CompareViewModel {
         connectivityStatus.oldestFetchedUtc = oldest
         connectivityStatus.staleLevel = oldest.map { ForecastFreshness.staleLevel(fetchedAtUtc: $0) } ?? .fresh
 
+        if !report.allSourcesFailed, !successfulForecasts.isEmpty {
+            AppStoreReviewCoordinator.onPositiveEngagement()
+        }
+
         isRefreshing = false
     }
 

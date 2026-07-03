@@ -10,11 +10,12 @@ final class LocationManager: NSObject, ObservableObject {
     @Published private(set) var locationUpdateToken = 0
 
     private let manager = CLLocationManager()
+    private static let maxStartupLocationAgeSeconds: TimeInterval = 120
 
     override init() {
         super.init()
         manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        manager.desiredAccuracy = kCLLocationAccuracyBest
         authorization = manager.authorizationStatus
     }
 
@@ -43,6 +44,8 @@ extension LocationManager: CLLocationManagerDelegate {
 
     nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
+        let age = -location.timestamp.timeIntervalSinceNow
+        guard age <= Self.maxStartupLocationAgeSeconds else { return }
         Task { @MainActor in
             lastCoordinate = location.coordinate
             locationUpdateToken += 1

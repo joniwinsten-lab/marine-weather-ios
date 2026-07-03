@@ -17,6 +17,18 @@ final class MapScreenController {
         mapView.setZoomLevel(max(mapView.zoomLevel - 1, 4), animated: true)
     }
 
+    /// Frame the full route with padding (Android `newLatLngBounds`).
+    func currentViewport() -> MapViewport? {
+        guard let mapView else { return nil }
+        let bounds = mapView.visibleCoordinateBounds
+        return MapViewport(
+            southWest: bounds.sw,
+            northEast: bounds.ne,
+            zoom: mapView.zoomLevel,
+            centerLatitude: mapView.centerCoordinate.latitude
+        )
+    }
+
     func fitRoute(geometry: [RouteCoordinate], padding: UIEdgeInsets = UIEdgeInsets(top: 48, left: 48, bottom: 48, right: 48)) {
         guard let mapView, geometry.count >= 2 else { return }
         var sw = CLLocationCoordinate2D(latitude: 90, longitude: 180)
@@ -41,12 +53,20 @@ struct MapScreen: UIViewRepresentable {
     var routeGeometry: [RouteCoordinate] = []
     var routeStart: RouteCoordinate?
     var routeEnd: RouteCoordinate?
+    /// When true, zoom to fit [routeGeometry] whenever it changes (route planning tab).
     var autoFitRoute = false
+    var aisVessels: [AisVesselDisplay] = []
+    var aisEnabled = false
+    var aisRenderGeneration = 0
+    var recenterSignal: Int64 = 0
+    var recenterZoom: Double?
     var onLongPress: ((CLLocationCoordinate2D) -> Void)?
     var onViewportChange: ((Double, Double) -> Void)?
+    var onMapViewportChange: ((MapViewport) -> Void)?
+    var onAisVesselSelected: ((AisVesselDisplay) -> Void)?
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(controller: controller, onLongPress: onLongPress)
+        Coordinator(controller: controller, onLongPress: onLongPress, onAisVesselSelected: onAisVesselSelected)
     }
 
     func makeUIView(context: Context) -> MLNMapView {
@@ -64,13 +84,21 @@ struct MapScreen: UIViewRepresentable {
         )
         mapView.addGestureRecognizer(recognizer)
 
+        let tap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTap(_:)))
+        tap.require(toFail: recognizer)
+        mapView.addGestureRecognizer(tap)
+
         return mapView
     }
 
     func updateUIView(_ mapView: MLNMapView, context: Context) {
         context.coordinator.onLongPress = onLongPress
         context.coordinator.onViewportChange = onViewportChange
+        context.coordinator.onMapViewportChange = onMapViewportChange
+        context.coordinator.onAisVesselSelected = onAisVesselSelected
         context.coordinator.traficomEnabled = traficomEnabled
+        context.coordinator.aisEnabled = aisEnabled
+        context.coordinator.aisVessels = aisVessels
         context.coordinator.forecastCenter = center
         context.coordinator.routeGeometry = routeGeometry
         context.coordinator.routeStart = routeStart
@@ -84,9 +112,17 @@ struct MapScreen: UIViewRepresentable {
                 controller.fitRoute(geometry: routeGeometry)
                 context.coordinator.lastAppliedCenter = mapView.centerCoordinate
             }
-        } else if context.coordinator.centerChanged(from: context.coordinator.lastAppliedCenter, to: center) {
-            mapView.setCenter(center, zoomLevel: mapView.zoomLevel, animated: true)
-            context.coordinator.lastAppliedCenter = center
+        } else {
+            context.coordinator.lastFittedRouteSignature = nil
+            if recenterSignal != 0, recenterSignal != context.coordinator.lastAppliedRecenterSignal {
+                context.coordinator.lastAppliedRecenterSignal = recenterSignal
+                let zoomLevel = recenterZoom ?? mapView.zoomLevel
+                mapView.setCenter(center, zoomLevel: zoomLevel, animated: true)
+                context.coordinator.lastAppliedCenter = center
+            } else if context.coordinator.centerChanged(from: context.coordinator.lastAppliedCenter, to: center) {
+                mapView.setCenter(center, zoomLevel: mapView.zoomLevel, animated: true)
+                context.coordinator.lastAppliedCenter = center
+            }
         }
 
         if let style = mapView.style {
@@ -98,6 +134,13 @@ struct MapScreen: UIViewRepresentable {
                 end: routeEnd,
                 on: style
             )
+            let needsAisRedraw = aisEnabled != context.coordinator.lastAppliedAisEnabled
+                || aisRenderGeneration != context.coordinator.lastAppliedAisRenderGeneration
+            if needsAisRedraw {
+                MapAisOverlay.update(vessels: aisVessels, enabled: aisEnabled, on: style)
+                context.coordinator.lastAppliedAisEnabled = aisEnabled
+                context.coordinator.lastAppliedAisRenderGeneration = aisRenderGeneration
+            }
         }
     }
 
@@ -105,21 +148,33 @@ struct MapScreen: UIViewRepresentable {
         let controller: MapScreenController
         var onLongPress: ((CLLocationCoordinate2D) -> Void)?
         var onViewportChange: ((Double, Double) -> Void)?
+        var onMapViewportChange: ((MapViewport) -> Void)?
+        var onAisVesselSelected: ((AisVesselDisplay) -> Void)?
         var traficomEnabled: Bool
+        var aisVessels: [AisVesselDisplay] = []
+        var aisEnabled = false
+        var lastAppliedAisRenderGeneration = -1
+        var lastAppliedAisEnabled = false
         var forecastCenter: CLLocationCoordinate2D?
         weak var mapView: MLNMapView?
+
+        init(
+            controller: MapScreenController,
+            onLongPress: ((CLLocationCoordinate2D) -> Void)?,
+            onAisVesselSelected: ((AisVesselDisplay) -> Void)?
+        ) {
+            self.controller = controller
+            self.onLongPress = onLongPress
+            self.onAisVesselSelected = onAisVesselSelected
+            self.traficomEnabled = false
+        }
 
         var routeGeometry: [RouteCoordinate] = []
         var routeStart: RouteCoordinate?
         var routeEnd: RouteCoordinate?
         var lastFittedRouteSignature: String?
         var lastAppliedCenter: CLLocationCoordinate2D?
-
-        init(controller: MapScreenController, onLongPress: ((CLLocationCoordinate2D) -> Void)?) {
-            self.controller = controller
-            self.onLongPress = onLongPress
-            self.traficomEnabled = false
-        }
+        var lastAppliedRecenterSignal: Int64 = 0
 
         func centerChanged(from previous: CLLocationCoordinate2D?, to next: CLLocationCoordinate2D) -> Bool {
             guard let previous else { return true }
@@ -130,6 +185,13 @@ struct MapScreen: UIViewRepresentable {
 
         func mapView(_ mapView: MLNMapView, regionDidChangeAnimated animated: Bool) {
             onViewportChange?(mapView.zoomLevel, mapView.centerCoordinate.latitude)
+            let bounds = mapView.visibleCoordinateBounds
+            onMapViewportChange?(MapViewport(
+                southWest: bounds.sw,
+                northEast: bounds.ne,
+                zoom: mapView.zoomLevel,
+                centerLatitude: mapView.centerCoordinate.latitude
+            ))
         }
 
         func mapView(_ mapView: MLNMapView, didFinishLoading style: MLNStyle) {
@@ -144,6 +206,7 @@ struct MapScreen: UIViewRepresentable {
                 end: routeEnd,
                 on: style
             )
+            MapAisOverlay.update(vessels: aisVessels, enabled: aisEnabled, on: style)
         }
 
         @objc func handleLongPress(_ recognizer: UILongPressGestureRecognizer) {
@@ -152,6 +215,34 @@ struct MapScreen: UIViewRepresentable {
             let point = recognizer.location(in: mapView)
             let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
             onLongPress?(coordinate)
+        }
+
+        @objc func handleTap(_ recognizer: UITapGestureRecognizer) {
+            guard recognizer.state == .ended,
+                  aisEnabled,
+                  let mapView = recognizer.view as? MLNMapView,
+                  !aisVessels.isEmpty else { return }
+            let point = recognizer.location(in: mapView)
+            let hitRadius: CGFloat = 32
+            var best: (vessel: AisVesselDisplay, distance: CGFloat)?
+
+            for vessel in aisVessels {
+                guard let coord = AisVesselMotion.displayCoordinate(vessel: vessel) else { continue }
+                let vesselPoint = mapView.convert(coord, toPointTo: mapView)
+                let dx = vesselPoint.x - point.x
+                let dy = vesselPoint.y - point.y
+                let dist = hypot(dx, dy)
+                guard dist <= hitRadius else { continue }
+                if let current = best {
+                    if dist < current.distance { best = (vessel, dist) }
+                } else {
+                    best = (vessel, dist)
+                }
+            }
+
+            if let vessel = best?.vessel {
+                onAisVesselSelected?(vessel)
+            }
         }
     }
 
