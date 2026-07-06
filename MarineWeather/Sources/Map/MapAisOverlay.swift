@@ -20,8 +20,9 @@ enum MapAisOverlay {
             return
         }
 
-        updateVectors(vessels: vessels, on: style)
-        updatePoints(vessels: vessels, on: style)
+        let capped = Array(vessels.prefix(AppConfig.aisMaxVesselsOnMap))
+        updateVectors(vessels: capped, on: style)
+        updatePoints(vessels: capped, on: style)
     }
 
     /// Rebuild point source each update — `shape =` alone does not always repaint on MapLibre iOS.

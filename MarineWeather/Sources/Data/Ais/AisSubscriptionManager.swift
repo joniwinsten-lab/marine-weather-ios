@@ -12,7 +12,7 @@ final class AisSubscriptionManager {
         self.mqttClient = mqttClient
     }
 
-    func sync(wanted: Set<Int>) {
+    func sync(wanted: Set<Int>) async {
         guard mqttClient.isConnected else { return }
         let toRemove = subscribedMmsis.subtracting(wanted)
         let toAdd = wanted.subtracting(subscribedMmsis)
@@ -20,9 +20,12 @@ final class AisSubscriptionManager {
             mqttClient.unsubscribeVessel(mmsi: mmsi)
             subscribedMmsis.remove(mmsi)
         }
-        for mmsi in toAdd {
+        for (index, mmsi) in toAdd.enumerated() {
             mqttClient.subscribeVessel(mmsi: mmsi)
             subscribedMmsis.insert(mmsi)
+            if index % 8 == 7 {
+                await Task.yield()
+            }
         }
     }
 

@@ -15,5 +15,5 @@ Premium: route + 12-day wind + AIS + route-on-compare + offline pack = paid; map
 ## Stack
 
 - Swift 5.9+, SwiftUI, MapLibre Native iOS (SPM)
-- iPad only (`TARGETED_DEVICE_FAMILY = 2`)
+- **Devices:** iPhone + iPad (`TARGETED_DEVICE_FAMILY = 1,2`); UI is iPad-first, iPhone polish later
 - Match API URLs and User-Agent in `AppConfig.swift`

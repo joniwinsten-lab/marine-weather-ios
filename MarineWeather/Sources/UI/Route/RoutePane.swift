@@ -39,7 +39,8 @@ struct RoutePane: View {
         }
         .onChange(of: aisVM.isEnabled) { _, enabled in
             guard enabled, premium.isPremium else { return }
-            aisVM.ensureFallbackViewport(latitude: mapCenter.latitude, longitude: mapCenter.longitude)
+            aisVM.primeViewport(latitude: mapCenter.latitude, longitude: mapCenter.longitude, zoom: mapZoom)
+            syncAisViewport()
         }
         .task(id: aisVM.isEnabled) {
             guard aisVM.isEnabled, premium.isPremium else { return }
@@ -54,7 +55,9 @@ struct RoutePane: View {
         }
         #if DEBUG
         .overlay(alignment: .topTrailing) {
-            premiumDebugMenu.padding(8)
+            if !premium.iapReviewScreenshotMode {
+                premiumDebugMenu.padding(8)
+            }
         }
         #endif
         .sheet(item: $shareItem) { item in
@@ -66,7 +69,7 @@ struct RoutePane: View {
     private var routeContent: some View {
         GeometryReader { geometry in
             if hasRouteEndpoints {
-                let twoPane = geometry.size.width >= UiBreakpoints.twoPaneMinWidth
+                let twoPane = UiBreakpoints.useTwoPaneLayout(width: geometry.size.width)
                 if twoPane {
                     HStack(spacing: 0) {
                         mapSection
@@ -89,7 +92,7 @@ struct RoutePane: View {
                 } else {
                     VStack(spacing: 0) {
                         mapSection
-                            .frame(height: geometry.size.height * 0.52)
+                            .frame(height: geometry.size.height * UiBreakpoints.stackedMapHeightFraction)
                         RouteWeatherPane(
                             viewModel: viewModel,
                             offlinePack: offlinePack,
@@ -97,8 +100,9 @@ struct RoutePane: View {
                             onExportGpx: exportGpx,
                             onExportPdf: exportPdf
                         )
-                        .frame(height: geometry.size.height * 0.48)
+                        .frame(maxHeight: .infinity)
                     }
+                    .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
                 }
             } else {
                 mapSection
@@ -160,7 +164,10 @@ struct RoutePane: View {
                     ais: aisVM,
                     premium: true,
                     onNeedPremium: {},
-                    onEnabled: { syncAisViewport() }
+                    onEnabled: {
+                        aisVM.primeViewport(latitude: mapCenter.latitude, longitude: mapCenter.longitude, zoom: mapZoom)
+                        syncAisViewport()
+                    }
                 )
                 Button {
                     showDisclaimer = true
@@ -203,7 +210,7 @@ struct RoutePane: View {
 
     private func syncAisViewport() {
         if let viewport = mapController.currentViewport() {
-            aisVM.updateViewport(viewport)
+            aisVM.applyMapViewport(viewport)
         }
     }
 

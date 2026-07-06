@@ -64,6 +64,8 @@ struct UnifiedTimePoint: Equatable {
     let windGustMs: Double?
     let precipitationMmPerH: Double?
     let thunderProbPercent: Double?
+    /// FMI smart-symbol code (1–99 day, +100 night). See ilmatieteenlaitos.fi/saamerkkien-selitykset.
+    let weatherSymbolCode: Int?
 }
 
 struct UnifiedForecast: Equatable {

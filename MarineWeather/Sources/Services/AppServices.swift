@@ -11,6 +11,7 @@ final class AppServicesContainer {
     let watchlistStore = AisWatchlistStore()
     let aisRepository = DigitrafficAisRepository()
     let aisMqttCoordinator = AisMqttCoordinator()
+    let stormRadarPrefetcher = StormRadarPrefetcher()
 
     var mqttCoordinator: AisMqttCoordinator { aisMqttCoordinator }
 }

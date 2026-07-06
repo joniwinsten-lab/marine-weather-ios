@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import os
 
 /// Premium AIS overlay: REST bootstrap + shared Digitraffic MQTT (viewport MMSI subscriptions).
@@ -42,7 +43,8 @@ final class AisMapViewModel {
                 await self?.handleMqttMessage(topic: message.topic, payload: message.payload)
             }
         }
-        mqttConnectionTask = Task {
+        mqttConnectionTask = Task { @MainActor [weak self] in
+            guard let self else { return }
             for await state in mqttCoordinator.connectionStates {
                 switch state {
                 case .connected:
@@ -87,10 +89,19 @@ final class AisMapViewModel {
             streamMode = .connecting
             lastError = nil
             pollCycle = 0
-            bootstrap()
+            startPollingIfNeeded()
         } else {
             tearDown()
         }
+    }
+
+    /// Ensure a viewport exists (map center fallback) and fetch AIS for the visible area.
+    func primeViewport(latitude: Double, longitude: Double, zoom: Double = AppConfig.defaultCompareZoom) {
+        if lastViewport == nil {
+            lastViewport = .aroundCenter(latitude: latitude, longitude: longitude, zoom: zoom)
+        }
+        guard isEnabled else { return }
+        Task { await refreshForViewportChange() }
     }
 
     func toggle(premium: Bool) {
@@ -105,21 +116,24 @@ final class AisMapViewModel {
         scheduleViewportRefresh()
     }
 
+    /// Replace fallback viewport with the live map bounds and fetch when AIS is on.
+    func applyMapViewport(_ viewport: MapViewport) {
+        lastViewport = viewport
+        guard isEnabled else { return }
+        Task { await refreshForViewportChange() }
+    }
+
     func ensureFallbackViewport(
         latitude: Double,
         longitude: Double,
         zoom: Double = AppConfig.defaultCompareZoom
     ) {
-        guard lastViewport == nil else { return }
-        lastViewport = MapViewport.aroundCenter(latitude: latitude, longitude: longitude, zoom: zoom)
-        if isEnabled {
-            Task { await refreshFromNetwork(fullFetch: true) }
-        }
+        primeViewport(latitude: latitude, longitude: longitude, zoom: zoom)
     }
 
     func refreshNow() {
         guard isEnabled else { return }
-        Task { await refreshFromNetwork(fullFetch: pollCycle == 0) }
+        Task { await refreshForViewportChange() }
     }
 
     func tickLiveMapRender() {
@@ -131,8 +145,10 @@ final class AisMapViewModel {
     // MARK: - Private
 
     private func bootstrap() {
-        Task { await refreshFromNetwork(fullFetch: true) }
         startPollingIfNeeded()
+        if lastViewport != nil {
+            Task { await refreshForViewportChange() }
+        }
     }
 
     private func tearDown() {
@@ -151,8 +167,11 @@ final class AisMapViewModel {
 
     private func scheduleViewportRefresh() {
         viewportTask?.cancel()
+        let debounceSeconds = fleetByMmsi.isEmpty ? 0 : AppConfig.aisViewportRefreshDebounceSeconds
         viewportTask = Task { [weak self] in
-            try? await Task.sleep(nanoseconds: UInt64(AppConfig.aisViewportRefreshDebounceSeconds * 1_000_000_000))
+            if debounceSeconds > 0 {
+                try? await Task.sleep(nanoseconds: UInt64(debounceSeconds * 1_000_000_000))
+            }
             guard !Task.isCancelled, let self, self.isEnabled else { return }
             await self.refreshForViewportChange()
         }
@@ -165,6 +184,7 @@ final class AisMapViewModel {
         defer { isRefreshing = false }
 
         isLoading = true
+        updateStreamMode()
         let started = Date()
         do {
             let fleet = try await repository.fetchVesselsInViewport(viewport)
@@ -188,6 +208,7 @@ final class AisMapViewModel {
             log.warning("viewport fetch failed: \(self.lastError ?? "unknown", privacy: .public)")
         }
         isLoading = false
+        updateStreamMode()
     }
 
     private func startPollingIfNeeded() {
@@ -197,13 +218,7 @@ final class AisMapViewModel {
                 let interval = await MainActor.run { self?.pollIntervalSeconds() ?? AppConfig.aisRestPollIntervalSeconds }
                 try? await Task.sleep(nanoseconds: UInt64(interval * 1_000_000_000))
                 guard !Task.isCancelled, let self, self.isEnabled, self.appIsActive else { continue }
-                if self.mqttCoordinator.isConnected {
-                    await self.refreshFromNetwork(fullFetch: true)
-                } else {
-                    let fullFetch = self.pollCycle == 0
-                        || self.pollCycle % AppConfig.aisMetadataRefreshEveryNPolls == 0
-                    await self.refreshFromNetwork(fullFetch: fullFetch)
-                }
+                await self.refreshForViewportChange()
             }
         }
     }
@@ -219,71 +234,6 @@ final class AisMapViewModel {
             : AppConfig.aisRestPollIntervalSeconds
     }
 
-    private func refreshFromNetwork(fullFetch: Bool) async {
-        guard isEnabled, let viewport = lastViewport else { return }
-        guard !isRefreshing else { return }
-        isRefreshing = true
-        defer { isRefreshing = false }
-
-        if !isLoading { isLoading = true }
-        let started = Date()
-        do {
-            let updates: [AisVesselDisplay]
-            if fullFetch {
-                updates = try await repository.fetchAllVessels()
-            } else {
-                updates = try await repository.fetchLocationUpdates()
-            }
-            let filtered = AisViewportFilter.filter(updates, viewport: viewport)
-            let fleet = mergeFleet(incoming: filtered, preserveMetadata: !fullFetch)
-            guard isEnabled else { return }
-            lastError = nil
-            fleetByMmsi = Dictionary(uniqueKeysWithValues: fleet.map { ($0.mmsi, $0) })
-            publishMap()
-            pollCycle += 1
-            let elapsedMs = Int(Date().timeIntervalSince(started) * 1000)
-            log.info("loaded \(fleet.count) vessels (\(fullFetch ? "full" : "positions")) in \(elapsedMs)ms")
-            syncMqttSubscriptions()
-        } catch {
-            guard isEnabled else { return }
-            lastError = error.localizedDescription
-            if fleetByMmsi.isEmpty {
-                streamMode = .error
-            } else {
-                updateStreamMode()
-            }
-            log.warning("fetch failed: \(self.lastError ?? "unknown", privacy: .public)")
-        }
-        isLoading = false
-    }
-
-    private func mergeFleet(
-        incoming: [AisVesselDisplay],
-        preserveMetadata: Bool
-    ) -> [AisVesselDisplay] {
-        guard preserveMetadata else { return incoming }
-        return incoming.map { vessel in
-            guard let prev = fleetByMmsi[vessel.mmsi] else { return vessel }
-            return AisVesselDisplay(
-                mmsi: vessel.mmsi,
-                latitude: vessel.latitude,
-                longitude: vessel.longitude,
-                name: prev.name,
-                callSign: prev.callSign,
-                destination: prev.destination,
-                imo: prev.imo,
-                draughtTenthsM: prev.draughtTenthsM,
-                shipTypeCode: prev.shipTypeCode,
-                etaRaw: prev.etaRaw,
-                navStatusCode: vessel.navStatusCode,
-                sogKn: vessel.sogKn,
-                cogDeg: vessel.cogDeg,
-                headingDeg: vessel.headingDeg,
-                lastSeenEpochMs: vessel.lastSeenEpochMs
-            )
-        }
-    }
-
     private func handleMqttMessage(topic: String, payload: Data) async {
         guard isEnabled else { return }
         guard let update = mqttParser.parseMessage(topic: topic, payload: payload) else { return }
@@ -296,10 +246,9 @@ final class AisMapViewModel {
 
     private func scheduleThrottledPublish() {
         guard publishThrottleTask == nil || publishThrottleTask?.isCancelled == true else { return }
-        publishThrottleTask = Task { [weak self] in
+        publishThrottleTask = Task { @MainActor [weak self] in
             try? await Task.sleep(nanoseconds: AisMqttConfig.mapPublishThrottleMs * 1_000_000)
-            guard let self else { return }
-            self.publishMap()
+            self?.publishMap()
         }
     }
 
@@ -308,7 +257,38 @@ final class AisMapViewModel {
             mqttCoordinator.setViewportConsumer(active: false, mmsis: [])
             return
         }
-        mqttCoordinator.setViewportConsumer(active: true, mmsis: Set(fleetByMmsi.keys))
+        guard AppConfig.aisMqttLiveOnPhone || UIDevice.current.userInterfaceIdiom != .phone else {
+            mqttCoordinator.setViewportConsumer(active: false, mmsis: [])
+            return
+        }
+        let mmsis = cappedMqttMmsis()
+        guard !mmsis.isEmpty else {
+            mqttCoordinator.setViewportConsumer(active: false, mmsis: [])
+            return
+        }
+        mqttCoordinator.setViewportConsumer(active: true, mmsis: mmsis)
+    }
+
+    /// MQTT live updates for the nearest vessels only — avoids broker overload on phone.
+    private func cappedMqttMmsis() -> Set<Int> {
+        guard !fleetByMmsi.isEmpty else { return [] }
+        let ranked: [AisVesselDisplay]
+        if let viewport = lastViewport {
+            ranked = fleetByMmsi.values.sorted { lhs, rhs in
+                let d0 = GeoMath.haversineMeters(
+                    lat1: viewport.center.latitude, lon1: viewport.center.longitude,
+                    lat2: lhs.latitude, lon2: lhs.longitude
+                )
+                let d1 = GeoMath.haversineMeters(
+                    lat1: viewport.center.latitude, lon1: viewport.center.longitude,
+                    lat2: rhs.latitude, lon2: rhs.longitude
+                )
+                return d0 < d1
+            }
+        } else {
+            ranked = Array(fleetByMmsi.values)
+        }
+        return Set(ranked.prefix(AppConfig.aisMaxMqttSubscriptions).map(\.mmsi))
     }
 
     private func publishMap() {
@@ -322,17 +302,18 @@ final class AisMapViewModel {
             streamMode = .off
             return
         }
-        switch (lastViewport, fleetByMmsi.isEmpty, isLoading, lastError, mqttCoordinator.isConnected) {
-        case (nil, _, _, _, _), (_, true, true, _, _):
+        if lastViewport == nil || isLoading {
             streamMode = .connecting
-        case (_, true, _, .some, _):
+            return
+        }
+        if fleetByMmsi.isEmpty, lastError != nil {
             streamMode = .error
-        case (_, false, _, _, true):
+            return
+        }
+        if mqttCoordinator.isConnected, AppConfig.aisMqttLiveOnPhone || UIDevice.current.userInterfaceIdiom != .phone {
             streamMode = .live
-        case (_, false, _, _, false):
+        } else {
             streamMode = .restOnly
-        default:
-            streamMode = .connecting
         }
     }
 }

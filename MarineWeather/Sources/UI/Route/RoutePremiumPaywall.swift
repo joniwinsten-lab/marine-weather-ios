@@ -85,7 +85,7 @@ struct RoutePremiumPaywall: View {
                         .multilineTextAlignment(.center)
                 }
 
-                if premium.productsUnavailable, premium.billingReady {
+                if premium.productsUnavailable, premium.billingReady, !premium.iapReviewScreenshotMode {
                     Text(String(localized: "route_premium_prices_unavailable"))
                         .font(.caption)
                         .foregroundStyle(.orange)
@@ -109,13 +109,17 @@ struct RoutePremiumPaywall: View {
                     .foregroundStyle(.tertiary)
                     .multilineTextAlignment(.center)
 
+                legalLinks
+
                 #if DEBUG
-                Button(String(localized: "route_premium_dev_unlock")) {
-                    premium.unlockForTesting()
-                    onUnlocked()
+                if !premium.iapReviewScreenshotMode {
+                    Button(String(localized: "route_premium_dev_unlock")) {
+                        premium.unlockForTesting()
+                        onUnlocked()
+                    }
+                    .font(.caption)
+                    .padding(.top, 4)
                 }
-                .font(.caption)
-                .padding(.top, 4)
                 #endif
             }
             .padding(20)
@@ -128,11 +132,17 @@ struct RoutePremiumPaywall: View {
     }
 
     private var lifetimeReady: Bool {
-        premium.billingReady && premium.lifetimeProduct != nil
+        #if DEBUG
+        if premium.iapReviewScreenshotMode { return true }
+        #endif
+        return premium.billingReady && premium.lifetimeProduct != nil
     }
 
     private var monthlyReady: Bool {
-        premium.billingReady && premium.subscriptionProduct != nil
+        #if DEBUG
+        if premium.iapReviewScreenshotMode { return true }
+        #endif
+        return premium.billingReady && premium.subscriptionProduct != nil
     }
 
     private var lifetimeButtonTitle: String {
@@ -157,5 +167,14 @@ struct RoutePremiumPaywall: View {
             return String(localized: "route_premium_price_loading")
         }
         return AppConfig.premiumMonthlyReferenceDisplay
+    }
+
+    private var legalLinks: some View {
+        HStack(spacing: 20) {
+            Link(String(localized: "route_premium_privacy_policy"), destination: AppConfig.privacyPolicyURL)
+            Link(String(localized: "route_premium_terms_of_use"), destination: AppConfig.termsOfUseURL)
+        }
+        .font(.caption)
+        .padding(.top, 4)
     }
 }

@@ -80,7 +80,7 @@ In Xcode: **File → Add Package Dependencies**
 
 ## 6. Premium (StoreKit 2)
 
-**Product IDs** (must match App Store Connect): `route-premium-lifetime` (non-consumable), `route-premium-monthly` (auto-renewable subscription).
+**Product IDs** (must match App Store Connect; underscores only — no hyphens): `route_premium_lifetime` (non-consumable), `route_premium_monthly` (auto-renewable subscription).
 
 **Pricing (Finland, gross incl. 25.5% VAT):** lifetime **59,00 €**, monthly **2,99 €** — set the same tiers in App Store Connect.
 

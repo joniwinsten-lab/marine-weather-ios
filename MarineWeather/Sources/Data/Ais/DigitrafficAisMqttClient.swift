@@ -59,14 +59,24 @@ final class DigitrafficAisMqttClient: NSObject {
         mqtt = client
 
         let connected = await withCheckedContinuation { (continuation: CheckedContinuation<Bool, Never>) in
+            let resumeLock = NSLock()
+            var resumed = false
+            func resumeOnce(_ value: Bool) {
+                resumeLock.lock()
+                defer { resumeLock.unlock() }
+                guard !resumed else { return }
+                resumed = true
+                continuation.resume(returning: value)
+            }
+
             client.didConnectAck = { _, ack in
-                continuation.resume(returning: ack == .accept)
+                resumeOnce(ack == .accept)
             }
             client.didDisconnect = { _, _ in
-                continuation.resume(returning: false)
+                resumeOnce(false)
             }
             if !client.connect(timeout: Double(AisMqttConfig.connectTimeoutMs) / 1000.0) {
-                continuation.resume(returning: false)
+                resumeOnce(false)
             }
         }
 
@@ -170,10 +180,6 @@ extension DigitrafficAisMqttClient: CocoaMQTTDelegate {
     nonisolated func mqttDidPing(_ mqtt: CocoaMQTT) {}
 
     nonisolated func mqttDidReceivePong(_ mqtt: CocoaMQTT) {}
-
-    nonisolated func mqtt(_ mqtt: CocoaMQTT, didReceive trust: SecTrust, completionHandler: @escaping (Bool) -> Void) {
-        completionHandler(true)
-    }
 
     nonisolated func mqttUrlSession(
         _ mqtt: CocoaMQTT,

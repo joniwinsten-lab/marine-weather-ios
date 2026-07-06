@@ -35,17 +35,20 @@ enum FmiMultipointParser {
                 windSpeedMs: tuple.windSpeedMs,
                 windFromDeg: tuple.windFromDeg,
                 windGustMs: tuple.windGustMs,
-                precipitationMmPerH: nil,
-                thunderProbPercent: nil
+                precipitationMmPerH: tuple.precipitationMmPerH,
+                thunderProbPercent: nil,
+                weatherSymbolCode: tuple.weatherSymbolCode
             )
         }
     }
 
     private struct FmiTuple {
+        let weatherSymbolCode: Int?
         let airTempC: Double
         let windSpeedMs: Double
         let windFromDeg: Double
         let windGustMs: Double?
+        let precipitationMmPerH: Double?
     }
 
     private static func firstCapture(_ regex: NSRegularExpression, in text: String) -> String? {
@@ -69,24 +72,57 @@ enum FmiMultipointParser {
     }
 
     private static func parseTuples(_ block: String) -> [FmiTuple] {
-        block
+        let lines = block
             .split(whereSeparator: \.isNewline)
-            .compactMap { line -> FmiTuple? in
-                let parts = line.split(whereSeparator: \.isWhitespace).map(String.init)
-                guard parts.count >= 3,
-                      let temp = Double(parts[0]),
-                      let speed = Double(parts[1]),
-                      let direction = Double(parts[2]) else {
-                    return nil
-                }
-                let gust = parts.count > 3 ? Double(parts[3]) : nil
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+        guard let firstLine = lines.first else { return [] }
+
+        let columnCount = firstLine.split(whereSeparator: \.isWhitespace).count
+        let usesWeatherSymbol = columnCount >= 6
+
+        return lines.compactMap { line -> FmiTuple? in
+            let parts = line.split(whereSeparator: \.isWhitespace).map(String.init)
+            guard parts.count >= 4 else { return nil }
+
+            if usesWeatherSymbol, parts.count >= 6,
+               let symbol = intValue(parts[0]),
+               let temp = Double(parts[1]),
+               let speed = Double(parts[2]),
+               let direction = Double(parts[3]) {
+                let gust = parts.count > 4 ? Double(parts[4]) : nil
+                let precip = parts.count > 5 ? Double(parts[5]) : nil
                 return FmiTuple(
+                    weatherSymbolCode: symbol,
                     airTempC: temp,
                     windSpeedMs: speed,
                     windFromDeg: direction,
-                    windGustMs: gust.flatMap { $0.isNaN ? nil : $0 }
+                    windGustMs: gust.flatMap { $0.isNaN ? nil : $0 },
+                    precipitationMmPerH: precip.flatMap { $0.isNaN ? nil : $0 }
                 )
             }
+
+            guard let temp = Double(parts[0]),
+                  let speed = Double(parts[1]),
+                  let direction = Double(parts[2]) else {
+                return nil
+            }
+            let gust = parts.count > 3 ? Double(parts[3]) : nil
+            return FmiTuple(
+                weatherSymbolCode: nil,
+                airTempC: temp,
+                windSpeedMs: speed,
+                windFromDeg: direction,
+                windGustMs: gust.flatMap { $0.isNaN ? nil : $0 },
+                precipitationMmPerH: nil
+            )
+        }
+    }
+
+    private static func intValue(_ string: String) -> Int? {
+        if let value = Int(string) { return value }
+        guard let value = Double(string), !value.isNaN else { return nil }
+        return Int(value.rounded())
     }
 }
 

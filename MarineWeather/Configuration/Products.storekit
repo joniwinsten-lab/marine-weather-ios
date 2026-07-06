@@ -5,7 +5,7 @@
   ],
   "products" : [
     {
-      "displayPrice" : "59.00",
+      "displayPrice" : "59.99",
       "familyShareable" : false,
       "internalID" : "6741000001",
       "localizations" : [
@@ -20,7 +20,7 @@
           "locale" : "en_US"
         }
       ],
-      "productID" : "route-premium-lifetime",
+      "productID" : "route_premium_lifetime",
       "referenceName" : "Route Premium Lifetime",
       "type" : "NonConsumable"
     }
@@ -74,7 +74,7 @@
               "locale" : "en_US"
             }
           ],
-          "productID" : "route-premium-monthly",
+          "productID" : "route_premium_monthly",
           "recurringSubscriptionPeriod" : "P1M",
           "referenceName" : "Route Premium Monthly",
           "type" : "RecurringSubscription",

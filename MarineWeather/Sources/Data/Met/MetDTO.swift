@@ -51,7 +51,16 @@ struct MetInstantDetails: Decodable {
 }
 
 struct MetNextHours: Decodable {
+    let summary: MetNextSummary?
     let details: MetNextDetails?
+}
+
+struct MetNextSummary: Decodable {
+    let symbolCode: String?
+
+    enum CodingKeys: String, CodingKey {
+        case symbolCode = "symbol_code"
+    }
 }
 
 struct MetNextDetails: Decodable {

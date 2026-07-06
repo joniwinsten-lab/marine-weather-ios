@@ -3,26 +3,11 @@ import Foundation
 /// Fintraffic Digitraffic AIS REST (`/locations` + `/vessels`).
 actor DigitrafficAisRepository {
     private let decoder = JSONDecoder()
-    private var metadataCache: [Int: AisVesselMetaRecord]?
+    private var metadataByMmsi: [Int: AisVesselMetaRecord] = [:]
 
-    /// Full fetch: locations + vessel metadata (slow — use on first load).
-    func fetchAllVessels() async throws -> [AisVesselDisplay] {
-        let fetchedAtMs = Int64(Date().timeIntervalSince1970 * 1000)
-        let locations = try await fetchLocations(fetchedAtMs: fetchedAtMs)
-        let metadataByMmsi = try await ensureMetadataCacheLocked()
-        return locations.map { $0.toDisplay(meta: metadataByMmsi[$0.mmsi]) }
-    }
-
-    /// Positions only (~7 MB) — for 60 s polling without re-downloading metadata.
-    func fetchLocationUpdates() async throws -> [AisVesselDisplay] {
-        let fetchedAtMs = Int64(Date().timeIntervalSince1970 * 1000)
-        return try await fetchLocations(fetchedAtMs: fetchedAtMs).map { $0.toDisplay(meta: nil) }
-    }
-
-    /// Fast viewport-scoped fetch (map pan) — uses Digitraffic radius query, not full `/locations`.
+    /// Fast viewport-scoped fetch — positions only (no full metadata download).
     func fetchVesselsInViewport(_ viewport: MapViewport) async throws -> [AisVesselDisplay] {
         let fetchedAtMs = Int64(Date().timeIntervalSince1970 * 1000)
-        let metadataByMmsi = try await ensureMetadataCacheLocked()
         let radius = viewport.queryRadiusKm()
         var components = URLComponents(
             url: AppConfig.digitrafficBaseURL.appendingPathComponent("locations"),
@@ -45,18 +30,18 @@ actor DigitrafficAisRepository {
     func fetchVesselsForMmsis(_ mmsis: Set<Int>) async throws -> [AisVesselDisplay] {
         guard !mmsis.isEmpty else { return [] }
         let fetchedAtMs = Int64(Date().timeIntervalSince1970 * 1000)
-        let metadataByMmsi = try await ensureMetadataCacheLocked()
-        let byMmsi = Dictionary(
-            uniqueKeysWithValues: try await fetchLocations(fetchedAtMs: fetchedAtMs)
-                .filter { mmsis.contains($0.mmsi) }
-                .map { ($0.mmsi, $0) }
-        )
-        return mmsis.map { mmsi in
-            if let location = byMmsi[mmsi] {
-                location.toDisplay(meta: metadataByMmsi[mmsi])
-            } else {
-                metadataByMmsi[mmsi].toDisplayWithoutLocation(mmsi: mmsi)
+        return try await withThrowingTaskGroup(of: AisVesselDisplay.self) { group in
+            for mmsi in mmsis {
+                group.addTask {
+                    try await self.vesselForMmsi(mmsi, fetchedAtMs: fetchedAtMs)
+                }
             }
+            var results: [AisVesselDisplay] = []
+            results.reserveCapacity(mmsis.count)
+            for try await vessel in group {
+                results.append(vessel)
+            }
+            return results
         }
     }
 
@@ -66,7 +51,6 @@ actor DigitrafficAisRepository {
         radiusKm: Int
     ) async throws -> [AisBrowseItem] {
         let fetchedAtMs = Int64(Date().timeIntervalSince1970 * 1000)
-        let metadataByMmsi = try await ensureMetadataCacheLocked()
         var components = URLComponents(
             url: AppConfig.digitrafficBaseURL.appendingPathComponent("locations"),
             resolvingAgainstBaseURL: false
@@ -80,45 +64,39 @@ actor DigitrafficAisRepository {
         let data = try await DigitrafficHTTPClient.getData(url: url)
         let collection = try decoder.decode(AisLocationFeatureCollection.self, from: data)
         return collection.features.compactMap { feature in
-            parseBrowseFromFeature(
-                feature,
-                fetchedAtMs: fetchedAtMs,
-                metadataByMmsi: metadataByMmsi,
-                source: .nearby
-            )
+            parseBrowseFromFeature(feature, fetchedAtMs: fetchedAtMs, source: .nearby)
         }
     }
 
     func searchVesselsMetadata(query: String) async throws -> [AisBrowseItem] {
-        let q = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let q = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard q.count >= AisTrackConfig.globalSearchMinChars else { return [] }
-        let metadataByMmsi = try await ensureMetadataCacheLocked()
-        var hits: [AisBrowseItem] = []
-        for (mmsi, meta) in metadataByMmsi {
-            let hay = [String(mmsi), meta.name, meta.callSign]
-                .compactMap { $0 }
-                .joined(separator: " ")
-                .lowercased()
-            guard hay.contains(q) else { continue }
-            hits.append(
-                AisBrowseItem(
-                    mmsi: mmsi,
-                    name: meta.name,
-                    callSign: meta.callSign,
-                    latitude: nil,
-                    longitude: nil,
-                    sogKn: nil,
-                    lastSeenEpochMs: nil,
-                    source: .global
-                )
+        var components = URLComponents(
+            url: AppConfig.digitrafficBaseURL.appendingPathComponent("vessels"),
+            resolvingAgainstBaseURL: false
+        )!
+        components.queryItems = [URLQueryItem(name: "name", value: q)]
+        guard let url = components.url else { return [] }
+        let data = try await DigitrafficHTTPClient.getData(url: url)
+        let records = try decoder.decode([AisVesselMetaRecord].self, from: data)
+        return records.prefix(AisTrackConfig.globalSearchMax).map { meta in
+            metadataByMmsi[meta.mmsi] = meta
+            return AisBrowseItem(
+                mmsi: meta.mmsi,
+                name: meta.name,
+                callSign: meta.callSign,
+                latitude: nil,
+                longitude: nil,
+                sogKn: nil,
+                lastSeenEpochMs: nil,
+                source: .global
             )
-            if hits.count >= AisTrackConfig.globalSearchMax { break }
         }
-        return hits.sorted { $0.displayLabel.lowercased() < $1.displayLabel.lowercased() }
+        .sorted { $0.displayLabel.localizedCaseInsensitiveCompare($1.displayLabel) == .orderedAscending }
     }
 
     func lookupMetadata(mmsi: Int) async throws -> AisVesselMetaRecord? {
-        try await ensureMetadataCacheLocked()[mmsi]
+        try await cachedMetadata(mmsi: mmsi)
     }
 
     nonisolated func browseRadiusKm(zoom: Double) -> Int {
@@ -130,25 +108,44 @@ actor DigitrafficAisRepository {
         }
     }
 
-    private func ensureMetadataCacheLocked() async throws -> [Int: AisVesselMetaRecord] {
-        if let metadataCache { return metadataCache }
-        let fetched = try await fetchVesselMetadata()
-        metadataCache = fetched
+    // MARK: - Private
+
+    private func vesselForMmsi(_ mmsi: Int, fetchedAtMs: Int64) async throws -> AisVesselDisplay {
+        let meta = try await cachedMetadata(mmsi: mmsi)
+        if let location = try await fetchLocationRecord(mmsi: mmsi, fetchedAtMs: fetchedAtMs) {
+            return location.toDisplay(meta: meta)
+        }
+        return meta.toDisplayWithoutLocation(mmsi: mmsi)
+    }
+
+    private func cachedMetadata(mmsi: Int) async throws -> AisVesselMetaRecord? {
+        if let hit = metadataByMmsi[mmsi] { return hit }
+        guard let fetched = try await fetchVesselMetadataRecord(mmsi: mmsi) else { return nil }
+        metadataByMmsi[mmsi] = fetched
         return fetched
     }
 
-    private func fetchLocations(fetchedAtMs: Int64) async throws -> [AisLocationRecord] {
-        let url = AppConfig.digitrafficBaseURL.appendingPathComponent("locations")
+    private func fetchLocationRecord(mmsi: Int, fetchedAtMs: Int64) async throws -> AisLocationRecord? {
+        var components = URLComponents(
+            url: AppConfig.digitrafficBaseURL.appendingPathComponent("locations"),
+            resolvingAgainstBaseURL: false
+        )!
+        components.queryItems = [URLQueryItem(name: "mmsi", value: String(mmsi))]
+        guard let url = components.url else { return nil }
         let data = try await DigitrafficHTTPClient.getData(url: url)
         let collection = try decoder.decode(AisLocationFeatureCollection.self, from: data)
-        return collection.features.compactMap { parseLocationRecord($0, fetchedAtMs: fetchedAtMs) }
+        guard let feature = collection.features.first else { return nil }
+        return parseLocationRecord(feature, fetchedAtMs: fetchedAtMs)
     }
 
-    private func fetchVesselMetadata() async throws -> [Int: AisVesselMetaRecord] {
-        let url = AppConfig.digitrafficBaseURL.appendingPathComponent("vessels")
-        let data = try await DigitrafficHTTPClient.getData(url: url)
-        let records = try decoder.decode([AisVesselMetaRecord].self, from: data)
-        return Dictionary(uniqueKeysWithValues: records.map { ($0.mmsi, $0) })
+    private func fetchVesselMetadataRecord(mmsi: Int) async throws -> AisVesselMetaRecord? {
+        let url = AppConfig.digitrafficBaseURL.appendingPathComponent("vessels/\(mmsi)")
+        do {
+            let data = try await DigitrafficHTTPClient.getData(url: url)
+            return try decoder.decode(AisVesselMetaRecord.self, from: data)
+        } catch {
+            return nil
+        }
     }
 
     private func parseLocationRecord(
@@ -174,7 +171,6 @@ actor DigitrafficAisRepository {
     private func parseBrowseFromFeature(
         _ feature: AisLocationFeature,
         fetchedAtMs: Int64,
-        metadataByMmsi: [Int: AisVesselMetaRecord],
         source: AisBrowseSource
     ) -> AisBrowseItem? {
         guard let record = parseLocationRecord(feature, fetchedAtMs: fetchedAtMs) else { return nil }

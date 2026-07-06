@@ -46,7 +46,7 @@ enum WeatherHTTPClient {
             URLQueryItem(name: "request", value: "getFeature"),
             URLQueryItem(name: "storedquery_id", value: "fmi::forecast::harmonie::surface::point::multipointcoverage"),
             URLQueryItem(name: "latlon", value: "\(latP),\(lonP)"),
-            URLQueryItem(name: "parameters", value: "temperature,WindSpeedMS,WindDirection,WindGust"),
+            URLQueryItem(name: "parameters", value: "WeatherSymbol,temperature,WindSpeedMS,WindDirection,WindGust,PrecipitationAmount"),
         ]
         let data = try await getData(components.url!)
         guard let xml = String(data: data, encoding: .utf8) else {

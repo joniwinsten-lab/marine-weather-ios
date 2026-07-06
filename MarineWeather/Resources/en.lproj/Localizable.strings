@@ -21,18 +21,39 @@
 
 /* Navigation */
 "nav_compare" = "Map &\nweather";
+"nav_weather" = "Weather\noutlook";
 "nav_route" = "Route planning";
 "nav_track" = "Track\nvessels";
 "nav_extended_wind" = "Wind 12+ days";
 "nav_marine_text" = "Weather forecast\n(4 countries)";
 "nav_storm_radar" = "Radar &\nlightning";
 "tab_compare" = "Compare";
+"tab_weather" = "Weather";
 "tab_route" = "Route";
 "tab_track" = "Track";
 "tab_extended_wind" = "12-day wind";
 "tab_marine_text" = "Marine text";
 "tab_storm_radar" = "Storm radar";
+"nav_menu" = "Sections";
 "premium_label" = "Premium";
+
+/* Weather outlook */
+"weather_screen_title" = "Weather";
+"weather_source_picker" = "Forecast source";
+"weather_map_hint" = "Map centre: %.4f°N, %.4f°E";
+"weather_symbols_attribution" = "Weather symbols: Finnish Meteorological Institute (CC BY 4.0).";
+"weather_now" = "Now";
+"weather_col_time" = "Time";
+"weather_col_temp" = "°C";
+"weather_col_wind" = "Wind (%@)";
+"weather_col_precip" = "mm";
+"weather_loading" = "Loading forecast…";
+"weather_empty" = "No hourly forecast for this location.";
+"weather_section_24h" = "Next 24 hours";
+"weather_section_7d" = "Next 7 days";
+"weather_day_today" = "Today";
+"weather_day_tomorrow" = "Tomorrow";
+"weather_fmi_horizon_note" = "FMI HARMONIE covers about 2 days on this free API. Use MET or SMHI for a longer outlook.";
 
 /* Marine text */
 "marine_text_screen_title" = "Weather forecast";
@@ -144,7 +165,7 @@
 "route_premium_subscribe_monthly" = "Subscribe — %@ / month";
 "route_premium_subscribe_loading" = "Loading subscription price…";
 "route_premium_subscribe_no_price" = "Subscribe monthly (price unavailable)";
-"route_premium_prices_unavailable" = "Prices could not be loaded from the App Store. Use a StoreKit config in Xcode for simulator testing, or install a TestFlight build with products route-premium-lifetime and route-premium-monthly active in App Store Connect.";
+"route_premium_prices_unavailable" = "Prices could not be loaded from the App Store. Use a StoreKit config in Xcode for simulator testing, or install a TestFlight build with products route_premium_lifetime and route_premium_monthly active in App Store Connect.";
 "route_premium_sub_recurring_hint" = "Subscriptions renew automatically until you cancel in App Store settings.";
 "route_premium_restore" = "Restore purchases";
 "route_premium_restore_none" = "No previous purchases found for this Apple ID.";
@@ -153,6 +174,8 @@
 "route_premium_trial_cta" = "Start 3-day free trial";
 "route_premium_trial_already_used" = "Trial was already started on this device.";
 "route_premium_trial_appstore_note" = "The in-app trial unlocks route features locally—it does not charge your card. Final prices and renewal rules are shown at purchase in the App Store.";
+"route_premium_privacy_policy" = "Privacy Policy";
+"route_premium_terms_of_use" = "Terms of Use";
 "route_premium_vat_note" = "Prices include VAT (25.5%) where applicable.";
 "route_premium_dev_unlock" = "Unlock for testing (Debug)";
 "route_premium_dev_reset" = "Reset trial & debug unlock";

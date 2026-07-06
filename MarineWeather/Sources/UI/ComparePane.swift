@@ -16,7 +16,11 @@ struct ComparePane: View {
 
     var body: some View {
         GeometryReader { geometry in
-            let twoPane = geometry.size.width >= UiBreakpoints.twoPaneMinWidth
+            let twoPane = UiBreakpoints.useTwoPaneLayout(width: geometry.size.width)
+            let denseWeather = UiBreakpoints.weatherUsesDenseLayout(
+                width: geometry.size.width,
+                height: geometry.size.height
+            )
             if twoPane {
                 HStack(spacing: 0) {
                     mapSection
@@ -24,7 +28,7 @@ struct ComparePane: View {
                             width: geometry.size.width * UiBreakpoints.compareMapWidthFraction,
                             height: geometry.size.height
                         )
-                    WeatherComparePane(viewModel: viewModel, dense: true)
+                    WeatherComparePane(viewModel: viewModel, dense: denseWeather)
                         .frame(
                             width: geometry.size.width * UiBreakpoints.compareWeatherWidthFraction,
                             height: geometry.size.height
@@ -33,13 +37,11 @@ struct ComparePane: View {
             } else {
                 VStack(spacing: 0) {
                     mapSection
-                        .frame(height: geometry.size.height * 0.52)
-                    WeatherComparePane(
-                        viewModel: viewModel,
-                        dense: geometry.size.width >= UiBreakpoints.weatherPaneDenseMinWidth
-                    )
-                    .frame(height: geometry.size.height * 0.48)
+                        .frame(height: geometry.size.height * UiBreakpoints.stackedMapHeightFraction)
+                    WeatherComparePane(viewModel: viewModel, dense: false)
+                        .frame(maxHeight: .infinity)
                 }
+                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -53,10 +55,12 @@ struct ComparePane: View {
         }
         .onChange(of: aisVM.isEnabled) { _, enabled in
             guard enabled, premium.isPremium else { return }
-            aisVM.ensureFallbackViewport(
+            aisVM.primeViewport(
                 latitude: viewModel.mapCenter.latitude,
-                longitude: viewModel.mapCenter.longitude
+                longitude: viewModel.mapCenter.longitude,
+                zoom: mapZoom
             )
+            syncAisViewport()
         }
         .task(id: aisVM.isEnabled) {
             guard aisVM.isEnabled, premium.isPremium else { return }
@@ -99,7 +103,14 @@ struct ComparePane: View {
                     ais: aisVM,
                     premium: premium.isPremium,
                     onNeedPremium: { showAisPremiumHint = true },
-                    onEnabled: { syncAisViewport() }
+                    onEnabled: {
+                        aisVM.primeViewport(
+                            latitude: viewModel.mapCenter.latitude,
+                            longitude: viewModel.mapCenter.longitude,
+                            zoom: mapZoom
+                        )
+                        syncAisViewport()
+                    }
                 )
             }
             .padding(8)
@@ -143,7 +154,7 @@ struct ComparePane: View {
 
     private func syncAisViewport() {
         if let viewport = mapController.currentViewport() {
-            aisVM.updateViewport(viewport)
+            aisVM.applyMapViewport(viewport)
         }
     }
 

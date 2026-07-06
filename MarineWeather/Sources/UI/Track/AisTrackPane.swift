@@ -41,6 +41,9 @@ struct AisTrackPane: View {
                     latitude: mapCenter.latitude,
                     longitude: mapCenter.longitude
                 )
+                if let viewport = mapController.currentViewport() {
+                    viewModel.updateViewport(viewport)
+                }
             }
         }
         .onChange(of: premium.isPremium) { _, isPremium in
@@ -97,7 +100,7 @@ struct AisTrackPane: View {
 
     private var trackContent: some View {
         GeometryReader { geometry in
-            let twoPane = geometry.size.width >= UiBreakpoints.twoPaneMinWidth
+            let twoPane = UiBreakpoints.useTwoPaneLayout(width: geometry.size.width)
             if twoPane {
                 HStack(spacing: 0) {
                     mapSection
@@ -114,10 +117,11 @@ struct AisTrackPane: View {
             } else {
                 VStack(spacing: 0) {
                     mapSection
-                        .frame(height: geometry.size.height * 0.52)
+                        .frame(height: geometry.size.height * UiBreakpoints.stackedMapHeightFraction)
                     trackPanelSection
-                        .frame(height: geometry.size.height * 0.48)
+                        .frame(maxHeight: .infinity)
                 }
+                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -138,7 +142,7 @@ struct AisTrackPane: View {
                 mapZoom = zoom
                 mapLatitude = latitude
             },
-            onMapViewportChange: { viewModel.updateViewport($0) },
+            onMapViewportChange: { viewModel.applyMapViewport($0) },
             onAisVesselSelected: { selectedVessel = $0 }
         )
         .overlay(alignment: .topLeading) {
@@ -167,6 +171,9 @@ struct AisTrackPane: View {
                 mapControlButton(systemName: "minus", action: { mapController.zoomOut() })
             }
             .padding(10)
+        }
+        .onAppear {
+            syncTrackViewport()
         }
     }
 
@@ -392,6 +399,12 @@ struct AisTrackPane: View {
         case .connecting: Color(red: 0.96, green: 0.49, blue: 0.0)
         case .error: Color(red: 0.78, green: 0.16, blue: 0.16)
         case .off: Color.secondary
+        }
+    }
+
+    private func syncTrackViewport() {
+        if let viewport = mapController.currentViewport() {
+            viewModel.applyMapViewport(viewport)
         }
     }
 

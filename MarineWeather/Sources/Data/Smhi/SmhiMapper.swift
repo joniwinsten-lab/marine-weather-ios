@@ -17,7 +17,12 @@ enum SmhiMapper {
                 windFromDeg: d.windFromDirection,
                 windGustMs: d.windSpeedOfGust,
                 precipitationMmPerH: d.precipitationAmountMeanDeterministic ?? d.precipitationAmountMean,
-                thunderProbPercent: d.thunderstormProbability
+                thunderProbPercent: d.thunderstormProbability,
+                weatherSymbolCode: WeatherSymbolDeriver.fmiCode(
+                    precipitationMm: d.precipitationAmountMeanDeterministic ?? d.precipitationAmountMean,
+                    thunderProb: d.thunderstormProbability,
+                    instantUtc: instant
+                )
             )
         }
 

@@ -19,6 +19,14 @@ struct ContentView: View {
                 .zIndex(1)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onAppear {
+            #if DEBUG
+            if ScreenshotLaunch.iapReview {
+                showSplash = false
+            }
+            #endif
+        }
         .task {
             await MapTileWarmup.warm(
                 lat: AppConfig.defaultLatitude,

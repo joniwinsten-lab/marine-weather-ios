@@ -15,42 +15,57 @@ struct RouteWeatherPane: View {
 
     var body: some View {
         GeometryReader { geometry in
-            VStack(alignment: .leading, spacing: 2) {
-                speedBar
-                    .frame(height: speedBarHeight)
-                exportRow
-                    .frame(height: exportRowHeight)
-                OfflineRoutePackCard(
-                    enabled: viewModel.routeGeometry.count >= 2,
-                    packState: offlinePack.state,
-                    onDownload: {
-                        offlinePack.download(routeGeometry: viewModel.routeGeometry)
-                    }
-                )
-                .frame(height: offlinePackHeight)
-                weatherHeader
-                    .frame(height: weatherHeaderHeight)
-
+            let scrollable = UiBreakpoints.routeWeatherUsesScroll(height: geometry.size.height)
+            if scrollable {
+                ScrollView {
+                    panelContent(
+                        cardHeight: UiBreakpoints.routeForecastCardMinHeight,
+                        compact: false
+                    )
+                }
+            } else {
                 let spacingTotal = 2 * CGFloat(SourceId.allCases.count - 1) + 6
                 let used = speedBarHeight + exportRowHeight + offlinePackHeight + weatherHeaderHeight + spacingTotal + 6
                 let cardHeight = max(0, (geometry.size.height - used) / CGFloat(SourceId.allCases.count))
-                let labels = viewModel.routeSlotLabels()
-
-                ForEach(SourceId.allCases) { source in
-                    RouteWindForecastCard(
-                        title: source.displayName,
-                        state: viewModel.routeWeatherBySource[source] ?? .idle,
-                        slotLabels: labels,
-                        windUnit: viewModel.windUnit
-                    )
-                    .frame(height: cardHeight)
-                }
+                panelContent(cardHeight: cardHeight, compact: true)
             }
-            .padding(.horizontal, 2)
-            .padding(.vertical, 1)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.secondarySystemBackground))
+    }
+
+    @ViewBuilder
+    private func panelContent(cardHeight: CGFloat, compact: Bool) -> some View {
+        let labels = viewModel.routeSlotLabels()
+        VStack(alignment: .leading, spacing: 2) {
+            speedBar
+                .frame(height: speedBarHeight)
+            exportRow
+                .frame(height: exportRowHeight)
+            OfflineRoutePackCard(
+                enabled: viewModel.routeGeometry.count >= 2,
+                packState: offlinePack.state,
+                onDownload: {
+                    offlinePack.download(routeGeometry: viewModel.routeGeometry)
+                }
+            )
+            .frame(height: offlinePackHeight)
+            weatherHeader
+                .frame(height: weatherHeaderHeight)
+
+            ForEach(SourceId.allCases) { source in
+                RouteWindForecastCard(
+                    title: source.displayName,
+                    state: viewModel.routeWeatherBySource[source] ?? .idle,
+                    slotLabels: labels,
+                    windUnit: viewModel.windUnit,
+                    compact: compact
+                )
+                .frame(minHeight: cardHeight, maxHeight: compact ? cardHeight : nil)
+            }
+        }
+        .padding(.horizontal, 2)
+        .padding(.vertical, 1)
     }
 
     private var speedBar: some View {

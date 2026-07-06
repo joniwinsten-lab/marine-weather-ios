@@ -32,7 +32,7 @@ struct ExtendedWindOutlookPane: View {
 
     private var outlookContent: some View {
         GeometryReader { geometry in
-            let twoPane = geometry.size.width >= UiBreakpoints.twoPaneMinWidth
+            let twoPane = UiBreakpoints.useTwoPaneLayout(width: geometry.size.width)
             if twoPane {
                 HStack(spacing: 0) {
                     mapColumn
@@ -48,9 +48,10 @@ struct ExtendedWindOutlookPane: View {
                 }
             } else {
                 VStack(spacing: 0) {
-                    mapColumn.frame(height: geometry.size.height * 0.52)
-                    outlookTable.frame(height: geometry.size.height * 0.48)
+                    mapColumn.frame(height: geometry.size.height * UiBreakpoints.stackedMapHeightFraction)
+                    outlookTable.frame(maxHeight: .infinity)
                 }
+                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
             }
         }
     }
@@ -81,15 +82,10 @@ struct ExtendedWindOutlookPane: View {
     }
 
     private var outlookTable: some View {
-        GeometryReader { geo in
-            let horizontalPad: CGFloat = 8
+        let horizontalPad: CGFloat = 8
+        return GeometryReader { geo in
             let contentWidth = geo.size.width - horizontalPad * 2
-            let headerBlock: CGFloat = 36
-            let footerBlock: CGFloat = 14
-            let rowHeight = max(
-                38,
-                (geo.size.height - headerBlock - footerBlock) / CGFloat(extWindDayCount + 1)
-            )
+            let rowHeight = UiBreakpoints.extendedWindRowHeight
 
             VStack(alignment: .leading, spacing: 2) {
                 tableHeader
@@ -98,8 +94,9 @@ struct ExtendedWindOutlookPane: View {
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                 }
-                windTable(availableWidth: contentWidth, rowHeight: rowHeight)
-                    .frame(maxHeight: .infinity, alignment: .top)
+                ScrollView {
+                    windTable(availableWidth: contentWidth, rowHeight: rowHeight)
+                }
                 Text(String(localized: "route_ext_attribution"))
                     .font(.system(size: 8))
                     .foregroundStyle(.tertiary)

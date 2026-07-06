@@ -3,6 +3,7 @@ import Foundation
 /// Main navigation destinations (Android `MainDest`).
 enum MainTab: String, CaseIterable, Identifiable, Hashable {
     case compare
+    case weather
     case route
     case track
     case extendedWind
@@ -14,6 +15,7 @@ enum MainTab: String, CaseIterable, Identifiable, Hashable {
     var title: String {
         switch self {
         case .compare: String(localized: "tab_compare")
+        case .weather: String(localized: "tab_weather")
         case .route: String(localized: "tab_route")
         case .track: String(localized: "tab_track")
         case .extendedWind: String(localized: "tab_extended_wind")
@@ -25,6 +27,7 @@ enum MainTab: String, CaseIterable, Identifiable, Hashable {
     var systemImage: String {
         switch self {
         case .compare: "map"
+        case .weather: "cloud.sun.fill"
         case .route: "location.north.line"
         case .track: "scope"
         case .extendedWind: "calendar"
@@ -36,7 +39,7 @@ enum MainTab: String, CaseIterable, Identifiable, Hashable {
     var isPremium: Bool {
         switch self {
         case .route, .track, .extendedWind: true
-        case .compare, .marineText, .stormRadar: false
+        case .compare, .weather, .marineText, .stormRadar: false
         }
     }
 
@@ -44,6 +47,7 @@ enum MainTab: String, CaseIterable, Identifiable, Hashable {
     var railLabel: String {
         switch self {
         case .compare: String(localized: "nav_compare")
+        case .weather: String(localized: "nav_weather")
         case .route: String(localized: "nav_route")
         case .track: String(localized: "nav_track")
         case .extendedWind: String(localized: "nav_extended_wind")

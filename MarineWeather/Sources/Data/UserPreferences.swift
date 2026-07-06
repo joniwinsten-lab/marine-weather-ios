@@ -2,6 +2,7 @@ import Foundation
 
 enum UserPreferences {
     private static let windUnitKey = "windUnit"
+    private static let weatherSourceKey = "weatherSource"
     private static let reviewLaunchCountKey = "in_app_review_launch_count"
     private static let reviewEngagementCountKey = "in_app_review_positive_engagement"
     private static let reviewFlowRequestedKey = "in_app_review_flow_requested"
@@ -19,6 +20,19 @@ enum UserPreferences {
         }
         set {
             UserDefaults.standard.set(newValue.rawValue, forKey: windUnitKey)
+        }
+    }
+
+    static var weatherSource: SourceId {
+        get {
+            guard let raw = UserDefaults.standard.string(forKey: weatherSourceKey),
+                  let source = SourceId(rawValue: raw) else {
+                return .fmi
+            }
+            return source
+        }
+        set {
+            UserDefaults.standard.set(newValue.rawValue, forKey: weatherSourceKey)
         }
     }
 

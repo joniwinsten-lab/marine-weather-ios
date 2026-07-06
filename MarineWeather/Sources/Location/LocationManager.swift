@@ -20,6 +20,9 @@ final class LocationManager: NSObject, ObservableObject {
     }
 
     func requestWhenInUse() {
+        #if DEBUG
+        if ScreenshotLaunch.iapReview { return }
+        #endif
         manager.requestWhenInUseAuthorization()
     }
 

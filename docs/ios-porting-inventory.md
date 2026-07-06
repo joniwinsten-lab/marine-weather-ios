@@ -29,7 +29,7 @@ Last aligned with Android `versionName` **0.2.18** (`versionCode` 20).
 | 12-day wind outlook | | ✓ |
 | AIS vessel overlay (Digitraffic) | | ✓ |
 
-**Billing product IDs (Play / App Store):** `route-premium-lifetime`, `route-premium-monthly`
+**Billing product IDs:** Play `route-premium-lifetime`, `route-premium-monthly`; App Store `route_premium_lifetime`, `route_premium_monthly` (ASC allows only alphanumerics, `.`, `_`)
 
 ## Map & basemap
 

@@ -9,28 +9,57 @@ struct MainTabView: View {
     @State private var stormVM = StormMapViewModel()
     @State private var aisVM = AisMapViewModel()
     @State private var offlinePackVM = OfflinePackViewModel()
-    @State private var selection: MainTab = .compare
+    @State private var selection: MainTab = {
+        #if DEBUG
+        ScreenshotLaunch.initialTab ?? .compare
+        #else
+        .compare
+        #endif
+    }()
     @State private var didAutoCenterOnGPS = false
+    @State private var showNavigationMenu = false
     @Environment(\.scenePhase) private var scenePhase
     @Bindable private var networkMonitor = NetworkConnectivityMonitor.shared
 
     var body: some View {
-        HStack(spacing: 0) {
-            NavigationRailView(selection: $selection)
+        GeometryReader { geometry in
+            let showRail = UiBreakpoints.showsNavigationRail(width: geometry.size.width)
+            HStack(spacing: 0) {
+                if showRail {
+                    NavigationRailView(selection: $selection)
+                }
 
-            VStack(spacing: 0) {
-                OfflineStatusBanner(status: compareVM.connectivityStatus)
-                detail(for: selection)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                AttributionFooter()
+                VStack(spacing: 0) {
+                    if !showRail {
+                        CompactNavigationBar(selection: $selection, showMenu: $showNavigationMenu)
+                    }
+                    OfflineStatusBanner(status: compareVM.connectivityStatus)
+                    detail(for: selection)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    AttributionFooter()
+                }
             }
+            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .topLeading)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemBackground))
+        .sheet(isPresented: $showNavigationMenu) {
+            NavigationMenuSheet(selection: $selection, isPresented: $showNavigationMenu)
+        }
         .onAppear {
+            #if DEBUG
+            applyDebugScreenshotLaunchOverrides()
+            #endif
             AppStoreReviewCoordinator.recordAppLaunch()
+            #if DEBUG
+            if !ScreenshotLaunch.iapReview {
+                locationManager.requestWhenInUse()
+                locationManager.refreshLocation()
+            }
+            #else
             locationManager.requestWhenInUse()
             locationManager.refreshLocation()
+            #endif
             routeVM.syncMapCenter(compareVM.mapCenter)
             compareVM.updateConnectivity(isOnline: networkMonitor.isOnline)
             Task {
@@ -39,6 +68,17 @@ struct MainTabView: View {
                     lon: compareVM.mapCenter.longitude
                 )
             }
+            stormVM.prefetchInBackground(
+                lat: compareVM.mapCenter.latitude,
+                lon: compareVM.mapCenter.longitude
+            )
+        }
+        .task(id: mapCenterPrefetchKey) {
+            try? await Task.sleep(nanoseconds: 750_000_000)
+            stormVM.prefetchInBackground(
+                lat: compareVM.mapCenter.latitude,
+                lon: compareVM.mapCenter.longitude
+            )
         }
         .onAppear {
             aisVM.setSceneActive(scenePhase == .active)
@@ -73,6 +113,8 @@ struct MainTabView: View {
                 aisVM: aisVM,
                 onRecenter: recenterToDevice
             )
+        case .weather:
+            WeatherOutlookPane(viewModel: compareVM)
         case .route:
             RoutePane(
                 viewModel: routeVM,
@@ -107,6 +149,14 @@ struct MainTabView: View {
         }
     }
 
+    private var mapCenterPrefetchKey: String {
+        String(
+            format: "%.2f_%.2f",
+            compareVM.mapCenter.latitude,
+            compareVM.mapCenter.longitude
+        )
+    }
+
     private func recenterToDevice() {
         locationManager.refreshLocation()
         if let coordinate = locationManager.lastCoordinate {
@@ -114,6 +164,22 @@ struct MainTabView: View {
             routeVM.syncMapCenter(coordinate)
         }
     }
+
+    #if DEBUG
+    /// Launch args for App Store screenshot automation (`scripts/capture-app-store-screenshots.sh`).
+    private func applyDebugScreenshotLaunchOverrides() {
+        let args = CommandLine.arguments
+        if args.contains("-screenshotPremium") {
+            PremiumAccess.shared.unlockForTesting()
+        }
+        if args.contains("-iapReviewScreenshot") {
+            PremiumAccess.shared.configureForIAPReviewScreenshot()
+        }
+        if let tab = ScreenshotLaunch.initialTab {
+            selection = tab
+        }
+    }
+    #endif
 }
 
 #Preview {

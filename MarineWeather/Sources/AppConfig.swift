@@ -18,15 +18,16 @@ enum AppConfig {
     static let defaultLatitude = 60.1453
     static let defaultLongitude = 24.9884
 
-    // StoreKit product IDs (create in App Store Connect; mirror Play hyphen IDs)
-    static let billingRoutePremiumLifetime = "route-premium-lifetime"
-    static let billingRoutePremiumMonthly = "route-premium-monthly"
+    // StoreKit product IDs (App Store Connect: alphanumerics, periods, underscores only)
+    static let billingRoutePremiumLifetime = "route_premium_lifetime"
+    static let billingRoutePremiumMonthly = "route_premium_monthly"
 
     /// Finland gross price (VAT 25.5% included) — fallback label if StoreKit fails to load.
-    static let premiumLifetimeReferenceDisplay = "59,00 €"
+    static let premiumLifetimeReferenceDisplay = "59,99 €"
     static let premiumMonthlyReferenceDisplay = "2,99 €"
 
-    static let privacyPolicyURL = URL(string: "https://joniwinsten-lab.github.io/marine-weather/privacy.html")!
+    static let privacyPolicyURL = URL(string: "https://safelight.fi/marine-weather/privacy.html")!
+    static let termsOfUseURL = URL(string: "https://safelight.fi/marine-weather/terms.html")!
     static let supportEmail = "support@safelight.fi"
 
     // Fintraffic Digitraffic AIS (Baltic / Finland) — https://meri.digitraffic.fi
@@ -39,6 +40,10 @@ enum AppConfig {
     /// Re-download vessel names/metadata every N position polls (not every 60 s).
     static let aisMetadataRefreshEveryNPolls = 10
     static let aisMaxVesselsOnMap = 600
+    /// Live MQTT topic subscriptions (nearest vessels in viewport).
+    static let aisMaxMqttSubscriptions = 80
+    /// iPhone uses REST viewport polling only until CocoaMQTT WebSocket is stable on device.
+    static let aisMqttLiveOnPhone = false
     /// Debounce REST reload when the map viewport changes (pan/zoom).
     static let aisViewportRefreshDebounceSeconds: TimeInterval = 0.45
     /// Course vector length from SOG × COG (API has no pre-drawn track).

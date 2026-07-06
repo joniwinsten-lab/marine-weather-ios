@@ -26,13 +26,26 @@ struct StormMapUiState: Equatable {
 final class StormMapViewModel {
     private(set) var ui = StormMapUiState()
 
-    private let prefetcher = StormRadarPrefetcher()
+    private let prefetcher: StormRadarPrefetcher
     private var animationTask: Task<Void, Never>?
     private var lightningTask: Task<Void, Never>?
+    private var backgroundPrefetchTask: Task<Void, Never>?
     private var lastLat: Double?
     private var lastLon: Double?
 
     private static let animationFrameMs: UInt64 = 1_200
+
+    init(prefetcher: StormRadarPrefetcher = AppServices.shared.stormRadarPrefetcher) {
+        self.prefetcher = prefetcher
+    }
+
+    /// Warm FMI radar timeline in the background so Storm tab opens with cached frames.
+    func prefetchInBackground(lat: Double, lon: Double) {
+        backgroundPrefetchTask?.cancel()
+        backgroundPrefetchTask = Task(priority: .utility) { [prefetcher] in
+            _ = await prefetcher.fetchRadarAndCache(lat: lat, lon: lon)
+        }
+    }
 
     func setRadarEnabled(_ enabled: Bool) {
         ui.radarEnabled = enabled

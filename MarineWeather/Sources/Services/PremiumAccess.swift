@@ -28,6 +28,9 @@ final class PremiumAccess {
     private(set) var isPremium = false
     private(set) var unlockSource: PremiumUnlockSource = .none
 
+    /// DEBUG screenshot automation; always false in Release.
+    private(set) var iapReviewScreenshotMode = false
+
     #if DEBUG
     private static let debugUnlockKey = "route_premium_debug_unlock"
     #endif
@@ -39,12 +42,21 @@ final class PremiumAccess {
     }
 
     func start() async {
+        #if DEBUG
+        if ScreenshotLaunch.iapReview {
+            configureForIAPReviewScreenshot()
+            return
+        }
+        #endif
         await store.start()
         syncFromStore()
     }
 
     /// Loads StoreKit products; safe to call from paywall before or after app `start()`.
     func ensureProductsLoaded() async {
+        #if DEBUG
+        if iapReviewScreenshotMode { return }
+        #endif
         if !store.billingReady {
             await store.start()
         } else {
@@ -91,7 +103,18 @@ final class PremiumAccess {
         UserDefaults.standard.removeObject(forKey: Self.debugUnlockKey)
         RouteTrialPreferences.resetForTesting()
         purchaseError = nil
+        iapReviewScreenshotMode = false
         refreshPremiumStatus()
+    }
+
+    /// App Store Connect IAP review screenshot (`-iapReviewScreenshot` launch arg).
+    func configureForIAPReviewScreenshot() {
+        resetTestingPremiumState()
+        iapReviewScreenshotMode = true
+        billingReady = true
+        productsUnavailable = false
+        billingDiagnostic = ""
+        purchaseError = nil
     }
     #endif
 

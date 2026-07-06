@@ -13,7 +13,9 @@ final class AisMqttCoordinator {
     private var watchlistActive = false
     private var viewportMmsis = Set<Int>()
     private var watchlistMmsis = Set<Int>()
-    private var reconcileTask: Task<Void, Never>?
+    private var reconcilePending = false
+    private var reconcileRunning = false
+    private var connectionWatchTask: Task<Void, Never>?
     private var messageHandlers: [UUID: (AisMqttInboundMessage) -> Void] = [:]
     private var messagePumpTask: Task<Void, Never>?
 
@@ -23,12 +25,24 @@ final class AisMqttCoordinator {
     var isConnected: Bool { client.isConnected }
 
     init() {
-        messagePumpTask = Task { [weak self] in
+        messagePumpTask = Task { @MainActor [weak self] in
             guard let self else { return }
             for await message in self.client.messages {
                 for handler in self.messageHandlers.values {
                     handler(message)
                 }
+            }
+        }
+        connectionWatchTask = Task { @MainActor [weak self] in
+            guard let self else { return }
+            var previous: AisMqttConnectionState?
+            for await state in self.client.connectionStates {
+                if state == .disconnected {
+                    self.subscriptionManager.clearLocalState()
+                } else if state == .connected, previous == .disconnected {
+                    self.scheduleReconcile()
+                }
+                previous = state
             }
         }
     }
@@ -45,32 +59,37 @@ final class AisMqttCoordinator {
     }
 
     func setViewportConsumer(active: Bool, mmsis: Set<Int>) {
-        reconcileTask?.cancel()
-        reconcileTask = Task { @MainActor in
-            viewportActive = active
-            viewportMmsis = mmsis
-            await reconcileLocked()
-        }
+        viewportActive = active
+        viewportMmsis = mmsis
+        scheduleReconcile()
     }
 
     func setWatchlistConsumer(active: Bool, mmsis: Set<Int>) {
-        reconcileTask?.cancel()
-        reconcileTask = Task { @MainActor in
-            watchlistActive = active
-            watchlistMmsis = mmsis
-            await reconcileLocked()
-        }
+        watchlistActive = active
+        watchlistMmsis = mmsis
+        scheduleReconcile()
     }
 
     func disconnectAll() {
-        reconcileTask?.cancel()
-        reconcileTask = Task { @MainActor in
-            viewportActive = false
-            watchlistActive = false
-            viewportMmsis = []
-            watchlistMmsis = []
-            subscriptionManager.clearLocalState()
-            client.disconnect()
+        viewportActive = false
+        watchlistActive = false
+        viewportMmsis = []
+        watchlistMmsis = []
+        subscriptionManager.clearLocalState()
+        client.disconnect()
+    }
+
+    private func scheduleReconcile() {
+        reconcilePending = true
+        guard !reconcileRunning else { return }
+        reconcileRunning = true
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            while self.reconcilePending {
+                self.reconcilePending = false
+                await self.reconcileLocked()
+            }
+            self.reconcileRunning = false
         }
     }
 
@@ -86,11 +105,17 @@ final class AisMqttCoordinator {
         if viewportActive { union.formUnion(viewportMmsis) }
         if watchlistActive { union.formUnion(watchlistMmsis) }
 
+        guard !union.isEmpty else {
+            subscriptionManager.clearLocalState()
+            client.disconnect()
+            return
+        }
+
         do {
             if !client.isConnected {
                 try await client.connect()
             }
-            subscriptionManager.sync(wanted: union)
+            await subscriptionManager.sync(wanted: union)
             log.info("subscriptions=\(self.subscriptionManager.subscribedCount) union=\(union.count)")
         } catch {
             log.warning("mqtt reconcile failed: \(error.localizedDescription, privacy: .public)")

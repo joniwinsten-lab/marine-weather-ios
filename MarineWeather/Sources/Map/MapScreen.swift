@@ -136,10 +136,12 @@ struct MapScreen: UIViewRepresentable {
             )
             let needsAisRedraw = aisEnabled != context.coordinator.lastAppliedAisEnabled
                 || aisRenderGeneration != context.coordinator.lastAppliedAisRenderGeneration
+                || aisVessels.count != context.coordinator.lastAppliedAisVesselCount
             if needsAisRedraw {
                 MapAisOverlay.update(vessels: aisVessels, enabled: aisEnabled, on: style)
                 context.coordinator.lastAppliedAisEnabled = aisEnabled
                 context.coordinator.lastAppliedAisRenderGeneration = aisRenderGeneration
+                context.coordinator.lastAppliedAisVesselCount = aisVessels.count
             }
         }
     }
@@ -155,6 +157,7 @@ struct MapScreen: UIViewRepresentable {
         var aisEnabled = false
         var lastAppliedAisRenderGeneration = -1
         var lastAppliedAisEnabled = false
+        var lastAppliedAisVesselCount = -1
         var forecastCenter: CLLocationCoordinate2D?
         weak var mapView: MLNMapView?
 
@@ -196,6 +199,13 @@ struct MapScreen: UIViewRepresentable {
 
         func mapView(_ mapView: MLNMapView, didFinishLoading style: MLNStyle) {
             onViewportChange?(mapView.zoomLevel, mapView.centerCoordinate.latitude)
+            let bounds = mapView.visibleCoordinateBounds
+            onMapViewportChange?(MapViewport(
+                southWest: bounds.sw,
+                northEast: bounds.ne,
+                zoom: mapView.zoomLevel,
+                centerLatitude: mapView.centerCoordinate.latitude
+            ))
             MapTraficomOverlay.setEnabled(traficomEnabled, on: style)
             if let forecastCenter {
                 MapForecastPin.update(coordinate: forecastCenter, on: style)

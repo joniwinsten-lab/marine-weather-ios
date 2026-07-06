@@ -1,6 +1,7 @@
 import CoreLocation
 import Foundation
 import Observation
+import UIKit
 
 /// Seuranta / Track tab: watchlist + browse + MQTT (Android `AisTrackViewModel`).
 @MainActor
@@ -36,6 +37,7 @@ final class AisTrackViewModel {
     private var browseTask: Task<Void, Never>?
     private var publishThrottleTask: Task<Void, Never>?
     private var liveTickTask: Task<Void, Never>?
+    private var mqttConnectionTask: Task<Void, Never>?
     private var mqttHandlerId: UUID?
     private var isRefreshingFleet = false
 
@@ -50,6 +52,20 @@ final class AisTrackViewModel {
         mqttHandlerId = mqttCoordinator.addMessageHandler { [weak self] message in
             Task { @MainActor in
                 self?.handleMqttMessage(topic: message.topic, payload: message.payload)
+            }
+        }
+        mqttConnectionTask = Task { @MainActor [weak self] in
+            guard let self else { return }
+            for await state in mqttCoordinator.connectionStates {
+                switch state {
+                case .connected:
+                    self.syncMqttSubscriptions()
+                    self.updateStreamMode()
+                case .disconnected, .error:
+                    self.updateStreamMode()
+                case .connecting:
+                    break
+                }
             }
         }
     }
@@ -121,6 +137,15 @@ final class AisTrackViewModel {
         if panel == .browse, sceneActive, premiumActive {
             scheduleBrowseRefresh()
         }
+        updateStreamMode()
+    }
+
+    func applyMapViewport(_ viewport: MapViewport) {
+        lastViewport = viewport
+        if panel == .browse, sceneActive, premiumActive {
+            scheduleBrowseRefresh(force: true)
+        }
+        updateStreamMode()
     }
 
     func ensureFallbackViewport(latitude: Double, longitude: Double, zoom: Double = 8.0) {
@@ -277,7 +302,18 @@ final class AisTrackViewModel {
         let mmsis = Set(watchlistStore.entries.map(\.mmsi))
         guard !isRefreshingFleet else { return }
         isRefreshingFleet = true
-        if !mmsis.isEmpty { isLoading = true }
+        defer {
+            isLoading = false
+            isRefreshingFleet = false
+        }
+        guard !mmsis.isEmpty else {
+            fleetByMmsi = [:]
+            lastError = nil
+            syncMqttSubscriptions()
+            publishUi()
+            return
+        }
+        isLoading = true
         do {
             let fleet = try await repository.fetchVesselsForMmsis(mmsis)
             fleetByMmsi = Dictionary(uniqueKeysWithValues: fleet.map { ($0.mmsi, $0) })
@@ -288,8 +324,6 @@ final class AisTrackViewModel {
             lastError = error.localizedDescription
             updateStreamMode()
         }
-        isLoading = false
-        isRefreshingFleet = false
     }
 
     private func scheduleBrowseRefresh(force: Bool = false) {
@@ -371,10 +405,16 @@ final class AisTrackViewModel {
             mqttCoordinator.setWatchlistConsumer(active: false, mmsis: [])
             return
         }
-        mqttCoordinator.setWatchlistConsumer(
-            active: true,
-            mmsis: Set(watchlistStore.entries.map(\.mmsi))
-        )
+        guard AppConfig.aisMqttLiveOnPhone || UIDevice.current.userInterfaceIdiom != .phone else {
+            mqttCoordinator.setWatchlistConsumer(active: false, mmsis: [])
+            return
+        }
+        let mmsis = Set(watchlistStore.entries.map(\.mmsi))
+        guard !mmsis.isEmpty else {
+            mqttCoordinator.setWatchlistConsumer(active: false, mmsis: [])
+            return
+        }
+        mqttCoordinator.setWatchlistConsumer(active: true, mmsis: mmsis)
     }
 
     private func publishUi() {
@@ -446,17 +486,19 @@ final class AisTrackViewModel {
             streamMode = .off
             return
         }
-        let hasFleet = !fleetByMmsi.isEmpty
-        if hasFleet && isLoading {
+        if isLoading || (panel == .browse && browseLoading) {
             streamMode = .connecting
-        } else if !hasFleet && lastError != nil {
+            return
+        }
+        if lastError != nil, fleetByMmsi.isEmpty, vessels.isEmpty {
             streamMode = .error
-        } else if mqttCoordinator.isConnected && hasFleet {
+            return
+        }
+        let mqttLive = AppConfig.aisMqttLiveOnPhone || UIDevice.current.userInterfaceIdiom != .phone
+        if mqttCoordinator.isConnected, mqttLive, !fleetByMmsi.isEmpty {
             streamMode = .live
-        } else if hasFleet {
-            streamMode = .restOnly
         } else {
-            streamMode = .connecting
+            streamMode = .restOnly
         }
     }
 }
