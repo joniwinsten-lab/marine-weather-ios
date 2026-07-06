@@ -18,8 +18,7 @@ struct WeatherOutlookPane: View {
                     id: "hour-\(index)",
                     label: row.label,
                     point: row.point,
-                    highlighted: index == 0,
-                    labelWidth: 52
+                    highlighted: index == 0
                 )
             }
     }
@@ -34,8 +33,7 @@ struct WeatherOutlookPane: View {
                     id: "day-\(index)",
                     label: row.label,
                     point: row.point,
-                    highlighted: false,
-                    labelWidth: 72
+                    highlighted: false
                 )
             }
     }
@@ -115,42 +113,50 @@ struct WeatherOutlookPane: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         } else {
             forecastScroll
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
     }
 
     private var forecastScroll: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                WeatherForecastSectionHeader(
-                    title: String(localized: "weather_section_24h"),
-                    windUnit: viewModel.windUnit
-                )
+        GeometryReader { geometry in
+            let layout = WeatherForecastTableLayout(contentWidth: geometry.size.width)
 
-                ForEach(hourlyRows) { row in
-                    WeatherForecastRow(model: row, windUnit: viewModel.windUnit)
-                    if row.id != hourlyRows.last?.id {
-                        Divider()
-                    }
-                }
-
-                if !weeklyRows.isEmpty {
-                    Divider()
-                        .padding(.vertical, 14)
-
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
                     WeatherForecastSectionHeader(
-                        title: String(localized: "weather_section_7d"),
-                        windUnit: viewModel.windUnit
+                        title: String(localized: "weather_section_24h"),
+                        windUnit: viewModel.windUnit,
+                        layout: layout
                     )
 
-                    ForEach(weeklyRows) { row in
-                        WeatherForecastRow(model: row, windUnit: viewModel.windUnit)
-                        if row.id != weeklyRows.last?.id {
+                    ForEach(hourlyRows) { row in
+                        WeatherForecastRow(model: row, windUnit: viewModel.windUnit, layout: layout)
+                        if row.id != hourlyRows.last?.id {
                             Divider()
                         }
                     }
+
+                    if !weeklyRows.isEmpty {
+                        Divider()
+                            .padding(.vertical, 14)
+
+                        WeatherForecastSectionHeader(
+                            title: String(localized: "weather_section_7d"),
+                            windUnit: viewModel.windUnit,
+                            layout: layout
+                        )
+
+                        ForEach(weeklyRows) { row in
+                            WeatherForecastRow(model: row, windUnit: viewModel.windUnit, layout: layout)
+                            if row.id != weeklyRows.last?.id {
+                                Divider()
+                            }
+                        }
+                    }
                 }
+                .frame(width: geometry.size.width)
+                .padding(.bottom, 12)
             }
-            .padding(.bottom, 12)
         }
     }
 }
@@ -160,73 +166,117 @@ private struct WeatherForecastRowModel: Identifiable {
     let label: String
     let point: UnifiedTimePoint?
     let highlighted: Bool
-    let labelWidth: CGFloat
+}
+
+/// Shared column widths so headers and rows stay aligned edge-to-edge.
+private struct WeatherForecastTableLayout {
+    let contentWidth: CGFloat
+
+    static let columnSpacing: CGFloat = 6
+    static let rowVerticalPadding: CGFloat = 10
+    static let symbolSize: CGFloat = 36
+
+    var timeWidth: CGFloat { max(64, contentWidth * 0.16) }
+    var symbolWidth: CGFloat { 44 }
+    var tempWidth: CGFloat { max(44, contentWidth * 0.11) }
+    var precipWidth: CGFloat { max(40, contentWidth * 0.10) }
+    var windWidth: CGFloat {
+        let fixed = timeWidth + symbolWidth + tempWidth + precipWidth
+        let gaps = Self.columnSpacing * 4
+        return max(72, contentWidth - fixed - gaps)
+    }
 }
 
 private struct WeatherForecastSectionHeader: View {
     let title: String
     let windUnit: WindUnit
+    let layout: WeatherForecastTableLayout
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .font(.subheadline.weight(.semibold))
-            HStack(spacing: 8) {
-                Text(String(localized: "weather_col_time"))
-                    .frame(minWidth: 72, alignment: .leading)
-                Color.clear.frame(width: 40)
-                Text(String(localized: "weather_col_temp"))
-                    .frame(width: 44, alignment: .trailing)
-                Text(String(format: String(localized: "weather_col_wind"), windUnit.label))
-                    .frame(minWidth: 56, alignment: .trailing)
-                Text(String(localized: "weather_col_precip"))
-                    .frame(width: 44, alignment: .trailing)
-            }
-            .font(.caption2.weight(.semibold))
-            .foregroundStyle(.secondary)
+
+            WeatherForecastColumnHeader(windUnit: windUnit, layout: layout)
+
+            Divider()
         }
-        .padding(.vertical, 6)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.systemBackground))
+        .padding(.bottom, 4)
+        .frame(width: layout.contentWidth, alignment: .leading)
+    }
+}
+
+private struct WeatherForecastColumnHeader: View {
+    let windUnit: WindUnit
+    let layout: WeatherForecastTableLayout
+
+    var body: some View {
+        HStack(spacing: WeatherForecastTableLayout.columnSpacing) {
+            Text(String(localized: "weather_col_time"))
+                .frame(width: layout.timeWidth, alignment: .leading)
+
+            Color.clear
+                .frame(width: layout.symbolWidth)
+
+            Text(String(localized: "weather_col_temp"))
+                .frame(width: layout.tempWidth, alignment: .trailing)
+
+            Text(String(format: String(localized: "weather_col_wind"), windUnit.label))
+                .frame(width: layout.windWidth, alignment: .trailing)
+                .lineLimit(1)
+                .minimumScaleFactor(0.75)
+
+            Text(String(localized: "weather_col_precip"))
+                .frame(width: layout.precipWidth, alignment: .trailing)
+        }
+        .font(.caption2.weight(.semibold))
+        .foregroundStyle(.secondary)
     }
 }
 
 private struct WeatherForecastRow: View {
     let model: WeatherForecastRowModel
     let windUnit: WindUnit
+    let layout: WeatherForecastTableLayout
 
     var body: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: WeatherForecastTableLayout.columnSpacing) {
             Text(model.label)
                 .font(.system(size: model.highlighted ? 14 : 13, weight: model.highlighted ? .bold : .medium))
                 .foregroundStyle(model.highlighted ? .primary : .secondary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
-                .frame(width: model.labelWidth, alignment: .leading)
+                .frame(width: layout.timeWidth, alignment: .leading)
 
-            WeatherSymbolImage(symbolCode: model.point?.weatherSymbolCode, size: 40)
-                .frame(width: 40)
+            WeatherSymbolImage(symbolCode: model.point?.weatherSymbolCode, size: WeatherForecastTableLayout.symbolSize)
+                .frame(width: layout.symbolWidth)
 
             Text(tempText)
                 .font(.system(size: model.highlighted ? 16 : 15, weight: model.highlighted ? .bold : .regular))
                 .monospacedDigit()
-                .frame(width: 44, alignment: .trailing)
+                .frame(width: layout.tempWidth, alignment: .trailing)
 
             Text(windText)
                 .font(.system(size: 13, weight: .medium))
                 .monospacedDigit()
                 .lineLimit(1)
-                .minimumScaleFactor(0.75)
-                .frame(minWidth: 56, alignment: .trailing)
+                .minimumScaleFactor(0.7)
+                .frame(width: layout.windWidth, alignment: .trailing)
 
             Text(precipText)
                 .font(.system(size: 13))
                 .monospacedDigit()
                 .foregroundStyle(.secondary)
-                .frame(width: 44, alignment: .trailing)
+                .frame(width: layout.precipWidth, alignment: .trailing)
         }
-        .padding(.vertical, 8)
-        .background(model.highlighted ? Color.accentColor.opacity(0.08) : Color.clear, in: RoundedRectangle(cornerRadius: 8))
+        .padding(.vertical, WeatherForecastTableLayout.rowVerticalPadding)
+        .frame(width: layout.contentWidth, alignment: .leading)
+        .background {
+            if model.highlighted {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.accentColor.opacity(0.08))
+            }
+        }
     }
 
     private var tempText: String {
