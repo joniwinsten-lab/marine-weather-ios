@@ -2,6 +2,7 @@
 /// Launch arguments for App Store screenshot / IAP review automation.
 enum ScreenshotLaunch {
     static let iapReview: Bool = CommandLine.arguments.contains("-iapReviewScreenshot")
+    static let openTermsForReview: Bool = CommandLine.arguments.contains("-openTermsForReview")
 
     static var initialTab: MainTab? {
         guard let tabArg = CommandLine.arguments.first(where: { $0.hasPrefix("-tab=") }) else {

@@ -1,5 +1,8 @@
 import StoreKit
 import SwiftUI
+#if DEBUG
+import UIKit
+#endif
 
 /// StoreKit 2 paywall for route + 12-day wind (Android `RoutePremiumPaywall`).
 struct RoutePremiumPaywall: View {
@@ -131,6 +134,13 @@ struct RoutePremiumPaywall: View {
         .task {
             await premium.ensureProductsLoaded()
         }
+        #if DEBUG
+        .task {
+            guard ScreenshotLaunch.openTermsForReview else { return }
+            try? await Task.sleep(nanoseconds: 2_500_000_000)
+            await UIApplication.shared.open(AppConfig.termsOfUseURL)
+        }
+        #endif
     }
 
     private var lifetimeReady: Bool {
