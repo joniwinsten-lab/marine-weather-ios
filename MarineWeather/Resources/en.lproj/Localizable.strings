@@ -175,7 +175,8 @@
 "route_premium_trial_already_used" = "Trial was already started on this device.";
 "route_premium_trial_appstore_note" = "The in-app trial unlocks route features locally—it does not charge your card. Final prices and renewal rules are shown at purchase in the App Store.";
 "route_premium_privacy_policy" = "Privacy Policy";
-"route_premium_terms_of_use" = "Terms of Use";
+"route_premium_terms_of_use" = "Terms of Use (EULA)";
+"route_premium_sub_legal_disclosure" = "Marine Weather Premium is an auto-renewable monthly subscription (%@). It renews automatically unless cancelled at least 24 hours before the end of the current period in Settings → Apple ID → Subscriptions.";
 "route_premium_vat_note" = "Prices include VAT (25.5%) where applicable.";
 "route_premium_dev_unlock" = "Unlock for testing (Debug)";
 "route_premium_dev_reset" = "Reset trial & debug unlock";

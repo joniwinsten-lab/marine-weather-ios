@@ -109,6 +109,8 @@ struct RoutePremiumPaywall: View {
                     .foregroundStyle(.tertiary)
                     .multilineTextAlignment(.center)
 
+                subscriptionLegalDisclosure
+
                 legalLinks
 
                 #if DEBUG
@@ -169,12 +171,39 @@ struct RoutePremiumPaywall: View {
         return AppConfig.premiumMonthlyReferenceDisplay
     }
 
-    private var legalLinks: some View {
-        HStack(spacing: 20) {
-            Link(String(localized: "route_premium_privacy_policy"), destination: AppConfig.privacyPolicyURL)
-            Link(String(localized: "route_premium_terms_of_use"), destination: AppConfig.termsOfUseURL)
+    private var monthlyPriceLabel: String {
+        premium.subscriptionProduct?.displayPrice ?? monthlyFallbackPrice
+    }
+
+    private var subscriptionLegalDisclosure: some View {
+        VStack(spacing: 6) {
+            Text(
+                String(
+                    format: String(localized: "route_premium_sub_legal_disclosure"),
+                    monthlyPriceLabel
+                )
+            )
+            .font(.caption2)
+            .foregroundStyle(.secondary)
+            .multilineTextAlignment(.center)
         }
-        .font(.caption)
+        .padding(.top, 4)
+    }
+
+    private var legalLinks: some View {
+        VStack(spacing: 8) {
+            HStack(spacing: 20) {
+                Link(String(localized: "route_premium_privacy_policy"), destination: AppConfig.privacyPolicyURL)
+                Link(String(localized: "route_premium_terms_of_use"), destination: AppConfig.termsOfUseURL)
+            }
+            .font(.caption.weight(.medium))
+
+            Text(AppConfig.termsOfUseURL.absoluteString)
+                .font(.caption2)
+                .foregroundStyle(.tertiary)
+                .multilineTextAlignment(.center)
+                .textSelection(.enabled)
+        }
         .padding(.top, 4)
     }
 }

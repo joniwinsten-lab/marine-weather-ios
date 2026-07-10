@@ -158,7 +158,8 @@
 "route_premium_trial_already_used" = "Kokeilu on jo käytetty tällä laitteella.";
 "route_premium_trial_appstore_note" = "Sovelluksen kokeilu avaa reitti-ominaisuudet paikallisesti—App Store ei veloita korttia automaattisesti kokeilun päätyttyä. Lopulliset hinnat ja uusimissäännöt näkyvät ostohetkellä.";
 "route_premium_privacy_policy" = "Tietosuojakäytäntö";
-"route_premium_terms_of_use" = "Käyttöehdot";
+"route_premium_terms_of_use" = "Käyttöehdot (EULA)";
+"route_premium_sub_legal_disclosure" = "Marine Weather Premium on kuukausittain uusiutuva tilaus (%@). Tilaus uusiutuu automaattisesti, ellei sitä peruuteta vähintään 24 h ennen jakson päättymistä (Asetukset → Apple ID → Tilaukset).";
 "route_premium_vat_note" = "Hinnat sisältävät ALV:n (25,5 %), jos sovellettavissa.";
 "route_premium_dev_unlock" = "Unlock for testing (Debug)";
 "route_premium_dev_reset" = "Reset trial & debug unlock";

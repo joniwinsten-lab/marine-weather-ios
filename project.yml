@@ -40,7 +40,7 @@ targets:
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: 5H7A83K4WU
         MARKETING_VERSION: "0.3.6"
-        CURRENT_PROJECT_VERSION: "42"
+        CURRENT_PROJECT_VERSION: "43"
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Marine Weather
         INFOPLIST_KEY_CFBundleLocalizations: en fi sv nb

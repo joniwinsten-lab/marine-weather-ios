@@ -157,7 +157,8 @@
 "route_premium_trial_already_used" = "Prøveperioden er allerede startet på denne enheten.";
 "route_premium_trial_appstore_note" = "Prøveperioden i appen låser opp rute-funksjoner lokalt—App Store belaster ikke kortet automatisk når prøven er over. Endelige priser og fornyingsregler vises ved kjøp.";
 "route_premium_privacy_policy" = "Personvernregler";
-"route_premium_terms_of_use" = "Vilkår for bruk";
+"route_premium_terms_of_use" = "Vilkår for bruk (EULA)";
+"route_premium_sub_legal_disclosure" = "Marine Weather Premium er et månedlig abonnement (%@) som fornyes automatisk med mindre det sies opp minst 24 timer før perioden utløper (Innstillinger → Apple ID → Abonnementer).";
 "route_premium_vat_note" = "Prisene inkluderer mva (25,5 %) der det gjelder.";
 "route_premium_dev_unlock" = "Unlock for testing (Debug)";
 "route_premium_dev_reset" = "Reset trial & debug unlock";
