@@ -80,7 +80,15 @@ Products: route_premium_lifetime (non-consumable), route_premium_monthly (auto-r
 Attached screen recording shows paywall legal links opening in Safari.
 ```
 
-Upload a **short screen recording** (Route tab → Premium → tap Terms of Use → page loads).
+Upload a **short screen recording** (Route tab → Premium → Terms of Use opens in Safari).
+
+Generate locally:
+
+```bash
+./scripts/record-iap-review-video.sh
+```
+
+Output: `docs/app-store/review/iap-eula-screen-recording.mov`
 
 ## In-app (already implemented)
 
