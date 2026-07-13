@@ -67,6 +67,7 @@
 		595A46EE973A333A8B5666C8 /* WeatherHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C773FDDD9426968F8532C84 /* WeatherHTTPClient.swift */; };
 		5A435367763D5DE785198D18 /* MapOverlayChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42A2E9516702DC1357FBCE5 /* MapOverlayChrome.swift */; };
 		5C5A1621B36F60667530163C /* RouteGpx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25BA7842EE9C6A0592AFF45 /* RouteGpx.swift */; };
+		62D855AEBF077DBB6A328E5D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 18BE315A29C32C841C151073 /* InfoPlist.strings */; };
 		639120C51FA630A84ADE6D5C /* NavigationMenuSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB958A24D5C4A5E2960074F /* NavigationMenuSheet.swift */; };
 		65240DD8916FB9E74007E316 /* RoutePremiumPaywall.swift in Sources */ = {isa = PBXBuildFile; fileRef = D795AC24A82401C44BF3CB46 /* RoutePremiumPaywall.swift */; };
 		683D981A8E13B4832B6357DD /* FmiHarmonieGribParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAB4FD5FA045748016FAF6F /* FmiHarmonieGribParser.swift */; };
@@ -178,9 +179,11 @@
 		285A0EF792EE5E08331884F1 /* StormRadarPrefetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormRadarPrefetcher.swift; sourceTree = "<group>"; };
 		2F96BF2D0ABC52259EBA031B /* TraficomNauticalConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraficomNauticalConfig.swift; sourceTree = "<group>"; };
 		3006695D80830A00E45339AC /* MetWeatherSymbolMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetWeatherSymbolMapper.swift; sourceTree = "<group>"; };
+		3184754AD013B10280CC9BFE /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		31B2C5FC6C8C7F0FA52B0166 /* MarineTextModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineTextModels.swift; sourceTree = "<group>"; };
 		323EFD45811827AA82FD1445 /* FmiLightningRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiLightningRepository.swift; sourceTree = "<group>"; };
 		3292761EC20412AE906E2661 /* LightningModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightningModels.swift; sourceTree = "<group>"; };
+		38919D52BE952494D64BBA65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3A3EACBF266E1DB1F0A87E09 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		3CAB4FD5FA045748016FAF6F /* FmiHarmonieGribParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiHarmonieGribParser.swift; sourceTree = "<group>"; };
 		43F52770CC805647CB32276D /* StormRadarPrefetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormRadarPrefetch.swift; sourceTree = "<group>"; };
@@ -265,9 +268,11 @@
 		CFD4E0F901272923E0557C0E /* FmiRadarTimeSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FmiRadarTimeSeries.swift; sourceTree = "<group>"; };
 		D0457FF755C0ED7F22D299AA /* SourceWindForecastCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceWindForecastCard.swift; sourceTree = "<group>"; };
 		D114DEAC93D52358ED205755 /* AisModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AisModels.swift; sourceTree = "<group>"; };
+		D17ADA97986A078201761C77 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D18436F5D7FD24A1D47643CA /* OfflineAreaPackDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineAreaPackDownloader.swift; sourceTree = "<group>"; };
 		D25BA7842EE9C6A0592AFF45 /* RouteGpx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteGpx.swift; sourceTree = "<group>"; };
 		D298975594413AE82A7498C8 /* MLNMapView+Configured.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MLNMapView+Configured.swift"; sourceTree = "<group>"; };
+		D2D6A22C540A7238F29EC1E9 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D5A26BD0DFF2FEC943090CA3 /* WeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
 		D6A5D0125EF200D69E4F8FB6 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D795AC24A82401C44BF3CB46 /* RoutePremiumPaywall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePremiumPaywall.swift; sourceTree = "<group>"; };
@@ -470,6 +475,7 @@
 			children = (
 				6EB278CAEB0BBC4CD85E76FE /* Info-additions.plist */,
 				E36BEC6858FD08A7569D5C12 /* LaunchScreen.storyboard */,
+				18BE315A29C32C841C151073 /* InfoPlist.strings */,
 				6AC51EACE84E6060295526E5 /* Localizable.strings */,
 			);
 			path = Resources;
@@ -803,6 +809,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BB79246796808E9CF64C237 /* Assets.xcassets in Resources */,
+				62D855AEBF077DBB6A328E5D /* InfoPlist.strings in Resources */,
 				AD7EAE965C98752A238ACE95 /* LaunchScreen.storyboard in Resources */,
 				218C5364360D92ADCA041782 /* Localizable.strings in Resources */,
 			);
@@ -953,6 +960,17 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		18BE315A29C32C841C151073 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				38919D52BE952494D64BBA65 /* en */,
+				D2D6A22C540A7238F29EC1E9 /* fi */,
+				D17ADA97986A078201761C77 /* nb */,
+				3184754AD013B10280CC9BFE /* sv */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		6AC51EACE84E6060295526E5 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1031,7 +1049,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = 5H7A83K4WU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MarineWeather/Resources/Info-additions.plist";
@@ -1039,14 +1057,14 @@
 				INFOPLIST_KEY_CFBundleLocalizations = "en fi sv nb";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Show marine weather for your current map location.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Marine Weather uses your location while the app is open to centre the weather map on your position and load forecasts for that area—for example, when you tap recentre to see wind and temperature at your current sailing location.";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.6;
+				MARKETING_VERSION = 0.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = fi.veneappi.MarineWeather;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1059,7 +1077,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = 5H7A83K4WU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MarineWeather/Resources/Info-additions.plist";
@@ -1067,14 +1085,14 @@
 				INFOPLIST_KEY_CFBundleLocalizations = "en fi sv nb";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Show marine weather for your current map location.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Marine Weather uses your location while the app is open to centre the weather map on your position and load forecasts for that area—for example, when you tap recentre to see wind and temperature at your current sailing location.";
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.6;
+				MARKETING_VERSION = 0.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = fi.veneappi.MarineWeather;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

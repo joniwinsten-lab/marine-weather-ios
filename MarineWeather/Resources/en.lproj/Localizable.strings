@@ -163,6 +163,10 @@
 "route_premium_buy_once_loading" = "Loading price…";
 "route_premium_buy_once_no_price" = "Buy once (price unavailable)";
 "route_premium_subscribe_monthly" = "Subscribe — %@ / month";
+"route_premium_monthly_heading" = "Monthly subscription";
+"route_premium_monthly_per_period" = "per month, auto-renewable";
+"route_premium_subscribe_cta" = "Subscribe for %@";
+"route_premium_trial_secondary" = "Optional: try route features on this device for 3 days (no App Store charge)";
 "route_premium_subscribe_loading" = "Loading subscription price…";
 "route_premium_subscribe_no_price" = "Subscribe monthly (price unavailable)";
 "route_premium_prices_unavailable" = "Prices could not be loaded from the App Store. Use a StoreKit config in Xcode for simulator testing, or install a TestFlight build with products route_premium_lifetime and route_premium_monthly active in App Store Connect.";

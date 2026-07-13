@@ -146,6 +146,10 @@
 "route_premium_buy_once_loading" = "Haetaan hintaa…";
 "route_premium_buy_once_no_price" = "Buy once (price unavailable)";
 "route_premium_subscribe_monthly" = "Tilaa — %1$@ / kk";
+"route_premium_monthly_heading" = "Kuukausitilaus";
+"route_premium_monthly_per_period" = "kuukaudessa, uusiutuu automaattisesti";
+"route_premium_subscribe_cta" = "Tilaa hintaan %1$@";
+"route_premium_trial_secondary" = "Valinnainen: kokeile reitti-ominaisuuksia 3 päivää tällä laitteella (ei App Store -veloitusta)";
 "route_premium_subscribe_loading" = "Haetaan tilaushintaa…";
 "route_premium_subscribe_no_price" = "Subscribe monthly (price unavailable)";
 "route_premium_prices_unavailable" = "Hintoja ei saatu Google Playstä. Asenna sovellus Playn suljetun testauksen linkistä, käytä samaa Google-tiliä kuin testaajana, ja varmista että route_premium_lifetime ja marine_weather_premium ovat Active Play Consolessa.";

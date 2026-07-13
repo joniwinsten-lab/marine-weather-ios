@@ -145,6 +145,10 @@
 "route_premium_buy_once_loading" = "Henter pris…";
 "route_premium_buy_once_no_price" = "Buy once (price unavailable)";
 "route_premium_subscribe_monthly" = "Abonner — %1$@ / mnd";
+"route_premium_monthly_heading" = "Månedlig abonnement";
+"route_premium_monthly_per_period" = "per måned, fornyes automatisk";
+"route_premium_subscribe_cta" = "Abonner for %1$@";
+"route_premium_trial_secondary" = "Valgfritt: prøv rute-funksjoner i 3 dager på denne enheten (ingen App Store-belastning)";
 "route_premium_subscribe_loading" = "Henter abonnementspris…";
 "route_premium_subscribe_no_price" = "Subscribe monthly (price unavailable)";
 "route_premium_prices_unavailable" = "Prisene kunne ikke hentes fra Google Play. Installer fra lenken for lukket testing, bruk samme Google-konto som tester, og bekreft at route_premium_lifetime og marine_weather_premium er Active i Play Console.";

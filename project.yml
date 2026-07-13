@@ -39,13 +39,13 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: fi.veneappi.MarineWeather
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: 5H7A83K4WU
-        MARKETING_VERSION: "0.3.6"
-        CURRENT_PROJECT_VERSION: "43"
+        MARKETING_VERSION: "0.3.7"
+        CURRENT_PROJECT_VERSION: "44"
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Marine Weather
         INFOPLIST_KEY_CFBundleLocalizations: en fi sv nb
         INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.weather"
-        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: "Show marine weather for your current map location."
+        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: "Marine Weather uses your location while the app is open to centre the weather map on your position and load forecasts for that area—for example, when you tap recentre to see wind and temperature at your current sailing location."
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         INFOPLIST_KEY_UILaunchStoryboardName: LaunchScreen
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"

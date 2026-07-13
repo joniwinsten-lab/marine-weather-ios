@@ -1,0 +1,2 @@
+/* Location permission — Guideline 5.1.1 */
+"NSLocationWhenInUseUsageDescription" = "Marine Weather bruker posisjonen din mens appen er åpen for å sentrere værkartet på der du er og hente prognoser for området—for eksempel når du trykker sentrer for å se vind og temperatur ved din nåværende seilingsposisjon.";

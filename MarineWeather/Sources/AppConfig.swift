@@ -3,10 +3,10 @@ import Foundation
 /// Shared constants ported from Android `MapConfig` and `BuildConfig`.
 enum AppConfig {
     static let appDisplayName = "Marine Weather"
-    static let marketingVersion = "0.3.6"
+    static let marketingVersion = "0.3.7"
 
     /// Match Android `WEATHER_USER_AGENT`; bump version when shipping.
-    static let weatherUserAgent = "MarineWeather/0.3.6 (fi.veneappi.MarineWeather; planning app)"
+    static let weatherUserAgent = "MarineWeather/0.3.7 (fi.veneappi.MarineWeather; planning app)"
 
     // Map — OpenFreeMap (see Android `MapConfig.kt`)
     static let mapStyleURL = URL(string: "https://tiles.openfreemap.org/styles/liberty")!
@@ -32,7 +32,7 @@ enum AppConfig {
 
     // Fintraffic Digitraffic AIS (Baltic / Finland) — https://meri.digitraffic.fi
     static let digitrafficBaseURL = URL(string: "https://meri.digitraffic.fi/api/ais/v1")!
-    static let digitrafficUser = "MarineWeather/0.3.6 (fi.veneappi.MarineWeather)"
+    static let digitrafficUser = "MarineWeather/0.3.7 (fi.veneappi.MarineWeather)"
     /// REST poll interval while AIS overlay is on (no MQTT).
     static let aisRestPollIntervalSeconds: TimeInterval = 60
     /// Metadata-only REST heartbeat while MQTT live (positions come from MQTT).

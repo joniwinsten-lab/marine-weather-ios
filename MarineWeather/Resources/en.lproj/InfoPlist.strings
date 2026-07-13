@@ -1,0 +1,2 @@
+/* Location permission — Guideline 5.1.1 */
+"NSLocationWhenInUseUsageDescription" = "Marine Weather uses your location while the app is open to centre the weather map on your position and load forecasts for that area—for example, when you tap recentre to see wind and temperature at your current sailing location.";

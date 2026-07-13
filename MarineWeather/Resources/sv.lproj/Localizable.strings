@@ -145,6 +145,10 @@
 "route_premium_buy_once_loading" = "Hämtar pris…";
 "route_premium_buy_once_no_price" = "Buy once (price unavailable)";
 "route_premium_subscribe_monthly" = "Prenumerera — %1$@ / månad";
+"route_premium_monthly_heading" = "Månadsprenumeration";
+"route_premium_monthly_per_period" = "per månad, förnyas automatiskt";
+"route_premium_subscribe_cta" = "Prenumerera för %1$@";
+"route_premium_trial_secondary" = "Valfritt: prova ruttfunktioner i 3 dagar på den här enheten (ingen App Store-debitering)";
 "route_premium_subscribe_loading" = "Hämtar prenumerationspris…";
 "route_premium_subscribe_no_price" = "Subscribe monthly (price unavailable)";
 "route_premium_prices_unavailable" = "Priserna kunde inte hämtas från Google Play. Installera från länken för stängd testning, använd samma Google-konto som testare, och kontrollera att route_premium_lifetime och marine_weather_premium är Active i Play Console.";

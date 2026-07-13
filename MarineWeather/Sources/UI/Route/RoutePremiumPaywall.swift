@@ -11,7 +11,7 @@ struct RoutePremiumPaywall: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 14) {
+            VStack(spacing: 16) {
                 Image(systemName: "lock.fill")
                     .font(.system(size: 36))
                     .foregroundStyle(.secondary)
@@ -26,16 +26,7 @@ struct RoutePremiumPaywall: View {
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
 
-                if premium.showTrialOffer {
-                    Button {
-                        premium.startTrial()
-                        if premium.isPremium { onUnlocked() }
-                    } label: {
-                        Text(String(localized: "route_premium_trial_cta"))
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.bordered)
-                }
+                monthlySubscriptionCard
 
                 Button {
                     Task {
@@ -46,25 +37,8 @@ struct RoutePremiumPaywall: View {
                     Text(lifetimeButtonTitle)
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
-                .disabled(!lifetimeReady || premium.isPurchasing)
-
-                Button {
-                    Task {
-                        await premium.purchaseMonthly()
-                        if premium.isPremium { onUnlocked() }
-                    }
-                } label: {
-                    Text(monthlyButtonTitle)
-                        .frame(maxWidth: .infinity)
-                }
                 .buttonStyle(.bordered)
-                .disabled(!monthlyReady || premium.isPurchasing)
-
-                Text(String(localized: "route_premium_sub_recurring_hint"))
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
+                .disabled(!lifetimeReady || premium.isPurchasing)
 
                 Button {
                     Task {
@@ -107,10 +81,18 @@ struct RoutePremiumPaywall: View {
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
 
-                Text(String(localized: "route_premium_trial_appstore_note"))
-                    .font(.caption2)
-                    .foregroundStyle(.tertiary)
+                if premium.showTrialOffer {
+                    Button {
+                        premium.startTrial()
+                        if premium.isPremium { onUnlocked() }
+                    } label: {
+                        Text(String(localized: "route_premium_trial_secondary"))
+                    }
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .buttonStyle(.plain)
                     .multilineTextAlignment(.center)
+                }
 
                 subscriptionLegalDisclosure
 
@@ -143,6 +125,44 @@ struct RoutePremiumPaywall: View {
         #endif
     }
 
+    private var monthlySubscriptionCard: some View {
+        VStack(spacing: 10) {
+            Text(String(localized: "route_premium_monthly_heading"))
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.secondary)
+
+            Text(monthlyPriceLabel)
+                .font(.system(size: 36, weight: .bold))
+                .monospacedDigit()
+                .foregroundStyle(.primary)
+
+            Text(String(localized: "route_premium_monthly_per_period"))
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+
+            Button {
+                Task {
+                    await premium.purchaseMonthly()
+                    if premium.isPremium { onUnlocked() }
+                }
+            } label: {
+                Text(String(format: String(localized: "route_premium_subscribe_cta"), monthlyPriceLabel))
+                    .font(.headline)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(!monthlyReady || premium.isPurchasing)
+
+            Text(String(localized: "route_premium_sub_recurring_hint"))
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity)
+        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+    }
+
     private var lifetimeReady: Bool {
         #if DEBUG
         if premium.iapReviewScreenshotMode { return true }
@@ -160,11 +180,6 @@ struct RoutePremiumPaywall: View {
     private var lifetimeButtonTitle: String {
         let price = premium.lifetimeProduct?.displayPrice ?? lifetimeFallbackPrice
         return String(format: String(localized: "route_premium_buy_once"), price)
-    }
-
-    private var monthlyButtonTitle: String {
-        let price = premium.subscriptionProduct?.displayPrice ?? monthlyFallbackPrice
-        return String(format: String(localized: "route_premium_subscribe_monthly"), price)
     }
 
     private var lifetimeFallbackPrice: String {

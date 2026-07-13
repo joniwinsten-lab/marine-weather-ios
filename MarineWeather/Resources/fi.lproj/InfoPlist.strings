@@ -1,0 +1,2 @@
+/* Location permission — Guideline 5.1.1 */
+"NSLocationWhenInUseUsageDescription" = "Marine Weather käyttää sijaintiasi sovelluksen ollessa käytössä keskittääkseen sääkartan nykyiseen paikkaasi ja hakeakseen alueen ennusteet—esimerkiksi kun painat keskity ja haluat tuuli- ja lämpötilatiedot nykyisestä purjehduspaikastasi.";
