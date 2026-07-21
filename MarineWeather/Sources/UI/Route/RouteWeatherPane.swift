@@ -8,6 +8,7 @@ struct RouteWeatherPane: View {
     var onExportGpx: () -> Void
     var onExportPdf: () -> Void
 
+    private let departureBarHeight: CGFloat = 76
     private let speedBarHeight: CGFloat = 72
     private let exportRowHeight: CGFloat = 36
     private let offlinePackHeight: CGFloat = 108
@@ -25,7 +26,7 @@ struct RouteWeatherPane: View {
                 }
             } else {
                 let spacingTotal = 2 * CGFloat(SourceId.allCases.count - 1) + 6
-                let used = speedBarHeight + exportRowHeight + offlinePackHeight + weatherHeaderHeight + spacingTotal + 6
+                let used = departureBarHeight + speedBarHeight + exportRowHeight + offlinePackHeight + weatherHeaderHeight + spacingTotal + 6
                 let cardHeight = max(0, (geometry.size.height - used) / CGFloat(SourceId.allCases.count))
                 panelContent(cardHeight: cardHeight, compact: true)
             }
@@ -38,6 +39,8 @@ struct RouteWeatherPane: View {
     private func panelContent(cardHeight: CGFloat, compact: Bool) -> some View {
         let labels = viewModel.routeSlotLabels()
         VStack(alignment: .leading, spacing: 2) {
+            departureBar
+                .frame(height: departureBarHeight)
             speedBar
                 .frame(height: speedBarHeight)
             exportRow
@@ -66,6 +69,61 @@ struct RouteWeatherPane: View {
         }
         .padding(.horizontal, 2)
         .padding(.vertical, 1)
+    }
+
+    private var departureBar: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Text(String(localized: "route_departure_title"))
+                    .font(.system(size: 11, weight: .semibold))
+                Spacer(minLength: 4)
+                Picker("", selection: Binding(
+                    get: { viewModel.routeDepartureIsNow },
+                    set: { viewModel.setRouteDepartureIsNow($0) }
+                )) {
+                    Text(String(localized: "route_departure_now")).tag(true)
+                    Text(String(localized: "route_departure_scheduled")).tag(false)
+                }
+                .pickerStyle(.segmented)
+                .frame(maxWidth: 180)
+            }
+            if viewModel.routeDepartureIsNow {
+                HStack {
+                    Text(viewModel.formattedDepartureSummary())
+                        .font(.system(size: 11, weight: .medium))
+                    Spacer(minLength: 0)
+                    if let arrival = viewModel.formattedArrivalSummary() {
+                        Text(arrival)
+                            .font(.system(size: 10))
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
+                }
+            } else {
+                DatePicker(
+                    selection: Binding(
+                        get: { viewModel.scheduledDepartureDate() },
+                        set: { picked in
+                            let ms = Int64(picked.timeIntervalSince1970 * 1000)
+                            viewModel.setRouteDepartureScheduled(ms)
+                        }
+                    ),
+                    in: viewModel.minimumDepartureDate()...,
+                    displayedComponents: [.date, .hourAndMinute]
+                ) {
+                    Text(String(localized: "route_departure_pick"))
+                }
+                .datePickerStyle(.compact)
+                .font(.system(size: 11))
+                if let arrival = viewModel.formattedArrivalSummary() {
+                    Text(arrival)
+                        .font(.system(size: 10))
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+        .padding(6)
+        .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: 6))
     }
 
     private var speedBar: some View {

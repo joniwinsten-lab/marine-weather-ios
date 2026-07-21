@@ -6,6 +6,7 @@ enum RoutePlanPDFExporter {
         title: String,
         startLine: String,
         endLine: String,
+        departureLine: String,
         legLine: String,
         boatSpeedLine: String,
         slotLabels: [String],
@@ -44,6 +45,7 @@ enum RoutePlanPDFExporter {
             y += 4
             draw(startLine, size: 11, bold: false)
             draw(endLine, size: 11, bold: false)
+            draw(departureLine, size: 11, bold: false)
             draw(legLine, size: 11, bold: false)
             draw(boatSpeedLine, size: 11, bold: false)
             y += 6

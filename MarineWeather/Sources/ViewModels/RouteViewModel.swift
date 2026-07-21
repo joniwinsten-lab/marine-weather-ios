@@ -13,6 +13,9 @@ final class RouteViewModel {
     var routeGeometry: [RouteCoordinate] = []
     var routeFairwayUnavailable = false
     var isRoutingRoute = false
+    var routeDepartureIsNow = true
+    var routeDepartureMillis: Int64 = RouteDepartureTime.minimumSelectableMillis()
+    private(set) var routeClockTick: Int64 = Int64(Date().timeIntervalSince1970 * 1000)
     private(set) var routeWeatherBySource: [SourceId: RouteSourceWeatherState] = [:]
     private(set) var routeWeatherLegNm: Double?
     private(set) var routeWeatherEtaHours: Double?
@@ -21,6 +24,7 @@ final class RouteViewModel {
     private let repository = WeatherRepository()
     private var routeWeatherTask: Task<Void, Never>?
     private var routingTask: Task<Void, Never>?
+    private var clockRefreshTask: Task<Void, Never>?
 
     init(
         mapCenter: CLLocationCoordinate2D = CLLocationCoordinate2D(
@@ -31,6 +35,7 @@ final class RouteViewModel {
         self.mapCenter = mapCenter
         self.windUnit = UserPreferences.windUnit
         resetRouteWeatherStates()
+        startClockRefresh()
     }
 
     func setWindUnit(_ unit: WindUnit) {
@@ -50,6 +55,57 @@ final class RouteViewModel {
     func setBoatSpeedKn(_ value: Double) {
         boatSpeedKn = min(40, max(0.5, value))
         scheduleRouteWeatherRefresh()
+    }
+
+    func setRouteDepartureIsNow(_ isNow: Bool) {
+        routeDepartureIsNow = isNow
+        if !isNow {
+            routeDepartureMillis = RouteDepartureTime.minimumSelectableMillis()
+        }
+        scheduleRouteWeatherRefresh()
+    }
+
+    func setRouteDepartureScheduled(_ millis: Int64) {
+        routeDepartureMillis = RouteDepartureTime.clampScheduledMillis(millis)
+        routeDepartureIsNow = false
+        scheduleRouteWeatherRefresh()
+    }
+
+    func minimumDepartureDate() -> Date {
+        Date(timeIntervalSince1970: TimeInterval(RouteDepartureTime.minimumSelectableMillis()) / 1000)
+    }
+
+    func scheduledDepartureDate() -> Date {
+        Date(timeIntervalSince1970: TimeInterval(routeDepartureMillis) / 1000)
+    }
+
+    func effectiveDepartureMillis() -> Int64 {
+        RouteDepartureTime.effectiveDepartureMillis(
+            isNow: routeDepartureIsNow,
+            scheduledMillis: routeDepartureMillis
+        )
+    }
+
+    func routeArrivalMillis() -> Int64? {
+        guard let etaHours = routeWeatherEtaHours, etaHours > 0 else { return nil }
+        return effectiveDepartureMillis() + Int64(etaHours * 3_600_000)
+    }
+
+    func formattedDepartureSummary() -> String {
+        if routeDepartureIsNow {
+            return String(localized: "route_departure_now")
+        }
+        return RouteDepartureTime.formatLocalDateTimeFull(millis: routeDepartureMillis)
+    }
+
+    func formattedArrivalSummary() -> String? {
+        guard let arrival = routeArrivalMillis() else { return nil }
+        let when = RouteDepartureTime.formatLocalDateTimeFull(millis: arrival)
+        return String(format: String(localized: "route_arrival_fmt"), when)
+    }
+
+    func formattedDepartureForExport() -> String {
+        String(format: String(localized: "route_departure_pdf"), formattedDepartureSummary())
     }
 
     /// Long-press on route map: 1st = start, 2nd = end, 3rd = new start.
@@ -82,6 +138,8 @@ final class RouteViewModel {
         routeWeatherLegNm = nil
         routeWeatherEtaHours = nil
         loadingRouteWeather = false
+        routeDepartureIsNow = true
+        routeDepartureMillis = RouteDepartureTime.minimumSelectableMillis()
         resetRouteWeatherStates()
     }
 
@@ -97,6 +155,23 @@ final class RouteViewModel {
         routeWeatherBySource = Dictionary(
             uniqueKeysWithValues: SourceId.allCases.map { ($0, .idle) }
         )
+    }
+
+    private func startClockRefresh() {
+        clockRefreshTask?.cancel()
+        clockRefreshTask = Task {
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(60))
+                guard !Task.isCancelled else { return }
+                routeClockTick = Int64(Date().timeIntervalSince1970 * 1000)
+                if routeDepartureIsNow,
+                   routeStart != nil,
+                   routeEnd != nil,
+                   PremiumAccess.shared.isPremium {
+                    scheduleRouteWeatherRefresh()
+                }
+            }
+        }
     }
 
     private func recomputeRouteGeometry() {
@@ -183,7 +258,7 @@ final class RouteViewModel {
         let totalNm = GeoMath.metersToNauticalMiles(totalM)
         let speedKn = min(40, max(0.5, boatSpeedKn))
         let etaHours = totalNm > 1e-6 ? totalNm / speedKn : 0
-        let depart = Int64(Date().timeIntervalSince1970 * 1000)
+        let depart = effectiveDepartureMillis()
         let etaMillis = max(60_000, Int64(etaHours * 3_600_000))
         let fracs = [0.0, 1.0 / 3.0, 2.0 / 3.0, 1.0]
         let locs = fracs.map { GeoMath.pointAlongPolyline(geom, fraction: $0) }
@@ -264,6 +339,7 @@ final class RouteViewModel {
     }
 
     func routeSlotLabels() -> [String] {
+        _ = routeClockTick
         guard routeStart != nil, routeEnd != nil else {
             return Array(repeating: "—", count: 4)
         }
@@ -273,17 +349,14 @@ final class RouteViewModel {
         }()
         let fracs = [0.0, 1.0 / 3.0, 2.0 / 3.0, 1.0]
         let speedKn = min(40, max(0.5, boatSpeedKn))
-        let etaMinutesTotal = leg > 0 ? Int((leg / speedKn * 60).rounded()) : 0
+        let etaHours = leg > 0 ? leg / speedKn : 0
+        let depart = effectiveDepartureMillis()
+        let etaMillis = max(60_000, Int64(etaHours * 3_600_000))
         let nmPoints = [0.0, leg / 3.0, leg * 2.0 / 3.0, leg]
         return zip(nmPoints, fracs).map { nm, fr in
-            let elapsedMin = max(0, Int((Double(etaMinutesTotal) * fr).rounded()))
+            let slotMillis = depart + Int64(Double(etaMillis) * fr)
             let distStr = String(format: String(localized: "route_weather_slot_nm"), nm)
-            let timeStr: String
-            if elapsedMin < 60 {
-                timeStr = String(format: String(localized: "route_duration_min"), elapsedMin)
-            } else {
-                timeStr = String(format: String(localized: "route_duration_hm"), elapsedMin / 60, elapsedMin % 60)
-            }
+            let timeStr = RouteDepartureTime.formatLocalDateTime(millis: slotMillis)
             return String(format: String(localized: "route_slot_label"), distStr, timeStr)
         }
     }

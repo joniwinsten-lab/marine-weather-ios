@@ -212,6 +212,13 @@
 "route_duration_min" = "%d min";
 "route_duration_hm" = "%dh %02dm";
 "route_slot_label" = "%@ · %@";
+"route_departure_title" = "Departure";
+"route_departure_now" = "Now";
+"route_departure_scheduled" = "Schedule";
+"route_departure_pick" = "Departure time";
+"route_arrival_fmt" = "Arrival ~ %@";
+"route_departure_pdf" = "Departure: %@";
+"route_time_tomorrow_fmt" = "Tomorrow %@";
 
 /* Placeholders */
 "placeholder_route_title" = "Route planning";

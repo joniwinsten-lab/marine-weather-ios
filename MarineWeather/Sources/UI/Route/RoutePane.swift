@@ -282,6 +282,7 @@ struct RoutePane: View {
                 title: String(localized: "route_plan_pdf_title"),
                 startLine: String(format: "Start: %.5f°N %.5f°E", start.lat, start.lon),
                 endLine: String(format: "End: %.5f°N %.5f°E", end.lat, end.lon),
+                departureLine: viewModel.formattedDepartureForExport(),
                 legLine: String(
                     format: String(localized: "route_weather_leg"),
                     viewModel.routeWeatherLegNm ?? 0,

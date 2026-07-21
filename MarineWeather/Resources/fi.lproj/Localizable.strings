@@ -195,6 +195,13 @@
 "route_duration_min" = "%1$d min";
 "route_duration_hm" = "%1$d:%2$02d";
 "route_slot_label" = "%1$@ / %2$@";
+"route_departure_title" = "Lähtöaika";
+"route_departure_now" = "Nyt";
+"route_departure_scheduled" = "Ajastus";
+"route_departure_pick" = "Lähtöaika";
+"route_arrival_fmt" = "Saapuminen ~ %1$@";
+"route_departure_pdf" = "Lähtö: %1$@";
+"route_time_tomorrow_fmt" = "Huomenna %1$@";
 "placeholder_route_title" = "Reittisuunnittelu";
 "placeholder_route_message" = "Premium-ominaisuus.";
 "placeholder_wind_title" = "12 päivän tuuliennuste";

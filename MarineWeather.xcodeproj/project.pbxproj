@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0246073CF4FCEA3DAF7A050E /* WeatherLoadReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2089E9950D25F6E6299B2E /* WeatherLoadReport.swift */; };
+		047534485AE286DD7BBCD69D /* RouteDepartureTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE97D91C4E5B900E1EE49C33 /* RouteDepartureTime.swift */; };
 		0506687F783D033F2A177FEC /* OfflineStatusBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D15A3BC820BA6291CA6EAA /* OfflineStatusBanner.swift */; };
 		066811D95F7226A367C7D6D9 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96281CDF70D683A8FE75AF71 /* AppConfig.swift */; };
 		0841765ED5E6612493F596BF /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A26BD0DFF2FEC943090CA3 /* WeatherRepository.swift */; };
@@ -279,6 +280,7 @@
 		D84CCE3BB9DB548294EB8FC5 /* AisMapChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AisMapChip.swift; sourceTree = "<group>"; };
 		D9FB791DB8CD11C290A52E34 /* AppStoreReviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewCoordinator.swift; sourceTree = "<group>"; };
 		DBD76AEAD61FD71B3D85115C /* RoutePane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePane.swift; sourceTree = "<group>"; };
+		DE97D91C4E5B900E1EE49C33 /* RouteDepartureTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDepartureTime.swift; sourceTree = "<group>"; };
 		E18FB2DBFB66781939E7DCC6 /* WeatherHTTPClient+Body.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherHTTPClient+Body.swift"; sourceTree = "<group>"; };
 		E36BEC6858FD08A7569D5C12 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4C4851EBA1E9897586F39CD /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -702,6 +704,7 @@
 				5EA005EC579AE62A3312E9E2 /* ForecastSampler.swift */,
 				75F784FA70433B32E68D4B72 /* GeoMath.swift */,
 				3006695D80830A00E45339AC /* MetWeatherSymbolMapper.swift */,
+				DE97D91C4E5B900E1EE49C33 /* RouteDepartureTime.swift */,
 				6BC684F472F5D1DFA9FFB630 /* RouteModels.swift */,
 				79E316359245C4009A58A554 /* WeatherModels.swift */,
 				A5C28C1F37412530D36940BD /* WeatherSymbolDeriver.swift */,
@@ -911,6 +914,7 @@
 				9071E117D1499C5A0D8C7921 /* RadarHTTPClient.swift in Sources */,
 				1575F461549837AE7F798011 /* RadarModels.swift in Sources */,
 				9D3D9D99A833FC755E45D320 /* RadarRegionSelector.swift in Sources */,
+				047534485AE286DD7BBCD69D /* RouteDepartureTime.swift in Sources */,
 				5C5A1621B36F60667530163C /* RouteGpx.swift in Sources */,
 				7A0CB557CA7781CF382F5BC9 /* RouteModels.swift in Sources */,
 				47F384DCF06CD0989DD51E9F /* RoutePane.swift in Sources */,
@@ -1049,7 +1053,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 44;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_TEAM = 5H7A83K4WU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MarineWeather/Resources/Info-additions.plist";
@@ -1064,7 +1068,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.7;
+				MARKETING_VERSION = 0.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = fi.veneappi.MarineWeather;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1077,7 +1081,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 44;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_TEAM = 5H7A83K4WU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MarineWeather/Resources/Info-additions.plist";
@@ -1092,7 +1096,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.7;
+				MARKETING_VERSION = 0.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = fi.veneappi.MarineWeather;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
