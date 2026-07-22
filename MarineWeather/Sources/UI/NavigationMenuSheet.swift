@@ -10,19 +10,22 @@ struct CompactNavigationBar: View {
             Button {
                 showMenu = true
             } label: {
-                Image(systemName: "line.3.horizontal")
-                    .font(.system(size: 17, weight: .semibold))
-                    .frame(width: 36, height: 36)
+                HStack(spacing: 10) {
+                    Image(systemName: "line.3.horizontal")
+                        .font(.system(size: 17, weight: .semibold))
+                        .frame(width: 36, height: 36)
+                    Image(systemName: selection.systemImage)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(Color.accentColor)
+                    Text(selection.title)
+                        .font(.subheadline.weight(.semibold))
+                        .lineLimit(1)
+                }
+                .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
             .accessibilityLabel(String(localized: "nav_menu"))
-
-            Image(systemName: selection.systemImage)
-                .font(.system(size: 15, weight: .semibold))
-                .foregroundStyle(Color.accentColor)
-            Text(selection.title)
-                .font(.subheadline.weight(.semibold))
-                .lineLimit(1)
+            .accessibilityHint(selection.title)
             Spacer(minLength: 0)
         }
         .padding(.horizontal, 12)
