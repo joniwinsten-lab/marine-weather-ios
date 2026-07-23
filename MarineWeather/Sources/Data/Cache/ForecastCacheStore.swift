@@ -62,6 +62,7 @@ private struct CachedForecastPayload: Codable {
         let precipitationMmPerH: Double?
         let thunderProbPercent: Double?
         let weatherSymbolCode: Int?
+        let waveHeightM: Double?
     }
 
     static func encode(_ forecast: UnifiedForecast) -> String {
@@ -78,7 +79,8 @@ private struct CachedForecastPayload: Codable {
                     windGustMs: $0.windGustMs,
                     precipitationMmPerH: $0.precipitationMmPerH,
                     thunderProbPercent: $0.thunderProbPercent,
-                    weatherSymbolCode: $0.weatherSymbolCode
+                    weatherSymbolCode: $0.weatherSymbolCode,
+                    waveHeightM: $0.waveHeightM
                 )
             }
         )
@@ -105,7 +107,8 @@ private struct CachedForecastPayload: Codable {
                     windGustMs: $0.windGustMs,
                     precipitationMmPerH: $0.precipitationMmPerH,
                     thunderProbPercent: $0.thunderProbPercent,
-                    weatherSymbolCode: $0.weatherSymbolCode
+                    weatherSymbolCode: $0.weatherSymbolCode,
+                    waveHeightM: $0.waveHeightM
                 )
             }
         )

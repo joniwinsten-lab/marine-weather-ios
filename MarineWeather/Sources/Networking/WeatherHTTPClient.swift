@@ -17,14 +17,35 @@ enum WeatherHTTPClient {
     static func fetchMetNorway(lat: Double, lon: Double) async throws -> UnifiedForecast {
         let latR = roundCoord(lat, decimals: 4)
         let lonR = roundCoord(lon, decimals: 4)
+        async let weather = fetchMetLocationForecast(lat: latR, lon: lonR)
+        async let ocean = fetchMetOceanForecast(lat: latR, lon: lonR)
+        let forecast = try await weather
+        if let oceanFeature = try? await ocean {
+            return MetOceanMapper.mergingWaveHeights(into: forecast, ocean: oceanFeature)
+        }
+        return forecast
+    }
+
+    private static func fetchMetLocationForecast(lat: Double, lon: Double) async throws -> UnifiedForecast {
         var components = URLComponents(string: "https://api.met.no/weatherapi/locationforecast/2.0/compact")!
         components.queryItems = [
-            URLQueryItem(name: "lat", value: String(latR)),
-            URLQueryItem(name: "lon", value: String(lonR)),
+            URLQueryItem(name: "lat", value: String(lat)),
+            URLQueryItem(name: "lon", value: String(lon)),
         ]
         let data = try await getData(components.url!)
         let feature = try jsonDecoder.decode(MetFeature.self, from: data)
         return MetMapper.toUnified(feature, fetchedAtUtc: nowMillis())
+    }
+
+    /// MET Oceanforecast complete (compact redirects to docs HTML). Failures → nil (land / no coverage).
+    private static func fetchMetOceanForecast(lat: Double, lon: Double) async throws -> MetOceanFeature {
+        var components = URLComponents(string: "https://api.met.no/weatherapi/oceanforecast/2.0/complete")!
+        components.queryItems = [
+            URLQueryItem(name: "lat", value: String(lat)),
+            URLQueryItem(name: "lon", value: String(lon)),
+        ]
+        let data = try await getData(components.url!)
+        return try jsonDecoder.decode(MetOceanFeature.self, from: data)
     }
 
     static func fetchSmhi(lat: Double, lon: Double) async throws -> UnifiedForecast {

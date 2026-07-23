@@ -89,6 +89,14 @@ struct WindForecastTimeSlot: View {
                     .font(.system(size: degreeSize, weight: .semibold))
                     .foregroundStyle(.secondary)
             }
+
+            if let hs = point.waveHeightM {
+                Text(String(format: String(localized: "wave_hs_m"), hs))
+                    .font(.system(size: gustSize))
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.65)
+            }
         } else {
             Text("—")
                 .font(.system(size: dense ? 16 : 18, weight: .semibold))

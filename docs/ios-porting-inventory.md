@@ -47,6 +47,7 @@ Last aligned with Android `versionName` **0.2.18** (`versionCode` 20).
 | Area | Android file(s) | Endpoint / notes |
 |------|-----------------|------------------|
 | MET location forecast | `MetNowcastRadarRepository` | `https://api.met.no/weatherapi/locationforecast/2.0/compact` |
+| MET oceanforecast (Hs) | `WeatherHttpClient` / `MetOceanMapper` | `https://api.met.no/weatherapi/oceanforecast/2.0/complete` (not compact — redirects to docs) |
 | MET nowcast | same | `https://api.met.no/weatherapi/nowcast/2.0/complete` |
 | MET radar | `MetNorwayRadarRepository` | `https://api.met.no/weatherapi/radar/2.0/` |
 | MET marine text | `MarineTextRepository` | `https://api.met.no/weatherapi/textforecast/3.0/sea_en.json` |

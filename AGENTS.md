@@ -15,7 +15,7 @@ Premium: route + 12-day wind + AIS + route-on-compare + offline pack = paid; map
 ## Stack
 
 - Swift 5.9+, SwiftUI, MapLibre Native iOS (SPM)
-- **Devices:** iPhone + iPad (`TARGETED_DEVICE_FAMILY = 1,2`); UI is iPad-first, iPhone polish later
+- **Devices:** iPhone + iPad (`TARGETED_DEVICE_FAMILY = 1,2`); Mac App Store via **Designed for iPad** (Apple Silicon). Native Mac Catalyst not viable while MapLibre lacks Catalyst slices.
 - Match API URLs and User-Agent in `AppConfig.swift`
 
 ## TestFlight / App Store builds

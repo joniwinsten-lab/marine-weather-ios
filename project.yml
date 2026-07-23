@@ -16,6 +16,9 @@ settings:
   base:
     SWIFT_VERSION: "5.9"
     TARGETED_DEVICE_FAMILY: "1,2" # iPhone + iPad (iPad-first UI; iPhone supported, polish later)
+    # Mac App Store via “Designed for iPad” (Apple Silicon). Native Catalyst blocked by MapLibre XCFramework.
+    SUPPORTS_MAC_DESIGNED_FOR_IPAD: YES
+    SUPPORTS_MACCATALYST: NO
     INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
 targets:
   MarineWeather:
@@ -39,8 +42,8 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: fi.veneappi.MarineWeather
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: 5H7A83K4WU
-        MARKETING_VERSION: "0.3.9"
-        CURRENT_PROJECT_VERSION: "46"
+        MARKETING_VERSION: "0.3.10"
+        CURRENT_PROJECT_VERSION: "47"
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Marine Weather
         INFOPLIST_KEY_CFBundleLocalizations: en fi sv nb

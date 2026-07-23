@@ -66,6 +66,30 @@ struct UnifiedTimePoint: Equatable {
     let thunderProbPercent: Double?
     /// FMI smart-symbol code (1–99 day, +100 night). See ilmatieteenlaitos.fi/saamerkkien-selitykset.
     let weatherSymbolCode: Int?
+    /// Significant wave height (m) from MET Oceanforecast when available.
+    let waveHeightM: Double?
+
+    init(
+        instantUtc: Int64,
+        airTempC: Double?,
+        windSpeedMs: Double?,
+        windFromDeg: Double?,
+        windGustMs: Double?,
+        precipitationMmPerH: Double?,
+        thunderProbPercent: Double?,
+        weatherSymbolCode: Int?,
+        waveHeightM: Double? = nil
+    ) {
+        self.instantUtc = instantUtc
+        self.airTempC = airTempC
+        self.windSpeedMs = windSpeedMs
+        self.windFromDeg = windFromDeg
+        self.windGustMs = windGustMs
+        self.precipitationMmPerH = precipitationMmPerH
+        self.thunderProbPercent = thunderProbPercent
+        self.weatherSymbolCode = weatherSymbolCode
+        self.waveHeightM = waveHeightM
+    }
 }
 
 struct UnifiedForecast: Equatable {

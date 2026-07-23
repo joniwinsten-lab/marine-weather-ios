@@ -74,6 +74,7 @@
 "wind_slot_3h" = "+3h";
 "wind_slot_6h" = "+6h";
 "wind_slot_12h" = "+12h";
+"wave_hs_m" = "Hs %.1f m";
 "traficom_chip" = "Traficom nautical (planning)";
 "ais_chip" = "AIS vessels";
 "ais_chip_active" = "AIS active, refreshing periodically";
